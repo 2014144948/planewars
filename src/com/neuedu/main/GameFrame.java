@@ -6,6 +6,7 @@ import com.neuedu.runtime.Bullet;
 import com.neuedu.runtime.EnemyBullet;
 import com.neuedu.runtime.EnemyPlane;
 import com.neuedu.runtime.Plane;
+import com.neuedu.runtime.Plane2;
 import com.neuedu.util.ImageMap;
 
 import java.awt.Frame;
@@ -25,6 +26,7 @@ public class GameFrame extends Frame {
 
     //    创建飞机对象
     private Plane plane = new Plane();
+    private Plane2 plane2 = new Plane2();
     //    创建子弹集合
     public final List<Bullet> bulletList = new CopyOnWriteArrayList<>();
     //    创建敌机集合
@@ -32,37 +34,42 @@ public class GameFrame extends Frame {
     //   创建敌方子弹集合
     public final List<EnemyBullet> enemyBulletList = new CopyOnWriteArrayList<>();
 
-    public boolean gameOver;
+    public boolean p1GameOver, p2GameOver;
 
     @Override
     public void paint(Graphics g) {
-        if (!gameOver) {
-            background.draw(g);
+        background.draw(g);
+        if (!p1GameOver) {
             plane.draw(g);
-            for (Bullet bullet : bulletList) {
-                bullet.draw(g);
-            }
-
-            for (EnemyPlane enemyPlane : enemyPlaneList) {
-                enemyPlane.draw(g);
-            }
-
-            for (EnemyBullet enemyBullet : enemyBulletList) {
-                enemyBullet.draw(g);
-            }
-
-            for (Bullet bullet : bulletList) {
-                bullet.collisionTest(enemyPlaneList);
-            }
-
-            for (EnemyBullet enemyBullet : enemyBulletList) {
-                enemyBullet.collisionTest(plane);
-            }
-
-            for (EnemyPlane enemyPlane : enemyPlaneList) {
-                enemyPlane.collisionTest(plane);
-            }
         }
+        if (!p2GameOver) {
+            plane2.draw(g);
+        }
+
+        for (Bullet bullet : bulletList) {
+            bullet.draw(g);
+        }
+
+        for (EnemyPlane enemyPlane : enemyPlaneList) {
+            enemyPlane.draw(g);
+        }
+
+        for (EnemyBullet enemyBullet : enemyBulletList) {
+            enemyBullet.draw(g);
+        }
+
+        for (Bullet bullet : bulletList) {
+            bullet.collisionTest(enemyPlaneList);
+        }
+
+        for (EnemyBullet enemyBullet : enemyBulletList) {
+            enemyBullet.collisionTest(plane, plane2);
+        }
+
+        for (EnemyPlane enemyPlane : enemyPlaneList) {
+            enemyPlane.collisionTest(plane, plane2);
+        }
+
     }
 
     public void init() {
@@ -83,22 +90,68 @@ public class GameFrame extends Frame {
             @Override
             public void keyPressed(KeyEvent e) {
                 plane.keyPressed(e);
+                plane2.keyPressed(e);
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
                 plane.keyReleased(e);
+                plane2.keyReleased(e);
             }
         });
 
-        enemyPlaneList.add(new EnemyPlane(10, 200, ImageMap.get("ep01")));
-        enemyPlaneList.add(new EnemyPlane(110, 200, ImageMap.get("ep02")));
-        enemyPlaneList.add(new EnemyPlane(210, 200, ImageMap.get("ep01")));
-        enemyPlaneList.add(new EnemyPlane(310, 200, ImageMap.get("ep01")));
-        enemyPlaneList.add(new EnemyPlane(50, 100, ImageMap.get("ep01")));
-        enemyPlaneList.add(new EnemyPlane(150, 100, ImageMap.get("ep01")));
-        enemyPlaneList.add(new EnemyPlane(250, 100, ImageMap.get("ep02")));
-        enemyPlaneList.add(new EnemyPlane(350, 100, ImageMap.get("ep01")));
+
+        if (enemyPlaneList.isEmpty()) {
+            int a = 10;
+            int b = 20;
+            int c = 30;
+            int d = 50;
+            int e = 100;
+            enemyPlaneList.add(new EnemyPlane(100, -100, ImageMap.get("ep02"), b));
+            enemyPlaneList.add(new EnemyPlane(200, -100, ImageMap.get("ep01"), a));
+            enemyPlaneList.add(new EnemyPlane(300, -100, ImageMap.get("ep03"), c));
+
+            enemyPlaneList.add(new EnemyPlane(150, -1000, ImageMap.get("ep02"), b));
+            enemyPlaneList.add(new EnemyPlane(250, -1000, ImageMap.get("ep01"), a));
+
+            enemyPlaneList.add(new EnemyPlane(80, -1500, ImageMap.get("ep03"), c));
+            enemyPlaneList.add(new EnemyPlane(180, -1500, ImageMap.get("ep02"), b));
+            enemyPlaneList.add(new EnemyPlane(280, -1500, ImageMap.get("ep01"), a));
+            enemyPlaneList.add(new EnemyPlane(380, -1500, ImageMap.get("ep01"), a));
+
+            enemyPlaneList.add(new EnemyPlane(110, -2000, ImageMap.get("ep03"), c));
+            enemyPlaneList.add(new EnemyPlane(210, -2000, ImageMap.get("ep01"), a));
+            enemyPlaneList.add(new EnemyPlane(310, -2000, ImageMap.get("ep01"), a));
+
+            enemyPlaneList.add(new EnemyPlane(100, -2200, ImageMap.get("ep03"), c));
+            enemyPlaneList.add(new EnemyPlane(150, -2400, ImageMap.get("ep01"), a));
+            enemyPlaneList.add(new EnemyPlane(200, -2600, ImageMap.get("ep01"), a));
+            enemyPlaneList.add(new EnemyPlane(100, -2800, ImageMap.get("ep02"), b));
+
+            enemyPlaneList.add(new EnemyPlane(100, -3200, ImageMap.get("ep02"), b));
+            enemyPlaneList.add(new EnemyPlane(200, -3200, ImageMap.get("ep02"), b));
+            enemyPlaneList.add(new EnemyPlane(200, -3200, ImageMap.get("ep02"), b));
+
+            enemyPlaneList.add(new EnemyPlane(310, -4000, ImageMap.get("ep01"), a));
+            enemyPlaneList.add(new EnemyPlane(150, -4000, ImageMap.get("ep01"), a));
+
+            enemyPlaneList.add(new EnemyPlane(110, -5000, ImageMap.get("ep03"), c));
+            enemyPlaneList.add(new EnemyPlane(310, -5000, ImageMap.get("ep01"), a));
+            enemyPlaneList.add(new EnemyPlane(160, -5000, ImageMap.get("ep01"), a));
+
+            enemyPlaneList.add(new EnemyPlane(110, -6000, ImageMap.get("ep03"), c));
+            enemyPlaneList.add(new EnemyPlane(360, -6000, ImageMap.get("ep01"), a));
+
+            enemyPlaneList.add(new EnemyPlane(130, -7000, ImageMap.get("ep01"), a));
+            enemyPlaneList.add(new EnemyPlane(160, -7000, ImageMap.get("ep02"), b));
+            enemyPlaneList.add(new EnemyPlane(250, -7000, ImageMap.get("ep04"), d));
+
+            enemyPlaneList.add(new EnemyPlane(110, -7800, ImageMap.get("ep04"), d));
+
+            enemyPlaneList.add(new EnemyPlane(200, -9000, ImageMap.get("BOSS01"), e));
+
+
+        }
 
         setVisible(true);
 

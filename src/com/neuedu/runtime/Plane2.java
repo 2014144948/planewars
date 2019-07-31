@@ -8,13 +8,12 @@ import com.neuedu.main.GameFrame;
 import com.neuedu.util.DataStore;
 import com.neuedu.util.ImageMap;
 
-
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 
-public class Plane extends BaseSprite implements Moveable, Drawable {
+public class Plane2 extends BaseSprite implements Moveable, Drawable {
 
     private Image image;
     private Image Himage;
@@ -25,21 +24,21 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
     private int speed = FrameConstant.GAME_SPEED * 5;
     private int fireSpeed = FrameConstant.GAME_SPEED * 10;
 
-    private int HgetX = (FrameConstant.GAME_WIDTH - ImageMap.get("my01").getWidth(null) / 2) / 2 + ImageMap.get("my01").getWidth(null) / 2 / 2 - 4 - 100;
-    private int HgetY = FrameConstant.GAME_HEIGHT - ImageMap.get("my01").getHeight(null) + ImageMap.get("my01").getHeight(null) / 2 / 2 - 15;
+    private int HgetX = (FrameConstant.GAME_WIDTH - ImageMap.get("my01").getWidth(null) / 2) / 2 + ImageMap.get("my01").getWidth(null) / 2 / 2 - 9 + 100;
+    private int HgetY = FrameConstant.GAME_HEIGHT - ImageMap.get("my02").getHeight(null) + ImageMap.get("my02").getHeight(null) / 2 / 2 - 40;
 
     private int index = 0;
 
     public static int hp = 3;
 
 
-    public Plane() {
-        this((FrameConstant.GAME_WIDTH - ImageMap.get("my01").getWidth(null) / 2) / 2 - 100,
-                FrameConstant.GAME_HEIGHT - ImageMap.get("my01").getHeight(null),
-                ImageMap.get("my01"), ImageMap.get("myheart"));
+    public Plane2() {
+        this((FrameConstant.GAME_WIDTH - ImageMap.get("my01").getWidth(null) / 2) / 2 + 100,
+                FrameConstant.GAME_HEIGHT - ImageMap.get("my02").getHeight(null) - 30,
+                ImageMap.get("my02"), ImageMap.get("myheart"));
     }
 
-    public Plane(int x, int y, Image image, Image Himage) {
+    public Plane2(int x, int y, Image image, Image Himage) {
         super(x, y);
         this.image = image;
         this.Himage = Himage;
@@ -119,54 +118,54 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
         }
         if (getY() < FrameConstant.BG_BORDER) {
             setY(FrameConstant.BG_BORDER);
-            setHgetY(FrameConstant.BG_BORDER + image.getHeight(null) / 2 / 2 - 15);
+            setHgetY(FrameConstant.BG_BORDER + image.getHeight(null) / 2 / 2 - 10);
         }
         if (getX() > FrameConstant.GAME_WIDTH - image.getWidth(null) / 2) {
             setX(FrameConstant.GAME_WIDTH - image.getWidth(null) / 2);
             setHgetX(FrameConstant.GAME_WIDTH - image.getWidth(null) / 2 / 2 - 4);
         }
-        if (getY() > FrameConstant.GAME_HEIGHT - image.getHeight(null)) {
-            setY(FrameConstant.GAME_HEIGHT - image.getHeight(null));
-            setHgetY(FrameConstant.GAME_HEIGHT - image.getHeight(null) / 2 / 2 - image.getHeight(null) / 2 - 15);
+        if (getY() > FrameConstant.GAME_HEIGHT - image.getHeight(null) - 20) {
+            setY(FrameConstant.GAME_HEIGHT - image.getHeight(null) - 20);
+            setHgetY(FrameConstant.GAME_HEIGHT - image.getHeight(null) / 2 / 2 - image.getHeight(null) / 2 - 30);
         }
     }
 
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_W) {
+        if (e.getKeyCode() == KeyEvent.VK_UP) {
             up = true;
         }
-        if (e.getKeyCode() == KeyEvent.VK_D) {
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             right = true;
 
         }
-        if (e.getKeyCode() == KeyEvent.VK_S) {
+        if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             down = true;
 
         }
-        if (e.getKeyCode() == KeyEvent.VK_A) {
+        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             left = true;
         }
-        if (e.getKeyCode() == KeyEvent.VK_F) {
+        if (e.getKeyCode() == KeyEvent.VK_L) {
             fire = true;
         }
     }
 
     public void keyReleased(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_W) {
+        if (e.getKeyCode() == KeyEvent.VK_UP) {
             up = false;
         }
-        if (e.getKeyCode() == KeyEvent.VK_D) {
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             right = false;
 
         }
-        if (e.getKeyCode() == KeyEvent.VK_S) {
+        if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             down = false;
 
         }
-        if (e.getKeyCode() == KeyEvent.VK_A) {
+        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             left = false;
         }
-        if (e.getKeyCode() == KeyEvent.VK_F) {
+        if (e.getKeyCode() == KeyEvent.VK_L) {
             fire = false;
         }
 

@@ -27,8 +27,8 @@ public class EnemyBullet extends BaseSprite implements Moveable, Drawable {
 
     @Override
     public void draw(Graphics g) {
-        g.drawImage(image, getX(), getY(), image.getWidth(null) / 2, image.getHeight(null) / 2, null);
         move();
+        g.drawImage(image, getX(), getY(), image.getWidth(null) / 2, image.getHeight(null) / 2, null);
     }
 
     @Override
@@ -45,12 +45,21 @@ public class EnemyBullet extends BaseSprite implements Moveable, Drawable {
         }
     }
 
-    public void collisionTest(Plane plane) {
+    public void collisionTest(Plane plane, Plane2 plane2) {
         GameFrame gameFrame = DataStore.get("gameFrame");
         if (plane.getRectangle().intersects(this.getRectangle())) {
             gameFrame.enemyBulletList.remove(this);
-            gameFrame.gameOver = true;
-
+            Plane.hp--;
+        }
+        if (plane2.getRectangle().intersects(this.getRectangle())) {
+            gameFrame.enemyBulletList.remove(this);
+            Plane2.hp--;
+        }
+        if (Plane.hp == 0) {
+            gameFrame.p1GameOver = true;
+        }
+        if(Plane2.hp == 0){
+            gameFrame.p2GameOver = true;
         }
     }
 

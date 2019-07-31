@@ -7,6 +7,7 @@ import com.neuedu.constant.FrameConstant;
 import com.neuedu.util.ImageMap;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.Graphics;
 
@@ -19,8 +20,6 @@ public class Background extends BaseSprite implements Moveable, Drawable {
     private int index = 0;
 //    index的相关参数
     private final int indexValue = 50;
-
-    private int score = 0;
 
 
     public Background() {
@@ -58,11 +57,27 @@ public class Background extends BaseSprite implements Moveable, Drawable {
 
     @Override
     public void draw(Graphics g) {
-        score++;
+        move();
         g.drawImage(image, getX(), getY(), image.getWidth(null), image.getHeight(null), null);
 
+        g.setFont(new Font("楷体",0,30));
         g.setColor(Color.WHITE);
-        g.drawString("分数："+ score,400,600);
-        move();
+        if(Plane.hp > 0){
+            g.drawString("1P HP："+Plane.hp,80,680);
+        }else{
+            g.drawString("1P GAMEOVER",80,680);
+        }
+        if(Plane2.hp > 0){
+            g.drawString("2P HP："+Plane2.hp,300,680);
+        }else{
+            g.drawString("2P GAMEOVER",300,680);
+        }
+        if(Plane.hp <= 0 && Plane2.hp <= 0){
+            g.setFont(new Font("黑体",0,100));
+            g.setColor(Color.RED);
+            g.drawString("GAME OVER",20,350);
+        }
+
+
     }
 }

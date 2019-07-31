@@ -30,8 +30,8 @@ public class Bullet extends BaseSprite implements Moveable, Drawable {
 
     @Override
     public void draw(Graphics g) {
-        g.drawImage(image, getX(), getY(), image.getWidth(null), image.getHeight(null), null);
         move();
+        g.drawImage(image, getX(), getY(), image.getWidth(null), image.getHeight(null), null);
         outOfBound();
     }
 
@@ -41,8 +41,8 @@ public class Bullet extends BaseSprite implements Moveable, Drawable {
 
     }
 
-    public void outOfBound(){
-        if(getY() < FrameConstant.BG_BORDER - image.getHeight(null)){
+    public void outOfBound() {
+        if (getY() < FrameConstant.BG_BORDER - image.getHeight(null)) {
             GameFrame gameFrame = DataStore.get("gameFrame");
             gameFrame.bulletList.remove(this);
         }
@@ -50,15 +50,18 @@ public class Bullet extends BaseSprite implements Moveable, Drawable {
 
     @Override
     public Rectangle getRectangle() {
-        return new Rectangle(getX(),getY(),image.getWidth(null),image.getHeight(null));
+        return new Rectangle(getX(), getY(), image.getWidth(null), image.getHeight(null));
     }
 
-    public void collisionTest(List<EnemyPlane> enemyPlaneList){
+    public void collisionTest(List<EnemyPlane> enemyPlaneList) {
         GameFrame gameFrame = DataStore.get("gameFrame");
         for (EnemyPlane enemyPlane : enemyPlaneList) {
-            if(enemyPlane.getRectangle().intersects(this.getRectangle())){
-                enemyPlaneList.remove(enemyPlane);
+            if (enemyPlane.getRectangle().intersects(this.getRectangle())) {
                 gameFrame.bulletList.remove(this);
+                enemyPlane.setHP(enemyPlane.getHP() - 1);
+                if (enemyPlane.getHP() == 0) {
+                    enemyPlaneList.remove(enemyPlane);
+                }
             }
         }
 
