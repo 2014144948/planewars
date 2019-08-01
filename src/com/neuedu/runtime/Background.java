@@ -75,7 +75,7 @@ public class Background extends BaseSprite implements Moveable, Drawable {
         if(Plane.hp <= 0 && Plane2.hp <= 0){
             g.setFont(new Font("黑体",0,100));
             g.setColor(Color.RED);
-            g.drawString("GAME OVER",20,350);
+            g.drawString("GAME OVER",30,350);
         }
 
 

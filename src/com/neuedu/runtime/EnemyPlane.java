@@ -20,24 +20,32 @@ public class EnemyPlane extends BaseSprite implements Moveable, Drawable {
     private int Xspeed = FrameConstant.GAME_SPEED * 3;
     private int Yspeed = FrameConstant.GAME_SPEED * 3;
 
+    //    控制敌机的移动轨迹
     private int index = 0;
     private int indexValue = 50;
+    //    控制敌机的攻击
     public int fireIndex = 98;
     private int fireIndexValue = 0;
-    private int bulletStyle = 50;
-
+    //    控制子弹的类型
+    private int bulletStyleA = 25;
+    private int bulletStyleB = 50;
+    private int bulletStyleC = 75;
+    //    控制敌机的生命值
     private int HP;
+    //    控制敌机的种类
+    private int type;
 
     Random r = new Random();
 
     public EnemyPlane() {
-        this(0, 0, ImageMap.get("ep01"), 5);
+        this(0, 0, ImageMap.get("ep01"), 5, 0);
     }
 
-    public EnemyPlane(int x, int y, Image image, int HP) {
+    public EnemyPlane(int x, int y, Image image, int HP, int type) {
         super(x, y);
         this.image = image;
         this.HP = HP;
+        this.type = type;
     }
 
     public int getHP() {
@@ -51,6 +59,7 @@ public class EnemyPlane extends BaseSprite implements Moveable, Drawable {
     @Override
     public void draw(Graphics g) {
         move();
+
         g.drawImage(image, getX(), getY(), image.getWidth(null) / 2, image.getHeight(null) / 2, null);
 
         if (getY() > 0) {
@@ -59,21 +68,128 @@ public class EnemyPlane extends BaseSprite implements Moveable, Drawable {
     }
 
     public void fire() {
-        int r1 = r.nextInt(100);
-        int r2 = r.nextInt(100);
-        fireIndexValue++;
-        GameFrame gameFrame = DataStore.get("gameFrame");
-        if (r1 > fireIndex) {
-            if (r2 > bulletStyle) {
-                gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("ep01").getWidth(null) / 2 / 2 - 5,
-                        getY() + image.getHeight(null) / 2, ImageMap.get("epb01")));
-            } else {
-                gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("ep01").getWidth(null) / 2 / 2 - 5,
-                        getY() + image.getHeight(null) / 2, ImageMap.get("epb02")));
+
+//        不同种类的敌机不同的攻击方式
+        if (type == 1) {
+
+            int r1 = r.nextInt(100);
+            int r2 = r.nextInt(100);
+            fireIndexValue++;
+            GameFrame gameFrame = DataStore.get("gameFrame");
+            if (r1 > fireIndex) {
+                if (r2 > bulletStyleB) {
+                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("ep01").getWidth(null) / 2 / 2 - 5,
+                            getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 19));
+                } else {
+                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("ep01").getWidth(null) / 2 / 2 - 5,
+                            getY() + image.getHeight(null) / 2, ImageMap.get("epb02"), 18));
+                }
+
             }
 
         }
-        if (fireIndexValue > 500) {
+        if (type == 2) {
+
+            int r1 = r.nextInt(100);
+            int r2 = r.nextInt(100);
+            fireIndexValue++;
+            GameFrame gameFrame = DataStore.get("gameFrame");
+            if (r1 > fireIndex) {
+                if (r2 > bulletStyleB) {
+                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("ep01").getWidth(null) / 2 / 2 - 5,
+                            getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 19));
+                } else {
+                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("ep01").getWidth(null) / 2 / 2 - 5,
+                            getY() + image.getHeight(null) / 2, ImageMap.get("epb02"), 18));
+                }
+
+            }
+
+        }
+        if (type == 3) {
+
+            int r1 = r.nextInt(100);
+            int r2 = r.nextInt(100);
+            fireIndexValue++;
+            GameFrame gameFrame = DataStore.get("gameFrame");
+            if (r1 > fireIndex) {
+                gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("ep01").getWidth(null) / 2 / 2 - 5,
+                        getY() + image.getHeight(null) / 2, ImageMap.get("epb02"), 18));
+            }
+
+        }
+        if (type == 4) {
+
+            int r1 = r.nextInt(100);
+            int r2 = r.nextInt(100);
+            fireIndexValue++;
+            GameFrame gameFrame = DataStore.get("gameFrame");
+            if (r1 > fireIndex) {
+                if (r2 > bulletStyleB) {
+                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("ep04").getWidth(null) / 2 / 2 - 5,
+                            getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 19));
+                } else {
+//                    横向双发
+                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("ep04").getWidth(null) / 2 / 2 - 5 - ImageMap.get("epb04").getWidth(null),
+                            getY() + image.getHeight(null) / 2, ImageMap.get("epb04"), 19));
+                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("ep04").getWidth(null) / 2 / 2 - 5 + ImageMap.get("epb04").getWidth(null),
+                            getY() + image.getHeight(null) / 2, ImageMap.get("epb04"), 19));
+                }
+
+            }
+
+
+        }
+        if (type == 5) {
+
+            int r1 = r.nextInt(100);
+            int r2 = r.nextInt(100);
+            fireIndexValue++;
+            GameFrame gameFrame = DataStore.get("gameFrame");
+            if (r1 > fireIndex) {
+                if (r2 > 0 && r2 <= bulletStyleA) {
+//                    横向三连发
+                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS01").getWidth(null) / 2 / 2 - 5 - 30,
+                            getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 19));
+                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS01").getWidth(null) / 2 / 2 - 5,
+                            getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 19));
+                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS01").getWidth(null) / 2 / 2 - 5 + 30,
+                            getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 19));
+
+                } else if (r2 > bulletStyleA && r2 <= bulletStyleB) {
+//                    横向双发
+                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS01").getWidth(null) / 2 / 2 - 5 - 20,
+                            getY() + image.getHeight(null) / 2, ImageMap.get("epb02"), 18));
+                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS01").getWidth(null) / 2 / 2 - 5 + 20,
+                            getY() + image.getHeight(null) / 2, ImageMap.get("epb02"), 18));
+
+                } else if (r2 > bulletStyleB && r2 <= bulletStyleC) {
+//                    能量球
+                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS01").getWidth(null) / 2 / 2 - 5 - 10,
+                            getY() + image.getHeight(null) / 2, ImageMap.get("epb03"), 19));
+
+                } else {
+//                    延时发射
+                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS01").getWidth(null) / 2 / 2 - 3 - 40,
+                            getY() + image.getHeight(null) / 2, ImageMap.get("epb05"), 17));
+                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS01").getWidth(null) / 2 / 2 - 3 - 20,
+                            getY() + image.getHeight(null) / 2, ImageMap.get("epb05"), 17));
+                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS01").getWidth(null) / 2 / 2 - 3,
+                            getY() + image.getHeight(null) / 2, ImageMap.get("epb05"), 17));
+                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS01").getWidth(null) / 2 / 2 - 3 + 20,
+                            getY() + image.getHeight(null) / 2, ImageMap.get("epb05"), 17));
+                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS01").getWidth(null) / 2 / 2 - 3 + 40,
+                            getY() + image.getHeight(null) / 2, ImageMap.get("epb05"), 17));
+
+                }
+
+            }
+
+
+        }
+
+
+        if (fireIndexValue > 2000) {
             fireIndex--;
             fireIndexValue = 0;
         }
@@ -82,22 +198,114 @@ public class EnemyPlane extends BaseSprite implements Moveable, Drawable {
 
     @Override
     public void move() {
-        if (getY() > 100) {
-            index++;
-            if (index < indexValue * 5) {
-                setX(getX() + Xspeed);
-            } else if (index >= indexValue * 5 && index < indexValue * 10) {
-                setX(getX() - Xspeed);
-            } else if (index >= indexValue * 10 && index < indexValue * 15) {
-                setX(getX() + Xspeed);
-            } else if (index >= indexValue * 15 && index < indexValue * 20) {
-                setX(getX() - Xspeed);
+
+        //        不同种类的敌机不同的移动方式
+        if (type == 1) {
+
+            if (getY() > 200) {
+                index++;
+                if (index < indexValue * 5) {
+                    setX(getX() + Xspeed);
+                } else if (index >= indexValue * 5 && index < indexValue * 10) {
+                    setX(getX() - Xspeed);
+                } else if (index >= indexValue * 10 && index < indexValue * 15) {
+                    setX(getX() + Xspeed);
+                } else if (index >= indexValue * 15 && index < indexValue * 20) {
+                    setX(getX() - Xspeed);
+                } else {
+                    index = 0;
+                }
             } else {
-                index = 0;
+                setY(getY() + Yspeed);
             }
-        } else {
-            setY(getY() + Yspeed);
+
         }
+        if (type == 2) {
+
+            if (getY() > 100) {
+                index++;
+                if (index < indexValue * 5) {
+                    setX(getX() + Xspeed);
+                } else if (index >= indexValue * 5 && index < indexValue * 10) {
+                    setX(getX() - Xspeed);
+                } else if (index >= indexValue * 10 && index < indexValue * 15) {
+                    setX(getX() + Xspeed);
+                } else if (index >= indexValue * 15 && index < indexValue * 20) {
+                    setX(getX() - Xspeed);
+                } else {
+                    index = 0;
+                }
+            } else {
+                setY(getY() + Yspeed);
+            }
+
+
+        }
+        if (type == 3) {
+
+
+            if (getY() > 100) {
+                index++;
+                if (index < indexValue * 2) {
+                    setX(getX() + Xspeed * 2);
+                } else if (index >= indexValue * 2 && index < indexValue * 4) {
+                    setY(getY() + Yspeed * 1);
+                } else if (index >= indexValue * 4 && index < indexValue * 6) {
+                    setX(getX() - Xspeed * 2);
+                } else if (index >= indexValue * 6 && index < indexValue * 8) {
+                    setY(getY() - Yspeed * 1);
+                } else {
+                    index = 0;
+                }
+            } else {
+                setY(getY() + Yspeed);
+            }
+
+        }
+        if (type == 4) {
+
+
+            if (getY() > 210) {
+                index++;
+                if (index < indexValue * 5) {
+                    setX(getX() + Xspeed / 3);
+                } else if (index >= indexValue * 5 && index < indexValue * 10) {
+                    setX(getX() - Xspeed / 3);
+                } else if (index >= indexValue * 10 && index < indexValue * 15) {
+                    setX(getX() + Xspeed / 3);
+                } else if (index >= indexValue * 15 && index < indexValue * 20) {
+                    setX(getX() - Xspeed / 3);
+                } else {
+                    index = 0;
+                }
+            } else {
+                setY(getY() + Yspeed);
+            }
+
+        }
+        if (type == 5) {
+
+
+            if (getY() > 100) {
+                index++;
+                if (index < indexValue * 5) {
+                    setX(getX() + Xspeed);
+                } else if (index >= indexValue * 5 && index < indexValue * 10) {
+                    setX(getX() - Xspeed);
+                } else if (index >= indexValue * 10 && index < indexValue * 15) {
+                    setX(getX() + Xspeed);
+                } else if (index >= indexValue * 15 && index < indexValue * 20) {
+                    setX(getX() - Xspeed);
+                } else {
+                    index = 0;
+                }
+            } else {
+                setY(getY() + Yspeed);
+            }
+
+        }
+
+
         outOfBound();
     }
 

@@ -2,6 +2,7 @@ package com.neuedu.main;
 
 import com.neuedu.constant.FrameConstant;
 import com.neuedu.runtime.Background;
+import com.neuedu.runtime.Boss;
 import com.neuedu.runtime.Bullet;
 import com.neuedu.runtime.EnemyBullet;
 import com.neuedu.runtime.EnemyPlane;
@@ -9,6 +10,8 @@ import com.neuedu.runtime.Plane;
 import com.neuedu.runtime.Plane2;
 import com.neuedu.util.ImageMap;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -34,6 +37,9 @@ public class GameFrame extends Frame {
     //   创建敌方子弹集合
     public final List<EnemyBullet> enemyBulletList = new CopyOnWriteArrayList<>();
 
+    //    创建BOSS
+    public Boss boss = new Boss();
+
     public boolean p1GameOver, p2GameOver;
 
     @Override
@@ -44,6 +50,14 @@ public class GameFrame extends Frame {
         }
         if (!p2GameOver) {
             plane2.draw(g);
+        }
+        if(enemyPlaneList.isEmpty()){
+            boss.draw(g);
+            if(boss.isAlive() == false){
+                g.setFont(new Font("黑体", 0, 100));
+                g.setColor(Color.RED);
+                g.drawString("VICTORY", 100, 350);
+            }
         }
 
         for (Bullet bullet : bulletList) {
@@ -59,7 +73,7 @@ public class GameFrame extends Frame {
         }
 
         for (Bullet bullet : bulletList) {
-            bullet.collisionTest(enemyPlaneList);
+            bullet.collisionTest(enemyPlaneList,boss);
         }
 
         for (EnemyBullet enemyBullet : enemyBulletList) {
@@ -69,6 +83,9 @@ public class GameFrame extends Frame {
         for (EnemyPlane enemyPlane : enemyPlaneList) {
             enemyPlane.collisionTest(plane, plane2);
         }
+
+        boss.collisionTest(plane,plane2);
+
 
     }
 
@@ -102,53 +119,64 @@ public class GameFrame extends Frame {
 
 
         if (enemyPlaneList.isEmpty()) {
-            int a = 10;
-            int b = 20;
-            int c = 30;
-            int d = 50;
+//            不同敌机的生命值
+            int a = 15;
+            int b = 25;
+            int c = 40;
+            int d = 60;
             int e = 100;
-            enemyPlaneList.add(new EnemyPlane(100, -100, ImageMap.get("ep02"), b));
-            enemyPlaneList.add(new EnemyPlane(200, -100, ImageMap.get("ep01"), a));
-            enemyPlaneList.add(new EnemyPlane(300, -100, ImageMap.get("ep03"), c));
+//            Y坐标的基数
+            int y = 500;
 
-            enemyPlaneList.add(new EnemyPlane(150, -1000, ImageMap.get("ep02"), b));
-            enemyPlaneList.add(new EnemyPlane(250, -1000, ImageMap.get("ep01"), a));
+            enemyPlaneList.add(new EnemyPlane(100, -y, ImageMap.get("ep02"), b, 2));
+            enemyPlaneList.add(new EnemyPlane(200, -y, ImageMap.get("ep01"), a, 1));
+            enemyPlaneList.add(new EnemyPlane(300, -y, ImageMap.get("ep03"), c, 3));
 
-            enemyPlaneList.add(new EnemyPlane(80, -1500, ImageMap.get("ep03"), c));
-            enemyPlaneList.add(new EnemyPlane(180, -1500, ImageMap.get("ep02"), b));
-            enemyPlaneList.add(new EnemyPlane(280, -1500, ImageMap.get("ep01"), a));
-            enemyPlaneList.add(new EnemyPlane(380, -1500, ImageMap.get("ep01"), a));
+            enemyPlaneList.add(new EnemyPlane(150, -y * 2, ImageMap.get("ep02"), b, 2));
+            enemyPlaneList.add(new EnemyPlane(250, -y * 2, ImageMap.get("ep01"), a, 1));
 
-            enemyPlaneList.add(new EnemyPlane(110, -2000, ImageMap.get("ep03"), c));
-            enemyPlaneList.add(new EnemyPlane(210, -2000, ImageMap.get("ep01"), a));
-            enemyPlaneList.add(new EnemyPlane(310, -2000, ImageMap.get("ep01"), a));
+            enemyPlaneList.add(new EnemyPlane(80, -y * 5, ImageMap.get("ep03"), c, 3));
+            enemyPlaneList.add(new EnemyPlane(180, -y * 5, ImageMap.get("ep02"), b, 2));
+            enemyPlaneList.add(new EnemyPlane(280, -y * 5, ImageMap.get("ep01"), a, 1));
+            enemyPlaneList.add(new EnemyPlane(380, -y * 5, ImageMap.get("ep01"), a, 1));
 
-            enemyPlaneList.add(new EnemyPlane(100, -2200, ImageMap.get("ep03"), c));
-            enemyPlaneList.add(new EnemyPlane(150, -2400, ImageMap.get("ep01"), a));
-            enemyPlaneList.add(new EnemyPlane(200, -2600, ImageMap.get("ep01"), a));
-            enemyPlaneList.add(new EnemyPlane(100, -2800, ImageMap.get("ep02"), b));
+            enemyPlaneList.add(new EnemyPlane(110, -y * 8, ImageMap.get("ep03"), c, 3));
+            enemyPlaneList.add(new EnemyPlane(210, -y * 8, ImageMap.get("ep01"), a, 1));
+            enemyPlaneList.add(new EnemyPlane(310, -y * 8, ImageMap.get("ep01"), a, 1));
 
-            enemyPlaneList.add(new EnemyPlane(100, -3200, ImageMap.get("ep02"), b));
-            enemyPlaneList.add(new EnemyPlane(200, -3200, ImageMap.get("ep02"), b));
-            enemyPlaneList.add(new EnemyPlane(200, -3200, ImageMap.get("ep02"), b));
+            enemyPlaneList.add(new EnemyPlane(100, -y * 10, ImageMap.get("ep03"), c, 3));
+            enemyPlaneList.add(new EnemyPlane(150, -y * 10, ImageMap.get("ep01"), a, 1));
+            enemyPlaneList.add(new EnemyPlane(200, -y * 10, ImageMap.get("ep01"), a, 1));
+            enemyPlaneList.add(new EnemyPlane(100, -y * 10, ImageMap.get("ep02"), b, 2));
 
-            enemyPlaneList.add(new EnemyPlane(310, -4000, ImageMap.get("ep01"), a));
-            enemyPlaneList.add(new EnemyPlane(150, -4000, ImageMap.get("ep01"), a));
+            enemyPlaneList.add(new EnemyPlane(100, -y * 14, ImageMap.get("ep02"), b, 2));
+            enemyPlaneList.add(new EnemyPlane(200, -y * 14, ImageMap.get("ep02"), b, 2));
+            enemyPlaneList.add(new EnemyPlane(200, -y * 14, ImageMap.get("ep02"), b, 2));
 
-            enemyPlaneList.add(new EnemyPlane(110, -5000, ImageMap.get("ep03"), c));
-            enemyPlaneList.add(new EnemyPlane(310, -5000, ImageMap.get("ep01"), a));
-            enemyPlaneList.add(new EnemyPlane(160, -5000, ImageMap.get("ep01"), a));
+            enemyPlaneList.add(new EnemyPlane(310, -y * 18, ImageMap.get("ep01"), a, 1));
+            enemyPlaneList.add(new EnemyPlane(150, -y * 18, ImageMap.get("ep01"), a, 1));
 
-            enemyPlaneList.add(new EnemyPlane(110, -6000, ImageMap.get("ep03"), c));
-            enemyPlaneList.add(new EnemyPlane(360, -6000, ImageMap.get("ep01"), a));
+            enemyPlaneList.add(new EnemyPlane(110, -y * 20, ImageMap.get("ep03"), c, 3));
+            enemyPlaneList.add(new EnemyPlane(310, -y * 20, ImageMap.get("ep01"), a, 1));
+            enemyPlaneList.add(new EnemyPlane(160, -y * 20, ImageMap.get("ep01"), a, 1));
 
-            enemyPlaneList.add(new EnemyPlane(130, -7000, ImageMap.get("ep01"), a));
-            enemyPlaneList.add(new EnemyPlane(160, -7000, ImageMap.get("ep02"), b));
-            enemyPlaneList.add(new EnemyPlane(250, -7000, ImageMap.get("ep04"), d));
+            enemyPlaneList.add(new EnemyPlane(110, -y * 25, ImageMap.get("ep03"), c, 3));
+            enemyPlaneList.add(new EnemyPlane(360, -y * 25, ImageMap.get("ep01"), a, 1));
 
-            enemyPlaneList.add(new EnemyPlane(110, -7800, ImageMap.get("ep04"), d));
+            enemyPlaneList.add(new EnemyPlane(130, -y * 29, ImageMap.get("ep01"), a, 1));
+            enemyPlaneList.add(new EnemyPlane(160, -y * 29, ImageMap.get("ep02"), b, 2));
+            enemyPlaneList.add(new EnemyPlane(250, -y * 29, ImageMap.get("ep04"), d, 4));
 
-            enemyPlaneList.add(new EnemyPlane(200, -9000, ImageMap.get("BOSS01"), e));
+            enemyPlaneList.add(new EnemyPlane(110, -y * 32, ImageMap.get("ep04"), d, 4));
+
+            enemyPlaneList.add(new EnemyPlane(200, -y * 38, ImageMap.get("BOSS01"), e, 5));
+            enemyPlaneList.add(new EnemyPlane(180, -y * 39, ImageMap.get("ep01"), a, 1));
+            enemyPlaneList.add(new EnemyPlane(220, -y * 39, ImageMap.get("ep01"), a, 1));
+            enemyPlaneList.add(new EnemyPlane(160, -y * 40, ImageMap.get("ep03"), b, 3));
+            enemyPlaneList.add(new EnemyPlane(240, -y * 40, ImageMap.get("ep03"), b, 3));
+            enemyPlaneList.add(new EnemyPlane(150, -y * 41, ImageMap.get("ep04"), d, 4));
+            enemyPlaneList.add(new EnemyPlane(250, -y * 41, ImageMap.get("ep04"), d, 4));
+            enemyPlaneList.add(new EnemyPlane(300, -y * 50, ImageMap.get("BOSS01"), e, 5));
 
 
         }

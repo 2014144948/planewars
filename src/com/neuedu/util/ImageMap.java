@@ -17,10 +17,13 @@ public class ImageMap {
         map.put("ep03", ImageUtil.getImage("com\\neuedu\\imgs\\plane\\ep03.png"));
         map.put("ep04", ImageUtil.getImage("com\\neuedu\\imgs\\plane\\ep04.png"));
         map.put("BOSS01", ImageUtil.getImage("com\\neuedu\\imgs\\plane\\BOSS01.png"));
+        map.put("BOSS02", ImageUtil.getImage("com\\neuedu\\imgs\\plane\\BOSS02.png"));
         map.put("epb01", ImageUtil.getImage("com\\neuedu\\imgs\\bullet\\epb01.png"));
         map.put("epb02", ImageUtil.getImage("com\\neuedu\\imgs\\bullet\\epb02.png"));
         map.put("epb03", ImageUtil.getImage("com\\neuedu\\imgs\\bullet\\epb03.png"));
         map.put("epb04", ImageUtil.getImage("com\\neuedu\\imgs\\bullet\\epb04.png"));
+        map.put("epb05", ImageUtil.getImage("com\\neuedu\\imgs\\bullet\\epb05.png"));
+        map.put("epb06", ImageUtil.getImage("com\\neuedu\\imgs\\bullet\\epb06.png"));
         map.put("myheart", ImageUtil.getImage("com\\neuedu\\imgs\\heart\\myheart.png"));
         map.put("HP", ImageUtil.getImage("com\\neuedu\\imgs\\HP\\HP.png"));
     }
