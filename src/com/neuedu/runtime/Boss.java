@@ -15,9 +15,9 @@ import java.util.Random;
 
 public class Boss extends BaseSprite implements Drawable, Moveable {
 
-    private boolean alive = true;
-
     private Image image;
+
+    public static boolean alive = true;
 
     private int HP;
 
@@ -62,7 +62,7 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
     private int type;
 
     public Boss() {
-        this(100, -500, ImageMap.get("BOSS02"), 300);
+        this(100, -500, ImageMap.get("BOSS02"), 0);
     }
 
     public Boss(int x, int y, Image image, int HP) {

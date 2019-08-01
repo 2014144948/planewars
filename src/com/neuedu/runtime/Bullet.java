@@ -53,24 +53,30 @@ public class Bullet extends BaseSprite implements Moveable, Drawable {
         return new Rectangle(getX(), getY(), image.getWidth(null), image.getHeight(null));
     }
 
-    public void collisionTest(List<EnemyPlane> enemyPlaneList, Boss boss) {
+    public void collisionTest(List<EnemyPlane> enemyPlaneList, List<Boss> bossList) {
         GameFrame gameFrame = DataStore.get("gameFrame");
 //        打敌机
         for (EnemyPlane enemyPlane : enemyPlaneList) {
             if (enemyPlane.getRectangle().intersects(this.getRectangle())) {
                 gameFrame.bulletList.remove(this);
                 enemyPlane.setHP(enemyPlane.getHP() - 1);
+                gameFrame.score += 1;
                 if (enemyPlane.getHP() == 0) {
                     enemyPlaneList.remove(enemyPlane);
+                    gameFrame.score += 10;
                 }
             }
         }
 //        打BOSS
-        if (boss.getRectangle().intersects(this.getRectangle())) {
-            gameFrame.bulletList.remove(this);
-            boss.setHP(boss.getHP() - 1);
-            if (boss.getHP() == 0) {
-                boss.setAlive(false);
+        for (Boss boss : bossList) {
+            if (boss.getRectangle().intersects(this.getRectangle())) {
+                gameFrame.bulletList.remove(this);
+                boss.setHP(boss.getHP() - 1);
+                gameFrame.score += 5;
+                if (boss.getHP() == 0) {
+                    boss.setAlive(false);
+                    gameFrame.score += 100;
+                }
             }
         }
 

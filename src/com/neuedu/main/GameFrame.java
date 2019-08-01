@@ -38,9 +38,11 @@ public class GameFrame extends Frame {
     public final List<EnemyBullet> enemyBulletList = new CopyOnWriteArrayList<>();
 
     //    创建BOSS
-    public Boss boss = new Boss();
+    public final List<Boss> bossList = new CopyOnWriteArrayList<>();
 
     public boolean p1GameOver, p2GameOver;
+    //    得分
+    public static int score = 0;
 
     @Override
     public void paint(Graphics g) {
@@ -51,13 +53,14 @@ public class GameFrame extends Frame {
         if (!p2GameOver) {
             plane2.draw(g);
         }
-        if(enemyPlaneList.isEmpty()){
-            boss.draw(g);
-            if(boss.isAlive() == false){
-                g.setFont(new Font("黑体", 0, 100));
-                g.setColor(Color.RED);
-                g.drawString("VICTORY", 100, 350);
-            }
+        if (enemyPlaneList.isEmpty() && bossList.isEmpty() && Boss.alive == true) {
+            bossList.add(new Boss(100, -100, ImageMap.get("BOSS02"), 300));
+        }
+        if (Boss.alive == false) {
+            bossList.clear();
+            g.setFont(new Font("黑体", 0, 100));
+            g.setColor(Color.RED);
+            g.drawString("VICTORY", 100, 350);
         }
 
         for (Bullet bullet : bulletList) {
@@ -68,24 +71,29 @@ public class GameFrame extends Frame {
             enemyPlane.draw(g);
         }
 
+        for (Boss boss : bossList) {
+            boss.draw(g);
+        }
+
         for (EnemyBullet enemyBullet : enemyBulletList) {
             enemyBullet.draw(g);
         }
 
         for (Bullet bullet : bulletList) {
-            bullet.collisionTest(enemyPlaneList,boss);
-        }
-
-        for (EnemyBullet enemyBullet : enemyBulletList) {
-            enemyBullet.collisionTest(plane, plane2);
+            bullet.collisionTest(enemyPlaneList, bossList);
         }
 
         for (EnemyPlane enemyPlane : enemyPlaneList) {
             enemyPlane.collisionTest(plane, plane2);
         }
 
-        boss.collisionTest(plane,plane2);
+        for (EnemyBullet enemyBullet : enemyBulletList) {
+            enemyBullet.collisionTest(plane, plane2);
+        }
 
+        for (Boss boss : bossList) {
+            boss.collisionTest(plane, plane2);
+        }
 
     }
 

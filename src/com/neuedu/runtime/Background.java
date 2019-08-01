@@ -4,6 +4,7 @@ import com.neuedu.base.BaseSprite;
 import com.neuedu.base.Drawable;
 import com.neuedu.base.Moveable;
 import com.neuedu.constant.FrameConstant;
+import com.neuedu.main.GameFrame;
 import com.neuedu.util.ImageMap;
 
 import java.awt.Color;
@@ -60,23 +61,31 @@ public class Background extends BaseSprite implements Moveable, Drawable {
         move();
         g.drawImage(image, getX(), getY(), image.getWidth(null), image.getHeight(null), null);
 
-        g.setFont(new Font("楷体",0,30));
+        g.setFont(new Font("楷体",0,20));
         g.setColor(Color.WHITE);
+
         if(Plane.hp > 0){
-            g.drawString("1P HP："+Plane.hp,80,680);
+            g.drawString("1P HP："+Plane.hp,20,680);
         }else{
-            g.drawString("1P GAMEOVER",80,680);
+            g.drawString("1P GAMEOVER",20,680);
         }
+
         if(Plane2.hp > 0){
-            g.drawString("2P HP："+Plane2.hp,300,680);
+            g.drawString("2P HP："+Plane2.hp,360,680);
         }else{
-            g.drawString("2P GAMEOVER",300,680);
+            g.drawString("2P GAMEOVER",360,680);
         }
+
         if(Plane.hp <= 0 && Plane2.hp <= 0){
             g.setFont(new Font("黑体",0,100));
             g.setColor(Color.RED);
             g.drawString("GAME OVER",30,350);
         }
+
+        g.setFont(new Font("楷体",0,20));
+        g.drawString("|",170,680);
+        g.drawString("分数：" + GameFrame.score,190,680);
+        g.drawString("|",320,680);
 
 
     }
