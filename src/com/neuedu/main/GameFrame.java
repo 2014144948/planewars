@@ -54,7 +54,7 @@ public class GameFrame extends Frame {
             plane2.draw(g);
         }
         if (enemyPlaneList.isEmpty() && bossList.isEmpty() && Boss.alive == true) {
-            bossList.add(new Boss(100, -100, ImageMap.get("BOSS02"), 300));
+            bossList.add(new Boss(100, -500, ImageMap.get("BOSS02"), 300));
         }
         if (Boss.alive == false) {
             bossList.clear();

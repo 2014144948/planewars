@@ -52,7 +52,7 @@ public class EnemyBullet extends BaseSprite implements Moveable, Drawable {
             setY(getY() - speed * 1);
         }
         if (type == 4) {
-            setX(getX() + speed * 4);
+            setX(getX() + speed * 3);
         }
         if (type == 5) {
             setX(getX() + speed * 3);
@@ -67,7 +67,7 @@ public class EnemyBullet extends BaseSprite implements Moveable, Drawable {
             setY(getY() + speed * 3);
         }
         if (type == 8) {
-            setY(getY() + speed * 4);
+            setY(getY() + speed * 3);
         }
         if (type == 9) {
             setX(getX() - speed * 1);
@@ -82,7 +82,7 @@ public class EnemyBullet extends BaseSprite implements Moveable, Drawable {
             setY(getY() + speed * 1);
         }
         if (type == 12) {
-            setX(getX() - speed * 4);
+            setX(getX() - speed * 3);
         }
         if (type == 13) {
             setX(getX() - speed * 3);
@@ -97,7 +97,7 @@ public class EnemyBullet extends BaseSprite implements Moveable, Drawable {
             setY(getY() - speed * 3);
         }
         if (type == 16) {
-            setY(getY() - speed * 4);
+            setY(getY() - speed * 3);
         }
 //        延时发射
         if (type == 17) {
