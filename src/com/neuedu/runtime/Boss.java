@@ -119,11 +119,11 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
 
     public void fire() {
         int r1 = r.nextInt(100);
-        int r2 = r.nextInt(200);
+        int r2 = r.nextInt(180);
         fireIndexValue++;
         GameFrame gameFrame = DataStore.get("gameFrame");
         if (r1 > fireIndex) {
-//            BOSS的八种攻击方式
+//            BOSS的九种攻击方式
             if (r2 > 0 && r2 <= bulletStyleA) {
                 fire1();
             } else if (r2 > bulletStyleA && r2 <= bulletStyleB) {
@@ -133,14 +133,15 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
             } else if (r2 > bulletStyleC && r2 <= bulletStyleD) {
                 fire4();
             } else if (r2 > bulletStyleD && r2 <= bulletStyleE) {
-                fire6();
-            } else if (r2 > bulletStyleE && r2 <= bulletStyleF) {
-                fire7();
-            } else if (r2 > bulletStyleF && r2 <= bulletStyleG) {
                 fire5();
+            } else if (r2 > bulletStyleE && r2 <= bulletStyleF) {
+                fire6();
+            } else if (r2 > bulletStyleF && r2 <= bulletStyleG) {
+                fire7();
             } else if (r2 > bulletStyleG && r2 <= bulletStyleH) {
                 fire8();
             } else {
+                fire9();
             }
         }
 
@@ -252,7 +253,7 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
                 getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 20));
     }
 
-    //    大型子弹
+    //    西红柿导弹
     public void fire6() {
         GameFrame gameFrame = DataStore.get("gameFrame");
         gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS02").getWidth(null) / 2 / 2 - 5 - 50,
@@ -265,22 +266,40 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
     public void fire7() {
         GameFrame gameFrame = DataStore.get("gameFrame");
         gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS02").getWidth(null) / 2 / 2 - 5 - 80,
-                getY() + image.getHeight(null) / 2, ImageMap.get("epb05"), 17));
+                getY() + image.getHeight(null) / 2 - 100, ImageMap.get("epb05"), 17));
         gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS02").getWidth(null) / 2 / 2 - 5 - 40,
-                getY() + image.getHeight(null) / 2, ImageMap.get("epb05"), 17));
+                getY() + image.getHeight(null) / 2 - 100, ImageMap.get("epb05"), 17));
         gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS02").getWidth(null) / 2 / 2 - 5,
-                getY() + image.getHeight(null) / 2, ImageMap.get("epb05"), 17));
+                getY() + image.getHeight(null) / 2 - 100, ImageMap.get("epb05"), 17));
         gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS02").getWidth(null) / 2 / 2 - 5 + 40,
-                getY() + image.getHeight(null) / 2, ImageMap.get("epb05"), 17));
+                getY() + image.getHeight(null) / 2 - 100, ImageMap.get("epb05"), 17));
         gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS02").getWidth(null) / 2 / 2 - 5 + 80,
-                getY() + image.getHeight(null) / 2, ImageMap.get("epb05"), 17));
+                getY() + image.getHeight(null) / 2 - 100, ImageMap.get("epb05"), 17));
     }
 
-//    回转子弹
-    public void fire8(){
+    //    回转子弹
+    public void fire8() {
         GameFrame gameFrame = DataStore.get("gameFrame");
         gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS02").getWidth(null) / 2 / 2,
                 getY() + image.getHeight(null) / 2, ImageMap.get("epb07"), 21));
+    }
+
+    //    分裂弹
+    public void fire9() {
+        GameFrame gameFrame = DataStore.get("gameFrame");
+        gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS02").getWidth(null) / 2 / 2,
+                getY() + image.getHeight(null) / 2 - 80, ImageMap.get("epb03"), 22));
+        gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS02").getWidth(null) / 2 / 2,
+                getY() + image.getHeight(null) / 2 - 16, ImageMap.get("epb03"), 22));
+        gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS02").getWidth(null) / 2 / 2,
+                getY() + image.getHeight(null) / 2 + 48, ImageMap.get("epb03"), 22));
+
+        gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS02").getWidth(null) / 2 / 2,
+                getY() + image.getHeight(null) / 2 + 80, ImageMap.get("epb03"), 23));
+        gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS02").getWidth(null) / 2 / 2,
+                getY() + image.getHeight(null) / 2 + 16, ImageMap.get("epb03"), 23));
+        gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS02").getWidth(null) / 2 / 2,
+                getY() + image.getHeight(null) / 2 - 48, ImageMap.get("epb03"), 23));
     }
 
 

@@ -18,12 +18,26 @@ public class EnemyBullet extends BaseSprite implements Moveable, Drawable {
     private int speed = FrameConstant.GAME_SPEED;
     //    不同子弹的移动方式
     private int type = 0;
-//    延时子弹
+    //    延时子弹
     private int type17 = 0;
     private int type17value = 10;
-//    回转子弹
+    //    回转子弹
     private int type21 = 0;
     private int type21value = 10;
+    //    分裂弹L
+    private int type22 = 0;
+    private int type22value = 10;
+    //    分裂弹R
+    private int type23 = 0;
+    private int type23value = 10;
+    //    延时散弹
+    private int type24 = 0;
+    private int type24value = 10;
+    private int type25 = 0;
+    private int type25value = 10;
+    private int type26 = 0;
+    private int type26value = 10;
+
 
     public EnemyBullet() {
     }
@@ -127,17 +141,65 @@ public class EnemyBullet extends BaseSprite implements Moveable, Drawable {
             setY(getY() + speed * 10);
         }
 //        子弹回转
-        if(type == 21){
+        if (type == 21) {
             type21++;
             if (type21 > 0 && type21 <= type21value * 8) {
                 setY(getY() + speed * 5);
-            } else if (type21 > type17value * 8 && type21 <= type21value * 11) {
+            } else if (type21 > type21value * 8 && type21 <= type21value * 11) {
 
             } else {
                 setY(getY() - speed * 10);
             }
         }
+//        分裂弹L
+        if (type == 22) {
+            type22++;
+            if (type22 > 0 && type22 <= type22value * 10) {
+                setY(getY() + speed * 3);
+            } else if (type22 > type22value * 10 && type22 <= type22value * 15) {
 
+            } else {
+                setX(getX() - speed * 1);
+            }
+        }
+//        分裂弹R
+        if (type == 23) {
+            type23++;
+            if (type23 > 0 && type23 <= type23value * 10) {
+                setY(getY() + speed * 3);
+            } else if (type23 > type23value * 10 && type23 <= type23value * 15) {
+
+            } else {
+                setX(getX() + speed * 1);
+            }
+        }
+//        延时散弹
+        if(type == 24){
+            type24++;
+            if(type24 > 0 && type24 <= type24value * 5){
+                setY(getY() + speed * 2);
+            }else{
+                setY(getY() + speed * 3);
+            }
+        }
+        if(type == 25){
+            type25++;
+            if(type25 > 0 && type25 <= type25value * 5){
+                setY(getY() + speed * 2);
+            }else{
+                setX(getX() - speed * 2);
+                setY(getY() + speed * 3);
+            }
+        }
+        if(type == 26){
+            type26++;
+            if(type26 > 0 && type26 <= type26value * 5){
+                setY(getY() + speed * 2);
+            }else{
+                setX(getX() + speed * 2);
+                setY(getY() + speed * 3);
+            }
+        }
 
         outOfBound();
 

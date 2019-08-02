@@ -96,9 +96,11 @@ public class GameFrame extends Frame {
                 boss.collisionTest(plane, plane2);
             }
         } else {
-            g.setFont(new Font("黑体", 0, 100));
-            g.setColor(Color.RED);
-            g.drawString("PAUSE", 140, 350);
+            if(Boss.alive){
+                g.setFont(new Font("黑体", 0, 100));
+                g.setColor(Color.RED);
+                g.drawString("PAUSE", 140, 350);
+            }
         }
 
     }
@@ -167,15 +169,15 @@ public class GameFrame extends Frame {
             enemyPlaneList.add(new EnemyPlane(200, -y * 14, ImageMap.get("ep02"), b, 2));
             enemyPlaneList.add(new EnemyPlane(200, -y * 14, ImageMap.get("ep02"), b, 2));
 
-            enemyPlaneList.add(new EnemyPlane(310, -y * 18, ImageMap.get("ep01"), a, 1));
-            enemyPlaneList.add(new EnemyPlane(150, -y * 18, ImageMap.get("ep01"), a, 1));
+            enemyPlaneList.add(new EnemyPlane(310, -y * 16, ImageMap.get("ep01"), a, 1));
+            enemyPlaneList.add(new EnemyPlane(150, -y * 16, ImageMap.get("ep01"), a, 1));
 
-            enemyPlaneList.add(new EnemyPlane(110, -y * 20, ImageMap.get("ep03"), c, 3));
-            enemyPlaneList.add(new EnemyPlane(310, -y * 20, ImageMap.get("ep01"), a, 1));
-            enemyPlaneList.add(new EnemyPlane(160, -y * 20, ImageMap.get("ep01"), a, 1));
+            enemyPlaneList.add(new EnemyPlane(110, -y * 19, ImageMap.get("ep03"), c, 3));
+            enemyPlaneList.add(new EnemyPlane(310, -y * 19, ImageMap.get("ep01"), a, 1));
+            enemyPlaneList.add(new EnemyPlane(160, -y * 19, ImageMap.get("ep01"), a, 1));
 
-            enemyPlaneList.add(new EnemyPlane(110, -y * 25, ImageMap.get("ep03"), c, 3));
-            enemyPlaneList.add(new EnemyPlane(360, -y * 25, ImageMap.get("ep01"), a, 1));
+            enemyPlaneList.add(new EnemyPlane(110, -y * 23, ImageMap.get("ep03"), c, 3));
+            enemyPlaneList.add(new EnemyPlane(360, -y * 23, ImageMap.get("ep01"), a, 1));
 
             enemyPlaneList.add(new EnemyPlane(130, -y * 29, ImageMap.get("ep01"), a, 1));
             enemyPlaneList.add(new EnemyPlane(160, -y * 29, ImageMap.get("ep02"), b, 2));
@@ -191,7 +193,6 @@ public class GameFrame extends Frame {
             enemyPlaneList.add(new EnemyPlane(150, -y * 41, ImageMap.get("ep04"), d, 4));
             enemyPlaneList.add(new EnemyPlane(250, -y * 41, ImageMap.get("ep04"), d, 4));
             enemyPlaneList.add(new EnemyPlane(300, -y * 50, ImageMap.get("BOSS01"), e, 5));
-
 
         }
 

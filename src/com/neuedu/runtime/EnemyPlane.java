@@ -27,9 +27,10 @@ public class EnemyPlane extends BaseSprite implements Moveable, Drawable {
     public int fireIndex = 98;
     private int fireIndexValue = 0;
     //    控制子弹的类型
-    private int bulletStyleA = 25;
-    private int bulletStyleB = 50;
-    private int bulletStyleC = 75;
+    private int bulletStyleA = 20;
+    private int bulletStyleB = 40;
+    private int bulletStyleC = 60;
+    private int bulletStyleD = 80;
     //    控制敌机的生命值
     private int HP;
     //    控制敌机的种类
@@ -168,7 +169,17 @@ public class EnemyPlane extends BaseSprite implements Moveable, Drawable {
                     gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS01").getWidth(null) / 2 / 2 - 5 - 10,
                             getY() + image.getHeight(null) / 2, ImageMap.get("epb03"), 19));
 
-                } else {
+                }else if(r2 > bulletStyleC && r2 <= bulletStyleD){
+//                    延时散弹
+                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS01").getWidth(null) / 2 / 2 - 5,
+                            getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 24));
+                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS01").getWidth(null) / 2 / 2 - 5,
+                            getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 25));
+                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS01").getWidth(null) / 2 / 2 - 5,
+                            getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 26));
+
+                }
+                else {
 //                    延时发射
                     gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS01").getWidth(null) / 2 / 2 - 3 - 40,
                             getY() + image.getHeight(null) / 2, ImageMap.get("epb05"), 17));
