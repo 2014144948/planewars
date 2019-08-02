@@ -148,7 +148,7 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
         if (e.getKeyCode() == KeyEvent.VK_A) {
             left = true;
         }
-        if (e.getKeyCode() == KeyEvent.VK_F) {
+        if (e.getKeyCode() == KeyEvent.VK_J) {
             fire = true;
         }
         if(e.getKeyCode() == KeyEvent.VK_SPACE){
@@ -171,7 +171,7 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
         if (e.getKeyCode() == KeyEvent.VK_A) {
             left = false;
         }
-        if (e.getKeyCode() == KeyEvent.VK_F) {
+        if (e.getKeyCode() == KeyEvent.VK_J) {
             fire = false;
         }
 
