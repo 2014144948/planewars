@@ -136,11 +136,11 @@ public class GameFrame extends Frame {
 
         if (enemyPlaneList.isEmpty()) {
 //            不同敌机的生命值
-            int a = 15;
-            int b = 25;
-            int c = 40;
-            int d = 60;
-            int e = 100;
+            int a = 25;
+            int b = 10;
+            int c = 15;
+            int d = 40;
+            int e = 70;
 //            Y坐标的基数
             int y = 500;
 

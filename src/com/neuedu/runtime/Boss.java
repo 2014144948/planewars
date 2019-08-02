@@ -44,6 +44,7 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
     private int bulletStyleF = 120;
     private int bulletStyleG = 140;
     private int bulletStyleH = 160;
+    private int bulletStyleI = 180;
 
     public int getHP() {
         return HP;
@@ -102,13 +103,15 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
                 index = 0;
             }
 //            冲刺
-            if (spurt > indexValue * 8 && spurt <= indexValue * 9) {
+            if (spurt > indexValue * 8 && spurt <= indexValue * 9 || spurt > indexValue * 20 && spurt <= indexValue * 21) {
                 setY(getY() + Yspeed * 2);
-            } else if (spurt > indexValue * 9 && spurt <= indexValue * 10) {
+            } else if (spurt > indexValue * 9 && spurt <= indexValue * 10 || spurt > indexValue * 21 && spurt <= indexValue * 22) {
                 setY(getY() - Yspeed * 2);
-            } else if (spurt > indexValue * 10) {
+            } else if (spurt > indexValue * 25) {
                 spurt = 0;
+
             }
+
 
         } else {
             setY(getY() + Yspeed);
@@ -119,7 +122,7 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
 
     public void fire() {
         int r1 = r.nextInt(100);
-        int r2 = r.nextInt(180);
+        int r2 = r.nextInt(200);
         fireIndexValue++;
         GameFrame gameFrame = DataStore.get("gameFrame");
         if (r1 > fireIndex) {
@@ -140,12 +143,14 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
                 fire7();
             } else if (r2 > bulletStyleG && r2 <= bulletStyleH) {
                 fire8();
-            } else {
+            } else if (r2 > bulletStyleH && r2 <= bulletStyleI) {
                 fire9();
+            } else {
+
             }
         }
 
-        if (fireIndexValue > 1000) {
+        if (fireIndexValue > 1500) {
             fireIndex--;
             fireIndexValue = 0;
         }
