@@ -32,6 +32,8 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
 
     public static int hp = 10;
 
+    public static boolean pause;
+
 
     public Plane() {
         this((FrameConstant.GAME_WIDTH - ImageMap.get("my01").getWidth(null) / 2) / 2 - 100,
@@ -148,6 +150,9 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
         }
         if (e.getKeyCode() == KeyEvent.VK_F) {
             fire = true;
+        }
+        if(e.getKeyCode() == KeyEvent.VK_SPACE){
+            pause = !pause;
         }
     }
 

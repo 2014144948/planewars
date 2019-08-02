@@ -24,6 +24,7 @@ public class ImageMap {
         map.put("epb04", ImageUtil.getImage("com\\neuedu\\imgs\\bullet\\epb04.png"));
         map.put("epb05", ImageUtil.getImage("com\\neuedu\\imgs\\bullet\\epb05.png"));
         map.put("epb06", ImageUtil.getImage("com\\neuedu\\imgs\\bullet\\epb06.png"));
+        map.put("epb07", ImageUtil.getImage("com\\neuedu\\imgs\\bullet\\epb07.png"));
         map.put("myheart", ImageUtil.getImage("com\\neuedu\\imgs\\heart\\myheart.png"));
         map.put("HP", ImageUtil.getImage("com\\neuedu\\imgs\\HP\\HP.png"));
     }

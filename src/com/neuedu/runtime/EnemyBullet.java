@@ -18,9 +18,12 @@ public class EnemyBullet extends BaseSprite implements Moveable, Drawable {
     private int speed = FrameConstant.GAME_SPEED;
     //    不同子弹的移动方式
     private int type = 0;
-
-    private int type13 = 0;
-    private int type5value = 10;
+//    延时子弹
+    private int type17 = 0;
+    private int type17value = 10;
+//    回转子弹
+    private int type21 = 0;
+    private int type21value = 10;
 
     public EnemyBullet() {
     }
@@ -101,10 +104,10 @@ public class EnemyBullet extends BaseSprite implements Moveable, Drawable {
         }
 //        延时发射
         if (type == 17) {
-            type13++;
-            if (type13 > 0 && type13 <= type5value * 2) {
+            type17++;
+            if (type17 > 0 && type17 <= type17value * 2) {
                 setY(getY() - speed * 3);
-            } else if (type13 > type5value * 2 && type13 <= type5value * 10) {
+            } else if (type17 > type17value * 2 && type17 <= type17value * 10) {
 
             } else {
                 setY(getY() + speed * 10);
@@ -123,6 +126,17 @@ public class EnemyBullet extends BaseSprite implements Moveable, Drawable {
         if (type == 20) {
             setY(getY() + speed * 10);
         }
+//        子弹回转
+        if(type == 21){
+            type21++;
+            if (type21 > 0 && type21 <= type21value * 8) {
+                setY(getY() + speed * 5);
+            } else if (type21 > type17value * 8 && type21 <= type21value * 11) {
+
+            } else {
+                setY(getY() - speed * 10);
+            }
+        }
 
 
         outOfBound();
@@ -130,7 +144,7 @@ public class EnemyBullet extends BaseSprite implements Moveable, Drawable {
     }
 
     public void outOfBound() {
-        if (getY() > FrameConstant.GAME_HEIGHT) {
+        if (getX() < -100 || getX() > FrameConstant.GAME_WIDTH + 100 || getY() < -100 || getY() > FrameConstant.GAME_HEIGHT + 100) {
             GameFrame gameFrame = DataStore.get("gameFrame");
             gameFrame.enemyBulletList.remove(this);
         }

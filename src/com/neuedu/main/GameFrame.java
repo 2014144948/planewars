@@ -46,53 +46,59 @@ public class GameFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        background.draw(g);
-        if (!p1GameOver) {
-            plane.draw(g);
-        }
-        if (!p2GameOver) {
-            plane2.draw(g);
-        }
-        if (enemyPlaneList.isEmpty() && bossList.isEmpty() && Boss.alive == true) {
-            bossList.add(new Boss(100, -500, ImageMap.get("BOSS02"), 300));
-        }
-        if (Boss.alive == false) {
-            bossList.clear();
+        if (!Plane.pause) {
+            background.draw(g);
+            if (!p1GameOver) {
+                plane.draw(g);
+            }
+            if (!p2GameOver) {
+                plane2.draw(g);
+            }
+            if (enemyPlaneList.isEmpty() && bossList.isEmpty() && Boss.alive == true) {
+                bossList.add(new Boss(150, -500, ImageMap.get("BOSS02"), 300));
+            }
+            if (Boss.alive == false) {
+                bossList.clear();
+                g.setFont(new Font("黑体", 0, 100));
+                g.setColor(Color.RED);
+                g.drawString("VICTORY", 100, 350);
+            }
+
+            for (Bullet bullet : bulletList) {
+                bullet.draw(g);
+            }
+
+            for (EnemyPlane enemyPlane : enemyPlaneList) {
+                enemyPlane.draw(g);
+            }
+
+            for (Boss boss : bossList) {
+                boss.draw(g);
+            }
+
+            for (EnemyBullet enemyBullet : enemyBulletList) {
+                enemyBullet.draw(g);
+            }
+
+            for (Bullet bullet : bulletList) {
+                bullet.collisionTest(enemyPlaneList, bossList);
+            }
+
+            for (EnemyPlane enemyPlane : enemyPlaneList) {
+                enemyPlane.collisionTest(plane, plane2);
+            }
+
+            for (EnemyBullet enemyBullet : enemyBulletList) {
+                enemyBullet.collisionTest(plane, plane2);
+            }
+
+            for (Boss boss : bossList) {
+                boss.collisionTest(plane, plane2);
+            }
+        } else {
             g.setFont(new Font("黑体", 0, 100));
             g.setColor(Color.RED);
-            g.drawString("VICTORY", 100, 350);
-        }
-
-        for (Bullet bullet : bulletList) {
-            bullet.draw(g);
-        }
-
-        for (EnemyPlane enemyPlane : enemyPlaneList) {
-            enemyPlane.draw(g);
-        }
-
-        for (Boss boss : bossList) {
-            boss.draw(g);
-        }
-
-        for (EnemyBullet enemyBullet : enemyBulletList) {
-            enemyBullet.draw(g);
-        }
-
-        for (Bullet bullet : bulletList) {
-            bullet.collisionTest(enemyPlaneList, bossList);
-        }
-
-        for (EnemyPlane enemyPlane : enemyPlaneList) {
-            enemyPlane.collisionTest(plane, plane2);
-        }
-
-        for (EnemyBullet enemyBullet : enemyBulletList) {
-            enemyBullet.collisionTest(plane, plane2);
-        }
-
-        for (Boss boss : bossList) {
-            boss.collisionTest(plane, plane2);
+            g.drawString("PAUSE", 140, 350);
         }
 
     }

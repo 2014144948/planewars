@@ -335,9 +335,13 @@ public class EnemyPlane extends BaseSprite implements Moveable, Drawable {
             Plane2.hp--;
         }
         if (Plane.hp == 0) {
+            plane.setX(-500);
+            plane.setY(-500);
             gameFrame.p1GameOver = true;
         }
         if (Plane2.hp == 0) {
+            plane2.setX(-500);
+            plane2.setY(-500);
             gameFrame.p2GameOver = true;
         }
     }
