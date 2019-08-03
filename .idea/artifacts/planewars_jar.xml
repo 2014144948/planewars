@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="planewars:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/planewars_jar</output-path>
+    <root id="archive" name="planewars.jar">
+      <element id="module-output" name="planewars" />
+    </root>
+  </artifact>
+</component>

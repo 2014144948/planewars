@@ -19,7 +19,7 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
 
     public static boolean alive = true;
 
-    private static int HP;
+    public static int HP;
 
     private int Xspeed = FrameConstant.GAME_SPEED * 3;
     private int Yspeed = FrameConstant.GAME_SPEED * 2;
