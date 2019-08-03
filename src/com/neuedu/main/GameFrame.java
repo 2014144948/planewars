@@ -139,8 +139,8 @@ public class GameFrame extends Frame {
             int a = 25;
             int b = 10;
             int c = 15;
-            int d = 40;
-            int e = 70;
+            int d = 35;
+            int e = 65;
 //            Y坐标的基数
             int y = 500;
 
