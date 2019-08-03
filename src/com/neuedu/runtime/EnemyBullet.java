@@ -206,7 +206,7 @@ public class EnemyBullet extends BaseSprite implements Moveable, Drawable {
     }
 
     public void outOfBound() {
-        if (getX() < -100 || getX() > FrameConstant.GAME_WIDTH + 100 || getY() < -100 || getY() > FrameConstant.GAME_HEIGHT + 100) {
+        if (getX() < -200 || getX() > FrameConstant.GAME_WIDTH + 100 || getY() < -200 || getY() > FrameConstant.GAME_HEIGHT + 100) {
             GameFrame gameFrame = DataStore.get("gameFrame");
             gameFrame.enemyBulletList.remove(this);
         }
