@@ -98,7 +98,7 @@ public class GameFrame extends Frame {
                 boss.collisionTest(plane, plane2);
             }
         } else {
-            if (Boss.alive) {
+            if (Boss.alive && !(p1GameOver && p2GameOver)) {
                 g.setFont(new Font("黑体", 0, 100));
                 g.setColor(Color.RED);
                 g.drawString("PAUSE", 140, 350);
@@ -124,6 +124,8 @@ public class GameFrame extends Frame {
             }
 
         }
+
+
 
     }
 

@@ -88,6 +88,5 @@ public class Background extends BaseSprite implements Moveable, Drawable {
         g.drawString("分数：" + GameFrame.score,190,680);
         g.drawString("|",320,680);
 
-
     }
 }
