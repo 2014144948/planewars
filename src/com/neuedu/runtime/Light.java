@@ -12,21 +12,20 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
 
-public class Stones extends BaseSprite implements Moveable, Drawable {
+public class Light extends BaseSprite implements Moveable, Drawable {
 
     private Image image;
 
-    private int speed = FrameConstant.GAME_SPEED;
+    private int speed = FrameConstant.GAME_SPEED * 15;
 
-    public Stones(){
-        this(0,0, ImageMap.get("stone"),0);
+    public Light(){
+        this(0,0, ImageMap.get("stone"));
     }
 
 
-    public Stones(int x, int y, Image image, int speed) {
+    public Light(int x, int y, Image image) {
         super(x, y);
         this.image = image;
-        this.speed = speed;
     }
 
     @Override
@@ -51,11 +50,11 @@ public class Stones extends BaseSprite implements Moveable, Drawable {
     }
 
     public Rectangle getRectangle(){
-        return new Rectangle(getX(), getY(), image.getWidth(null) / 10 * 9, image.getHeight(null) / 10 * 9);
+        return new Rectangle(getX(), getY(), image.getWidth(null) / 10 * 8, image.getHeight(null));
     }
 
     public void collisionTest(Plane plane,Plane2 plane2){
-//        撞到陨石
+//        撞到激光
         GameFrame gameFrame = DataStore.get("gameFrame");
         if(plane.getRectangle().intersects(this.getRectangle())){
             plane.hp--;

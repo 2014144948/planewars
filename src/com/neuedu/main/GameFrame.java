@@ -6,6 +6,7 @@ import com.neuedu.runtime.Boss;
 import com.neuedu.runtime.Bullet;
 import com.neuedu.runtime.EnemyBullet;
 import com.neuedu.runtime.EnemyPlane;
+import com.neuedu.runtime.Light;
 import com.neuedu.runtime.Plane;
 import com.neuedu.runtime.Plane2;
 import com.neuedu.runtime.Stones;
@@ -21,9 +22,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GameFrame extends Frame {
+
+    Random r = new Random();
 
     //    创建背景对象
     private Background background = new Background();
@@ -42,6 +46,8 @@ public class GameFrame extends Frame {
     public final List<Boss> bossList = new CopyOnWriteArrayList<>();
     //    创建陨石集合
     public final List<Stones> stoneList = new CopyOnWriteArrayList<>();
+    //    创建激光集合
+    public final List<Light> lightList = new CopyOnWriteArrayList<>();
 
     public boolean p1GameOver, p2GameOver;
     //    得分
@@ -60,6 +66,17 @@ public class GameFrame extends Frame {
                 plane2.draw(g);
             }
             if (enemyPlaneList.isEmpty() && bossList.isEmpty() && Boss.alive == true) {
+
+                stoneList.add(new Stones(100,-500 * 2, ImageMap.get("stone"),1));
+                stoneList.add(new Stones(0,-500 * 4, ImageMap.get("stone"),1));
+                stoneList.add(new Stones(350,-500 * 5, ImageMap.get("stone"),1));
+
+                lightList.add(new Light(r.nextInt(100) + 100, -500 * 2, ImageMap.get("light")));
+                lightList.add(new Light(r.nextInt(100) + 220, -500 * 3, ImageMap.get("light")));
+                lightList.add(new Light(r.nextInt(100), -500 * 4, ImageMap.get("light")));
+                lightList.add(new Light(r.nextInt(100) + 50, -500 * 5, ImageMap.get("light")));
+                lightList.add(new Light(r.nextInt(100) + 300, -500 * 12, ImageMap.get("light")));
+                lightList.add(new Light(r.nextInt(100) + 255, -500 * 20, ImageMap.get("light")));
                 bossList.add(new Boss(150, -550, ImageMap.get("BOSS02"), 255));
             }
             if (Boss.alive == false) {
@@ -108,6 +125,14 @@ public class GameFrame extends Frame {
 
             for (Stones stones : stoneList) {
                 stones.collisionTest(plane, plane2);
+            }
+
+            for (Light light : lightList) {
+                light.draw(g);
+            }
+
+            for (Light light : lightList) {
+                light.collisionTest(plane, plane2);
             }
 
         } else {
@@ -184,8 +209,6 @@ public class GameFrame extends Frame {
             enemyPlaneList.add(new EnemyPlane(200, -y, ImageMap.get("ep01"), a, 1));
             enemyPlaneList.add(new EnemyPlane(300, -y, ImageMap.get("ep03"), c, 3));
 
-            stoneList.add(new Stones(200, -y, ImageMap.get("stone"), 1));
-
             enemyPlaneList.add(new EnemyPlane(150, -y * 2, ImageMap.get("ep02"), b, 2));
             enemyPlaneList.add(new EnemyPlane(250, -y * 2, ImageMap.get("ep01"), a, 1));
 
@@ -197,9 +220,6 @@ public class GameFrame extends Frame {
             enemyPlaneList.add(new EnemyPlane(110, -y * 8, ImageMap.get("ep03"), c, 3));
             enemyPlaneList.add(new EnemyPlane(210, -y * 8, ImageMap.get("ep01"), a, 1));
             enemyPlaneList.add(new EnemyPlane(310, -y * 8, ImageMap.get("ep01"), a, 1));
-
-            stoneList.add(new Stones(-100, -y * 8, ImageMap.get("stone"), 1));
-            stoneList.add(new Stones(400, -y * 8, ImageMap.get("stone"), 1));
 
             enemyPlaneList.add(new EnemyPlane(100, -y * 10, ImageMap.get("ep03"), c, 3));
             enemyPlaneList.add(new EnemyPlane(150, -y * 10, ImageMap.get("ep01"), a, 1));
@@ -226,9 +246,6 @@ public class GameFrame extends Frame {
 
             enemyPlaneList.add(new EnemyPlane(110, -y * 32, ImageMap.get("ep04"), d, 4));
 
-            stoneList.add(new Stones(300, -y * 20, ImageMap.get("stone"), 1));
-            stoneList.add(new Stones(180, -y * 30, ImageMap.get("stone"), 2));
-
             enemyPlaneList.add(new EnemyPlane(200, -y * 38, ImageMap.get("BOSS01"), e, 5));
             enemyPlaneList.add(new EnemyPlane(180, -y * 39, ImageMap.get("ep01"), a, 1));
             enemyPlaneList.add(new EnemyPlane(220, -y * 39, ImageMap.get("ep01"), a, 1));
@@ -237,6 +254,30 @@ public class GameFrame extends Frame {
             enemyPlaneList.add(new EnemyPlane(150, -y * 41, ImageMap.get("ep04"), d, 4));
             enemyPlaneList.add(new EnemyPlane(250, -y * 41, ImageMap.get("ep04"), d, 4));
             enemyPlaneList.add(new EnemyPlane(300, -y * 50, ImageMap.get("BOSS01"), e, 5));
+
+//            陨石
+            stoneList.add(new Stones(200, -y, ImageMap.get("stone"), 1));
+            stoneList.add(new Stones(-100, -y * 8, ImageMap.get("stone"), 1));
+            stoneList.add(new Stones(400, -y * 8, ImageMap.get("stone"), 1));
+            stoneList.add(new Stones(300, -y * 20, ImageMap.get("stone"), 1));
+            stoneList.add(new Stones(180, -y * 30, ImageMap.get("stone"), 2));
+            stoneList.add(new Stones(300, -y * 20, ImageMap.get("stone"), 1));
+//            激光
+            lightList.add(new Light(100, -y * 15, ImageMap.get("light")));
+            lightList.add(new Light(10, -y * 50, ImageMap.get("light")));
+            lightList.add(new Light(400, -y * 50, ImageMap.get("light")));
+            lightList.add(new Light(220, -y * 80, ImageMap.get("light")));
+            lightList.add(new Light(130, -y * 100, ImageMap.get("light")));
+            lightList.add(new Light(355, -y * 103, ImageMap.get("light")));
+            lightList.add(new Light(205, -y * 106, ImageMap.get("light")));
+            lightList.add(new Light(r.nextInt(50) + 10, -y * 120, ImageMap.get("light")));
+            lightList.add(new Light(r.nextInt(50) + 300, -y * 125, ImageMap.get("light")));
+            lightList.add(new Light(r.nextInt(50) + 155, -y * 135, ImageMap.get("light")));
+            lightList.add(new Light(r.nextInt(50) + 200, -y * 170, ImageMap.get("light")));
+            lightList.add(new Light(r.nextInt(50) + 150, -y * 180, ImageMap.get("light")));
+            lightList.add(new Light(r.nextInt(50) + 300, -y * 190, ImageMap.get("light")));
+            lightList.add(new Light(r.nextInt(50) + 180, -y * 250, ImageMap.get("light")));
+            lightList.add(new Light(r.nextInt(50) + 150, -y * 260, ImageMap.get("light")));
 
         }
 
