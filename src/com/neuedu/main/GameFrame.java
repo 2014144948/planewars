@@ -8,6 +8,7 @@ import com.neuedu.runtime.EnemyBullet;
 import com.neuedu.runtime.EnemyPlane;
 import com.neuedu.runtime.Plane;
 import com.neuedu.runtime.Plane2;
+import com.neuedu.runtime.Stones;
 import com.neuedu.util.ImageMap;
 
 import java.awt.Color;
@@ -39,6 +40,8 @@ public class GameFrame extends Frame {
 
     //    创建BOSS
     public final List<Boss> bossList = new CopyOnWriteArrayList<>();
+    //    创建陨石集合
+    public final List<Stones> stoneList = new CopyOnWriteArrayList<>();
 
     public boolean p1GameOver, p2GameOver;
     //    得分
@@ -83,7 +86,7 @@ public class GameFrame extends Frame {
             }
 
             for (Bullet bullet : bulletList) {
-                bullet.collisionTest(enemyPlaneList, bossList);
+                bullet.collisionTest(enemyPlaneList, bossList, stoneList);
             }
 
             for (EnemyPlane enemyPlane : enemyPlaneList) {
@@ -97,6 +100,16 @@ public class GameFrame extends Frame {
             for (Boss boss : bossList) {
                 boss.collisionTest(plane, plane2);
             }
+
+            for (Stones stones : stoneList) {
+                stones.draw(g);
+
+            }
+
+            for (Stones stones : stoneList) {
+                stones.collisionTest(plane, plane2);
+            }
+
         } else {
             if (Boss.alive && !(p1GameOver && p2GameOver)) {
                 g.setFont(new Font("黑体", 0, 100));
@@ -124,7 +137,6 @@ public class GameFrame extends Frame {
             }
 
         }
-
 
 
     }
@@ -172,6 +184,8 @@ public class GameFrame extends Frame {
             enemyPlaneList.add(new EnemyPlane(200, -y, ImageMap.get("ep01"), a, 1));
             enemyPlaneList.add(new EnemyPlane(300, -y, ImageMap.get("ep03"), c, 3));
 
+            stoneList.add(new Stones(200, -y, ImageMap.get("stone"), 1));
+
             enemyPlaneList.add(new EnemyPlane(150, -y * 2, ImageMap.get("ep02"), b, 2));
             enemyPlaneList.add(new EnemyPlane(250, -y * 2, ImageMap.get("ep01"), a, 1));
 
@@ -183,6 +197,9 @@ public class GameFrame extends Frame {
             enemyPlaneList.add(new EnemyPlane(110, -y * 8, ImageMap.get("ep03"), c, 3));
             enemyPlaneList.add(new EnemyPlane(210, -y * 8, ImageMap.get("ep01"), a, 1));
             enemyPlaneList.add(new EnemyPlane(310, -y * 8, ImageMap.get("ep01"), a, 1));
+
+            stoneList.add(new Stones(-100, -y * 8, ImageMap.get("stone"), 1));
+            stoneList.add(new Stones(400, -y * 8, ImageMap.get("stone"), 1));
 
             enemyPlaneList.add(new EnemyPlane(100, -y * 10, ImageMap.get("ep03"), c, 3));
             enemyPlaneList.add(new EnemyPlane(150, -y * 10, ImageMap.get("ep01"), a, 1));
@@ -208,6 +225,8 @@ public class GameFrame extends Frame {
             enemyPlaneList.add(new EnemyPlane(250, -y * 29, ImageMap.get("ep04"), d, 4));
 
             enemyPlaneList.add(new EnemyPlane(110, -y * 32, ImageMap.get("ep04"), d, 4));
+
+            stoneList.add(new Stones(180, -y * 30, ImageMap.get("stone"), 2));
 
             enemyPlaneList.add(new EnemyPlane(200, -y * 38, ImageMap.get("BOSS01"), e, 5));
             enemyPlaneList.add(new EnemyPlane(180, -y * 39, ImageMap.get("ep01"), a, 1));

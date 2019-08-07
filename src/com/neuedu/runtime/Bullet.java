@@ -53,7 +53,7 @@ public class Bullet extends BaseSprite implements Moveable, Drawable {
         return new Rectangle(getX(), getY(), image.getWidth(null), image.getHeight(null));
     }
 
-    public void collisionTest(List<EnemyPlane> enemyPlaneList, List<Boss> bossList) {
+    public void collisionTest(List<EnemyPlane> enemyPlaneList, List<Boss> bossList, List<Stones> stonesList) {
         GameFrame gameFrame = DataStore.get("gameFrame");
 //        打敌机
         for (EnemyPlane enemyPlane : enemyPlaneList) {
@@ -77,6 +77,12 @@ public class Bullet extends BaseSprite implements Moveable, Drawable {
                     boss.setAlive(false);
                     gameFrame.score += 100;
                 }
+            }
+        }
+//        打陨石
+        for (Stones stones : stonesList) {
+            if(stones.getRectangle().intersects(this.getRectangle())){
+                gameFrame.bulletList.remove(this);
             }
         }
     }
