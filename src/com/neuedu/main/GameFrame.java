@@ -226,6 +226,7 @@ public class GameFrame extends Frame {
 
             enemyPlaneList.add(new EnemyPlane(110, -y * 32, ImageMap.get("ep04"), d, 4));
 
+            stoneList.add(new Stones(300, -y * 20, ImageMap.get("stone"), 1));
             stoneList.add(new Stones(180, -y * 30, ImageMap.get("stone"), 2));
 
             enemyPlaneList.add(new EnemyPlane(200, -y * 38, ImageMap.get("BOSS01"), e, 5));
