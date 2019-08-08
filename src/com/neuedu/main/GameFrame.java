@@ -1,15 +1,7 @@
 package com.neuedu.main;
 
 import com.neuedu.constant.FrameConstant;
-import com.neuedu.runtime.Background;
-import com.neuedu.runtime.Boss;
-import com.neuedu.runtime.Bullet;
-import com.neuedu.runtime.EnemyBullet;
-import com.neuedu.runtime.EnemyPlane;
-import com.neuedu.runtime.Light;
-import com.neuedu.runtime.Plane;
-import com.neuedu.runtime.Plane2;
-import com.neuedu.runtime.Stones;
+import com.neuedu.runtime.*;
 import com.neuedu.util.ImageMap;
 
 import java.awt.Color;
@@ -35,6 +27,8 @@ public class GameFrame extends Frame {
     //    创建飞机对象
     private Plane plane = new Plane();
     private Plane2 plane2 = new Plane2();
+    //    创建技能集合
+    public final List<Skill> skillList = new CopyOnWriteArrayList<>();
     //    创建子弹集合
     public final List<Bullet> bulletList = new CopyOnWriteArrayList<>();
     //    创建敌机集合
@@ -67,16 +61,22 @@ public class GameFrame extends Frame {
             }
             if (enemyPlaneList.isEmpty() && bossList.isEmpty() && Boss.alive == true) {
 
-                stoneList.add(new Stones(100,-500 * 2, ImageMap.get("stone"),1));
-                stoneList.add(new Stones(0,-500 * 4, ImageMap.get("stone"),1));
-                stoneList.add(new Stones(350,-500 * 5, ImageMap.get("stone"),1));
+                stoneList.add(new Stones(100, -500 * 2, ImageMap.get("stone"), 1));
+                stoneList.add(new Stones(0, -500 * 4, ImageMap.get("stone"), 1));
+                stoneList.add(new Stones(350, -500 * 5, ImageMap.get("stone"), 1));
 
-                lightList.add(new Light(r.nextInt(100) + 100, -500 * 2, ImageMap.get("light")));
-                lightList.add(new Light(r.nextInt(100) + 220, -500 * 3, ImageMap.get("light")));
-                lightList.add(new Light(r.nextInt(100), -500 * 4, ImageMap.get("light")));
-                lightList.add(new Light(r.nextInt(100) + 50, -500 * 5, ImageMap.get("light")));
-                lightList.add(new Light(r.nextInt(100) + 300, -500 * 12, ImageMap.get("light")));
-                lightList.add(new Light(r.nextInt(100) + 255, -500 * 20, ImageMap.get("light")));
+                lightList.add(new Light(r.nextInt(200) + 100, -500 * 2, ImageMap.get("light")));
+                lightList.add(new Light(r.nextInt(200) + 220, -500 * 3, ImageMap.get("light")));
+                lightList.add(new Light(r.nextInt(200), -500 * 4, ImageMap.get("light")));
+                lightList.add(new Light(r.nextInt(200) + 50, -500 * 5, ImageMap.get("light")));
+                lightList.add(new Light(r.nextInt(200) + 300, -500 * 12, ImageMap.get("light")));
+                lightList.add(new Light(r.nextInt(200) + 100, -500 * 20, ImageMap.get("light")));
+
+                lightList.add(new Light(r.nextInt(500), -500 * 50, ImageMap.get("light")));
+                lightList.add(new Light(r.nextInt(500), -500 * 51, ImageMap.get("light")));
+                lightList.add(new Light(r.nextInt(500), -500 * 52, ImageMap.get("light")));
+                lightList.add(new Light(r.nextInt(500), -500 * 53, ImageMap.get("light")));
+                lightList.add(new Light(r.nextInt(500), -500 * 54, ImageMap.get("light")));
                 bossList.add(new Boss(150, -550, ImageMap.get("BOSS02"), 255));
             }
             if (Boss.alive == false) {
@@ -114,6 +114,10 @@ public class GameFrame extends Frame {
                 enemyBullet.collisionTest(plane, plane2);
             }
 
+            for (EnemyBullet enemyBullet : enemyBulletList) {
+                enemyBullet.collisionTest(skillList);
+            }
+
             for (Boss boss : bossList) {
                 boss.collisionTest(plane, plane2);
             }
@@ -133,6 +137,10 @@ public class GameFrame extends Frame {
 
             for (Light light : lightList) {
                 light.collisionTest(plane, plane2);
+            }
+
+            for (Skill skill : skillList) {
+                skill.draw(g);
             }
 
         } else {
@@ -161,6 +169,13 @@ public class GameFrame extends Frame {
                 index = 260;
             }
 
+        }
+
+        if (Plane2.skill01) {
+            g.setColor(new Color(255, 255, 255));
+            g.setFont(new Font("楷体", 0, 20));
+            g.drawRect(350, 640, Plane2.skill01time / 4, 10);
+            g.fillRect(350, 640, Plane2.s01 / 4, 10);
         }
 
 

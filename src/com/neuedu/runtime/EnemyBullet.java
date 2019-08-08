@@ -10,6 +10,7 @@ import com.neuedu.util.DataStore;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.util.List;
 
 public class EnemyBullet extends BaseSprite implements Moveable, Drawable {
 
@@ -227,6 +228,16 @@ public class EnemyBullet extends BaseSprite implements Moveable, Drawable {
         }
         if (Plane2.hp == 0) {
             gameFrame.p2GameOver = true;
+        }
+
+    }
+
+    public void collisionTest(List<Skill> skillList) {
+        GameFrame gameFrame = DataStore.get("gameFrame");
+        for (Skill skill : skillList) {
+            if (skill.getRectangle().intersects(this.getRectangle())) {
+                gameFrame.enemyBulletList.remove(this);
+            }
         }
     }
 

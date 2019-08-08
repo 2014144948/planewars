@@ -20,6 +20,7 @@ public class Plane2 extends BaseSprite implements Moveable, Drawable {
 
     private boolean up, right, down, left;
     private boolean fire;
+    public static boolean skill01;
 
     private int speed = FrameConstant.GAME_SPEED * 5;
     private int fireSpeed = FrameConstant.GAME_SPEED * 10;
@@ -31,6 +32,11 @@ public class Plane2 extends BaseSprite implements Moveable, Drawable {
 
     public static int hp = 10;
 
+    public static int skill01time = 500;
+
+    public boolean isSkill01() {
+        return skill01;
+    }
 
     public Plane2() {
         this((FrameConstant.GAME_WIDTH - ImageMap.get("my01").getWidth(null) / 2) / 2 + 100,
@@ -64,6 +70,7 @@ public class Plane2 extends BaseSprite implements Moveable, Drawable {
     public void draw(Graphics g) {
         move();
         fire();
+        skill01();
         g.drawImage(image, getX(), getY(), image.getWidth(null) / 2, image.getHeight(null) / 2, null);
         g.drawImage(Himage, HgetX, HgetY,
                 ImageMap.get("myheart").getWidth(null),
@@ -80,11 +87,27 @@ public class Plane2 extends BaseSprite implements Moveable, Drawable {
     }
 
     public void fire() {
-        if (fire && index == 0) {
+        if (fire && !skill01 && index == 0) {
             GameFrame gameFrame = DataStore.get("gameFrame");
             gameFrame.bulletList.add(new Bullet(getX() + image.getWidth(null) / 2 / 2 - ImageMap.get("mb01").getWidth(null) / 2,
                     getY() - ImageMap.get("mb01").getHeight(null), ImageMap.get("mb01")));
 
+        }
+    }
+
+    public static int s01 = 0;
+
+    public void skill01() {
+        if (!fire && skill01) {
+            s01++;
+            if (s01 > skill01time) {
+                GameFrame gameFrame = DataStore.get("gameFrame");
+                gameFrame.skillList.add(new Skill(getX() + image.getWidth(null) / 4 - ImageMap.get("s01").getWidth(null) / 2,
+                        getY() - ImageMap.get("s01").getHeight(null), ImageMap.get("s01")));
+                s01 = 0;
+            }
+        }else{
+            s01 = 0;
         }
     }
 
@@ -148,6 +171,10 @@ public class Plane2 extends BaseSprite implements Moveable, Drawable {
         if (e.getKeyCode() == KeyEvent.VK_NUMPAD3) {
             fire = true;
         }
+        if (e.getKeyCode() == KeyEvent.VK_NUMPAD6) {
+            skill01 = true;
+        }
+
     }
 
     public void keyReleased(KeyEvent e) {
@@ -167,6 +194,9 @@ public class Plane2 extends BaseSprite implements Moveable, Drawable {
         }
         if (e.getKeyCode() == KeyEvent.VK_NUMPAD3) {
             fire = false;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_NUMPAD6) {
+            skill01 = false;
         }
 
     }

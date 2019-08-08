@@ -197,7 +197,6 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
         gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS02").getWidth(null) / 2 / 2 - 5,
                 getY() + image.getHeight(null) / 2, ImageMap.get("epb03"), 9));
 
-
     }
 
     //    天女散花
