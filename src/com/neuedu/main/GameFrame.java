@@ -171,6 +171,13 @@ public class GameFrame extends Frame {
 
         }
 
+        if (Plane.skill01) {
+            g.setColor(new Color(255, 255, 255));
+            g.setFont(new Font("楷体", 0, 20));
+            g.drawRect(20, 640, Plane.skill01time * 2, 10);
+            g.fillRect(20, 640, Plane.s01 * 2, 10);
+        }
+
         if (Plane2.skill01) {
             g.setColor(new Color(255, 255, 255));
             g.setFont(new Font("楷体", 0, 20));

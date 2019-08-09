@@ -33,7 +33,9 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
     public static int hp = 10;
 
     public static boolean pause;
+    public static boolean skill01;
 
+    public static int skill01time = 50;
 
     public Plane() {
         this((FrameConstant.GAME_WIDTH - ImageMap.get("my01").getWidth(null) / 2) / 2 - 100,
@@ -67,11 +69,14 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
     public void draw(Graphics g) {
         move();
         fire();
+        Skill01();
         g.drawImage(image, getX(), getY(), image.getWidth(null) / 2, image.getHeight(null) / 2, null);
         g.drawImage(Himage, HgetX, HgetY,
                 ImageMap.get("myheart").getWidth(null),
                 ImageMap.get("myheart").getHeight(null),
                 null);
+
+
         if (fire) {
             index++;
             if (index >= fireSpeed) {
@@ -88,6 +93,32 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
             gameFrame.bulletList.add(new Bullet(getX() + image.getWidth(null) / 2 / 2 - ImageMap.get("mb01").getWidth(null) / 2,
                     getY() - ImageMap.get("mb01").getHeight(null), ImageMap.get("mb01")));
 
+        }
+    }
+
+
+    public static int s01 = 0;
+
+    public void Skill01() {
+        if (!fire && skill01) {
+            s01++;
+            if (s01 > skill01time) {
+                GameFrame gameFrame = DataStore.get("gameFrame");
+                gameFrame.bulletList.add(new Bullet(getX() + image.getWidth(null) / 2 / 2 - ImageMap.get("mb01").getWidth(null) / 2 + 20,
+                        getY() - ImageMap.get("mb01").getHeight(null) + 20, ImageMap.get("mb01")));
+                gameFrame.bulletList.add(new Bullet(getX() + image.getWidth(null) / 2 / 2 - ImageMap.get("mb01").getWidth(null) / 2 + 10,
+                        getY() - ImageMap.get("mb01").getHeight(null) + 10, ImageMap.get("mb01")));
+                gameFrame.bulletList.add(new Bullet(getX() + image.getWidth(null) / 2 / 2 - ImageMap.get("mb01").getWidth(null) / 2,
+                        getY() - ImageMap.get("mb01").getHeight(null), ImageMap.get("mb01")));
+                gameFrame.bulletList.add(new Bullet(getX() + image.getWidth(null) / 2 / 2 - ImageMap.get("mb01").getWidth(null) / 2 - 10,
+                        getY() - ImageMap.get("mb01").getHeight(null) + 10, ImageMap.get("mb01")));
+                gameFrame.bulletList.add(new Bullet(getX() + image.getWidth(null) / 2 / 2 - ImageMap.get("mb01").getWidth(null) / 2 - 20,
+                        getY() - ImageMap.get("mb01").getHeight(null) + 20, ImageMap.get("mb01")));
+                s01 = 0;
+            }
+
+        } else {
+            s01 = 0;
         }
     }
 
@@ -151,6 +182,9 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
         if (e.getKeyCode() == KeyEvent.VK_J) {
             fire = true;
         }
+        if (e.getKeyCode() == KeyEvent.VK_U) {
+            skill01 = true;
+        }
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {
             pause = !pause;
         }
@@ -173,6 +207,9 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
         }
         if (e.getKeyCode() == KeyEvent.VK_J) {
             fire = false;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_U) {
+            skill01 = false;
         }
 
     }
