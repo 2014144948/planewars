@@ -181,8 +181,8 @@ public class GameFrame extends Frame {
         if (Plane2.skill01) {
             g.setColor(new Color(255, 255, 255));
             g.setFont(new Font("楷体", 0, 20));
-            g.drawRect(350, 640, Plane2.skill01time / 4, 10);
-            g.fillRect(350, 640, Plane2.s01 / 4, 10);
+            g.drawRect(340, 640, Plane2.skill01time / 3, 10);
+            g.fillRect(340, 640, Plane2.s01 / 3, 10);
         }
 
 

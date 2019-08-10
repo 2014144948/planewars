@@ -95,7 +95,7 @@ public class EnemyPlane extends BaseSprite implements Moveable, Drawable {
             int r2 = r.nextInt(100);
             fireIndexValue++;
             GameFrame gameFrame = DataStore.get("gameFrame");
-            if (r1 > fireIndex - 2) {
+            if (r1 > fireIndex - 1) {
                 if (r2 > bulletStyleB) {
                     gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("ep01").getWidth(null) / 2 / 2 - 5,
                             getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 19));
