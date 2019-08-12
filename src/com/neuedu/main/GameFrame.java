@@ -21,8 +21,8 @@ public class GameFrame extends Frame {
 
     Random r = new Random();
 
-    //    创建背景对象
-    private Background background = new Background();
+    //    创建背景集合
+    public final List<Background> backgroundList = new CopyOnWriteArrayList<>();
 
     //    创建飞机对象
     private Plane plane = new Plane();
@@ -46,13 +46,36 @@ public class GameFrame extends Frame {
     public boolean p1GameOver, p2GameOver;
     //    得分
     public static int score = 0;
-    //    BOSS动态血量
-    int index = 0;
+    //    当前关卡的下一关
+    public static int level = 0;
+    //    是否过关
+    private boolean levelUp;
+
+
+    //    不同敌机的生命值
+    int a = 10;
+    int b = 20;
+    int c = 30;
+    int d = 40;
+    int e = 50;
+    int f = 60;
+    int g = 70;
+    int h = 80;
+    int i = 90;
+    int j = 100;
+    //    Y坐标的基数
+    int y = 500;
+    //    陨石的速度
+    int stoneSpeed = 1;
+    //    激光的速度
+    int lightSpeed = 15;
 
     @Override
     public void paint(Graphics g) {
         if (!Plane.pause) {
-            background.draw(g);
+            for (Background background : backgroundList) {
+                background.draw(g);
+            }
             if (!p1GameOver) {
                 plane.draw(g);
             }
@@ -60,30 +83,145 @@ public class GameFrame extends Frame {
                 plane2.draw(g);
             }
             if (enemyPlaneList.isEmpty() && bossList.isEmpty() && Boss.alive == true) {
+                bossList.add(new Boss(150, -550, ImageMap.get("BOSS0" + level), 255));
 
-                stoneList.add(new Stones(100, -500 * 2, ImageMap.get("stone"), 1));
-                stoneList.add(new Stones(0, -500 * 4, ImageMap.get("stone"), 1));
-                stoneList.add(new Stones(350, -500 * 5, ImageMap.get("stone"), 1));
-
-                lightList.add(new Light(r.nextInt(200) + 100, -500 * 2, ImageMap.get("light")));
-                lightList.add(new Light(r.nextInt(200) + 220, -500 * 3, ImageMap.get("light")));
-                lightList.add(new Light(r.nextInt(200), -500 * 4, ImageMap.get("light")));
-                lightList.add(new Light(r.nextInt(200) + 50, -500 * 5, ImageMap.get("light")));
-                lightList.add(new Light(r.nextInt(200) + 300, -500 * 12, ImageMap.get("light")));
-                lightList.add(new Light(r.nextInt(200) + 100, -500 * 20, ImageMap.get("light")));
-
-                lightList.add(new Light(r.nextInt(500), -500 * 50, ImageMap.get("light")));
-                lightList.add(new Light(r.nextInt(500), -500 * 51, ImageMap.get("light")));
-                lightList.add(new Light(r.nextInt(500), -500 * 52, ImageMap.get("light")));
-                lightList.add(new Light(r.nextInt(500), -500 * 53, ImageMap.get("light")));
-                lightList.add(new Light(r.nextInt(500), -500 * 54, ImageMap.get("light")));
-                bossList.add(new Boss(150, -550, ImageMap.get("BOSS02"), 255));
             }
+            if (bossList.isEmpty() == false) {
+//                BOSS血量显示
+                if (Boss.HP < 0) {
+                    Boss.HP = 0;
+                }
+                g.setColor(new Color(255, Boss.HP, 0));
+                g.drawRect(180, 50, 255, 10);
+                g.fillRect(180, 50, Boss.HP, 10);
+            }
+
             if (Boss.alive == false) {
                 bossList.clear();
-                g.setFont(new Font("黑体", 0, 100));
-                g.setColor(Color.RED);
-                g.drawString("VICTORY", 100, 350);
+                stoneList.clear();
+                lightList.clear();
+                if (level < 9) {
+                    backgroundList.clear();
+                }
+                levelUp = true;
+                if (backgroundList.isEmpty() && level < 10) {
+                    level++;
+                    backgroundList.add(new Background(0, FrameConstant.GAME_HEIGHT - ImageMap.get("bg0" + level).getHeight(null), level, ImageMap.get("bg0" + level)));
+                    levelUp = false;
+                    Boss.alive = true;
+                }
+                if (level > 8 && bossList.isEmpty()) {
+                    g.setFont(new Font("黑体", 0, 100));
+                    g.setColor(Color.RED);
+                    g.drawString("VICTORY", 100, 350);
+                    enemyPlaneList.add(new EnemyPlane(0,-y * y * y,ImageMap.get("epA1"),a,1,1));
+                }
+            }
+
+            if (enemyPlaneList.isEmpty() && bossList.isEmpty() && stoneList.isEmpty() && lightList.isEmpty()) {
+                if (level == 2) {
+                    enemyPlaneList.add(new EnemyPlane(50, -y, ImageMap.get("epA1"), a, 1, 1));
+                    enemyPlaneList.add(new EnemyPlane(150, -y, ImageMap.get("epA2"), b, 2, 2));
+                    enemyPlaneList.add(new EnemyPlane(250, -y, ImageMap.get("epA1"), a, 1, 1));
+                    enemyPlaneList.add(new EnemyPlane(60, -y * 2, ImageMap.get("epA3"), c, 3, 6));
+                    enemyPlaneList.add(new EnemyPlane(160, -y * 2, ImageMap.get("epB1"), a, 5, 2));
+                    enemyPlaneList.add(new EnemyPlane(260, -y * 3, ImageMap.get("epC1"), a, 9, 1));
+                    enemyPlaneList.add(new EnemyPlane(100, -y * 4, ImageMap.get("epA1"), a, 1, 1));
+                    enemyPlaneList.add(new EnemyPlane(300, -y * 5, ImageMap.get("epB2"), b, 8, 2));
+                    enemyPlaneList.add(new EnemyPlane(100, -y * 6, ImageMap.get("epA1"), a, 1, 1));
+                    enemyPlaneList.add(new EnemyPlane(10, -y * 7, ImageMap.get("epC1"), a, 9, 1));
+                    enemyPlaneList.add(new EnemyPlane(110, -y * 7, ImageMap.get("epA2"), b, 2, 2));
+                    enemyPlaneList.add(new EnemyPlane(210, -y * 7, ImageMap.get("epA3"), c, 3, 6));
+                    enemyPlaneList.add(new EnemyPlane(310, -y * 7, ImageMap.get("epB2"), b, 8, 2));
+                    enemyPlaneList.add(new EnemyPlane(400, -y * 8, ImageMap.get("epB1"), a, 5, 2));
+                    enemyPlaneList.add(new EnemyPlane(220, -y * 10, ImageMap.get("epA1"), a, 1, 1));
+                } else if (level == 3) {
+                    stoneList.add(new Stones(0, -y * 3, ImageMap.get("stone"), stoneSpeed));
+
+                    enemyPlaneList.add(new EnemyPlane(50, -y, ImageMap.get("epA1"), a, 1, 1));
+                    enemyPlaneList.add(new EnemyPlane(150, -y, ImageMap.get("epB2"), b, 8, 2));
+                    enemyPlaneList.add(new EnemyPlane(250, -y, ImageMap.get("epA1"), a, 1, 1));
+                    enemyPlaneList.add(new EnemyPlane(60, -y * 3, ImageMap.get("epC1"), c, 9, 1));
+                    enemyPlaneList.add(new EnemyPlane(160, -y * 3, ImageMap.get("epB1"), a, 5, 2));
+                    enemyPlaneList.add(new EnemyPlane(260, -y * 4, ImageMap.get("epC1"), b, 9, 1));
+                    enemyPlaneList.add(new EnemyPlane(100, -y * 5, ImageMap.get("epA1"), a, 1, 1));
+                    enemyPlaneList.add(new EnemyPlane(300, -y * 6, ImageMap.get("epB2"), b, 8, 2));
+                    enemyPlaneList.add(new EnemyPlane(100, -y * 6, ImageMap.get("epA1"), a, 1, 1));
+                    enemyPlaneList.add(new EnemyPlane(10, -y * 7, ImageMap.get("epC1"), a, 9, 1));
+                    enemyPlaneList.add(new EnemyPlane(110, -y * 8, ImageMap.get("epC2"), b, 10, 2));
+                    enemyPlaneList.add(new EnemyPlane(210, -y * 8, ImageMap.get("epC2"), c, 10, 2));
+                    enemyPlaneList.add(new EnemyPlane(310, -y * 10, ImageMap.get("epB2"), b, 8, 2));
+                    enemyPlaneList.add(new EnemyPlane(200, -y * 10, ImageMap.get("epD1"), c, 12, 7));
+                    enemyPlaneList.add(new EnemyPlane(220, -y * 10, ImageMap.get("epA1"), a, 1, 1));
+                } else if (level == 4) {
+                    stoneList.add(new Stones(0, -y * 2, ImageMap.get("stone"), stoneSpeed));
+                    stoneList.add(new Stones(100, -y * 6, ImageMap.get("stone"), stoneSpeed * 2));
+                    stoneList.add(new Stones(300, -y * 8, ImageMap.get("stone"), stoneSpeed));
+
+                    enemyPlaneList.add(new EnemyPlane(100, -y, ImageMap.get("epA2"), b, 2, 2));
+                    enemyPlaneList.add(new EnemyPlane(400, -y, ImageMap.get("epC1"), a, 9, 1));
+                    enemyPlaneList.add(new EnemyPlane(150, -y * 2, ImageMap.get("epC3"), c, 9, 3));
+                    enemyPlaneList.add(new EnemyPlane(200, -y * 3, ImageMap.get("epB1"), a, 5, 2));
+                    enemyPlaneList.add(new EnemyPlane(300, -y * 3, ImageMap.get("epA2"), b, 2, 2));
+                    enemyPlaneList.add(new EnemyPlane(100, -y * 5, ImageMap.get("epA3"), d, 3, 6));
+                    enemyPlaneList.add(new EnemyPlane(200, -y * 5, ImageMap.get("epB1"), a, 5, 2));
+                    enemyPlaneList.add(new EnemyPlane(300, -y * 5, ImageMap.get("epB2"), b, 8, 2));
+                    enemyPlaneList.add(new EnemyPlane(10, -y * 7, ImageMap.get("epC2"), a, 10, 2));
+                    enemyPlaneList.add(new EnemyPlane(350, -y * 7, ImageMap.get("epA3"), d, 3, 6));
+                    enemyPlaneList.add(new EnemyPlane(250, -y * 10, ImageMap.get("epC1"), a, 9, 1));
+                    enemyPlaneList.add(new EnemyPlane(280, -y * 10, ImageMap.get("epC2"), a, 10, 2));
+                    enemyPlaneList.add(new EnemyPlane(120, -y * 11, ImageMap.get("epC3"), c, 9, 3));
+                    enemyPlaneList.add(new EnemyPlane(150, -y * 12, ImageMap.get("epB3"), b, 7, 3));
+                    enemyPlaneList.add(new EnemyPlane(350, -y * 12, ImageMap.get("epA2"), b, 2, 2));
+                    enemyPlaneList.add(new EnemyPlane(300, -y * 14, ImageMap.get("epA2"), a, 2, 2));
+                    enemyPlaneList.add(new EnemyPlane(200, -y * 15, ImageMap.get("epB2"), b, 8, 2));
+                    enemyPlaneList.add(new EnemyPlane(350, -y * 15, ImageMap.get("epB3"), c, 7, 3));
+                } else if (level == 5) {
+                    lightList.add(new Light(50,-y * 3,ImageMap.get("light"),10));
+                    lightList.add(new Light(100,-y * 12,ImageMap.get("light"),15));
+                    lightList.add(new Light(350,-y * 12,ImageMap.get("light"),15));
+                    lightList.add(new Light(200,-y * 30,ImageMap.get("light"),15));
+                    enemyPlaneList.add(new EnemyPlane(200, -y, ImageMap.get("epD4"), a, 16, 8));
+                } else if (level == 6) {
+                    lightList.add(new Light(100,-y * 5,ImageMap.get("light"),15));
+                    lightList.add(new Light(300,-y * 10,ImageMap.get("light"),15));
+                    lightList.add(new Light(250,-y * 15,ImageMap.get("light"),15));
+                    lightList.add(new Light(300,-y * 16,ImageMap.get("light"),15));
+                    lightList.add(new Light(150,-y * 20,ImageMap.get("light"),15));
+                    lightList.add(new Light(200,-y * 25,ImageMap.get("light"),15));
+                    lightList.add(new Light(250,-y * 25,ImageMap.get("light"),15));
+                    lightList.add(new Light(r.nextInt(500),-y * 30,ImageMap.get("light"),15));
+                    lightList.add(new Light(r.nextInt(500),-y * 35,ImageMap.get("light"),15));
+                    lightList.add(new Light(r.nextInt(500),-y * 36,ImageMap.get("light"),15));
+                    lightList.add(new Light(r.nextInt(500),-y * 37,ImageMap.get("light"),15));
+                    lightList.add(new Light(r.nextInt(500),-y * 46,ImageMap.get("light"),15));
+                    lightList.add(new Light(100,-y * 52,ImageMap.get("light"),15));
+                    lightList.add(new Light(100,-y * 55,ImageMap.get("light"),15));
+                    lightList.add(new Light(100,-y * 58,ImageMap.get("light"),15));
+                    lightList.add(new Light(r.nextInt(500),-y * 68,ImageMap.get("light"),15));
+                    lightList.add(new Light(r.nextInt(500),-y * 68,ImageMap.get("light"),15));
+                    lightList.add(new Light(r.nextInt(500),-y * 70,ImageMap.get("light"),15));
+                    lightList.add(new Light(r.nextInt(500),-y * 70,ImageMap.get("light"),15));
+                    lightList.add(new Light(r.nextInt(500),-y * 70,ImageMap.get("light"),15));
+
+                    enemyPlaneList.add(new EnemyPlane(100, -y, ImageMap.get("epA3"), b, 3, 6));
+                    enemyPlaneList.add(new EnemyPlane(200, -y, ImageMap.get("epC3"), a, 9, 3));
+                    enemyPlaneList.add(new EnemyPlane(150, -y * 3, ImageMap.get("epC4"), f, 10, 4));
+                    enemyPlaneList.add(new EnemyPlane(250, -y * 3, ImageMap.get("epD3"), d, 15, 5));
+                    enemyPlaneList.add(new EnemyPlane(100, -y * 10, ImageMap.get("epA4"), f, 4, 8));
+                    enemyPlaneList.add(new EnemyPlane(280, -y * 10, ImageMap.get("epA3"), b, 3, 6));
+                    enemyPlaneList.add(new EnemyPlane(380, -y * 12, ImageMap.get("epA3"), b, 3, 6));
+                    enemyPlaneList.add(new EnemyPlane(50, -y * 13, ImageMap.get("epD3"), c, 15, 5));
+                    enemyPlaneList.add(new EnemyPlane(160, -y * 15, ImageMap.get("epB4"), c, 2, 6));
+                    enemyPlaneList.add(new EnemyPlane(300, -y * 15, ImageMap.get("epD4"), f, 16, 8));
+                } else if (level == 7) {
+                    enemyPlaneList.add(new EnemyPlane(200, -y, ImageMap.get("epE2"), a, 1, 7));
+                } else if (level == 8) {
+                    enemyPlaneList.add(new EnemyPlane(300, -y, ImageMap.get("epE3"), a, 9, 6));
+                } else if (level == 9) {
+                    enemyPlaneList.add(new EnemyPlane(200, -y, ImageMap.get("epE4"), a, 14, 5));
+                }
+
             }
 
             for (Bullet bullet : bulletList) {
@@ -156,20 +294,42 @@ public class GameFrame extends Frame {
 
             g.setColor(new Color(255, 255, 255));
             g.setFont(new Font("楷体", 0, 20));
-            g.drawString("赤龙X", 80, 60);
-
-            g.setColor(new Color(255, Boss.HP, 0));
-            g.drawRect(150, 50, 255, 10);
-
-            if (index < 255) {
-                index++;
-                g.fillRect(150, 50, index, 10);
-            } else {
-                g.fillRect(150, 50, Boss.HP, 10);
-                index = 260;
+            switch (level) {
+                case 1:
+                    g.drawString("青龙X", 90, 60);
+                    break;
+                case 2:
+                    g.drawString("尖峰X", 90, 60);
+                    break;
+                case 3:
+                    g.drawString("风暴X", 90, 60);
+                    break;
+                case 4:
+                    g.drawString("毁灭者", 90, 60);
+                    break;
+                case 5:
+                    g.drawString("赤龙X", 90, 60);
+                    break;
+                case 6:
+                    g.drawString("虚空幻影", 90, 60);
+                    break;
+                case 7:
+                    g.drawString("恶魔之眼", 90, 60);
+                    break;
+                case 8:
+                    g.drawString("钢铁之臂", 90, 60);
+                    break;
+                case 9:
+                    g.drawString("艾利欧格", 90, 60);
+                    break;
             }
 
         }
+
+//        关卡提示
+        g.setColor(new Color(0, 255, 0));
+        g.setFont(new Font("楷体", 0, 20));
+        g.drawString("level:" + level, 10, 60);
 
         if (Plane.skill01) {
             g.setColor(new Color(255, 255, 255));
@@ -217,90 +377,25 @@ public class GameFrame extends Frame {
         });
 
 
+        if (backgroundList.isEmpty()) {
+            backgroundList.add(new Background(0, FrameConstant.GAME_HEIGHT - ImageMap.get("bg01").getHeight(null), 1, ImageMap.get("bg01")));
+
+        }
+
+
+        level = 1;
         if (enemyPlaneList.isEmpty()) {
-//            不同敌机的生命值
-            int a = 30;
-            int b = 15;
-            int c = 20;
-            int d = 50;
-            int e = 100;
-//            Y坐标的基数
-            int y = 500;
 
-            enemyPlaneList.add(new EnemyPlane(100, -y, ImageMap.get("ep02"), b, 2));
-            enemyPlaneList.add(new EnemyPlane(200, -y, ImageMap.get("ep01"), a, 1));
-            enemyPlaneList.add(new EnemyPlane(300, -y, ImageMap.get("ep03"), c, 3));
-
-            enemyPlaneList.add(new EnemyPlane(150, -y * 2, ImageMap.get("ep02"), b, 2));
-            enemyPlaneList.add(new EnemyPlane(250, -y * 2, ImageMap.get("ep01"), a, 1));
-
-            enemyPlaneList.add(new EnemyPlane(80, -y * 5, ImageMap.get("ep03"), c, 3));
-            enemyPlaneList.add(new EnemyPlane(180, -y * 5, ImageMap.get("ep02"), b, 2));
-            enemyPlaneList.add(new EnemyPlane(280, -y * 5, ImageMap.get("ep01"), a, 1));
-            enemyPlaneList.add(new EnemyPlane(380, -y * 5, ImageMap.get("ep01"), a, 1));
-
-            enemyPlaneList.add(new EnemyPlane(110, -y * 8, ImageMap.get("ep03"), c, 3));
-            enemyPlaneList.add(new EnemyPlane(210, -y * 8, ImageMap.get("ep01"), a, 1));
-            enemyPlaneList.add(new EnemyPlane(310, -y * 8, ImageMap.get("ep01"), a, 1));
-
-            enemyPlaneList.add(new EnemyPlane(100, -y * 10, ImageMap.get("ep03"), c, 3));
-            enemyPlaneList.add(new EnemyPlane(150, -y * 10, ImageMap.get("ep01"), a, 1));
-            enemyPlaneList.add(new EnemyPlane(200, -y * 10, ImageMap.get("ep01"), a, 1));
-            enemyPlaneList.add(new EnemyPlane(100, -y * 10, ImageMap.get("ep02"), b, 2));
-
-            enemyPlaneList.add(new EnemyPlane(100, -y * 14, ImageMap.get("ep02"), b, 2));
-            enemyPlaneList.add(new EnemyPlane(200, -y * 14, ImageMap.get("ep02"), b, 2));
-            enemyPlaneList.add(new EnemyPlane(200, -y * 14, ImageMap.get("ep02"), b, 2));
-
-            enemyPlaneList.add(new EnemyPlane(310, -y * 16, ImageMap.get("ep01"), a, 1));
-            enemyPlaneList.add(new EnemyPlane(150, -y * 16, ImageMap.get("ep01"), a, 1));
-
-            enemyPlaneList.add(new EnemyPlane(110, -y * 19, ImageMap.get("ep03"), c, 3));
-            enemyPlaneList.add(new EnemyPlane(310, -y * 19, ImageMap.get("ep01"), a, 1));
-            enemyPlaneList.add(new EnemyPlane(160, -y * 19, ImageMap.get("ep01"), a, 1));
-
-            enemyPlaneList.add(new EnemyPlane(110, -y * 23, ImageMap.get("ep03"), c, 3));
-            enemyPlaneList.add(new EnemyPlane(360, -y * 23, ImageMap.get("ep01"), a, 1));
-
-            enemyPlaneList.add(new EnemyPlane(130, -y * 29, ImageMap.get("ep01"), a, 1));
-            enemyPlaneList.add(new EnemyPlane(160, -y * 29, ImageMap.get("ep02"), b, 2));
-            enemyPlaneList.add(new EnemyPlane(250, -y * 29, ImageMap.get("ep04"), d, 4));
-
-            enemyPlaneList.add(new EnemyPlane(110, -y * 32, ImageMap.get("ep04"), d, 4));
-
-            enemyPlaneList.add(new EnemyPlane(200, -y * 38, ImageMap.get("BOSS01"), e, 5));
-            enemyPlaneList.add(new EnemyPlane(180, -y * 39, ImageMap.get("ep01"), a, 1));
-            enemyPlaneList.add(new EnemyPlane(220, -y * 39, ImageMap.get("ep01"), a, 1));
-            enemyPlaneList.add(new EnemyPlane(160, -y * 40, ImageMap.get("ep03"), b, 3));
-            enemyPlaneList.add(new EnemyPlane(240, -y * 40, ImageMap.get("ep03"), b, 3));
-            enemyPlaneList.add(new EnemyPlane(150, -y * 41, ImageMap.get("ep04"), d, 4));
-            enemyPlaneList.add(new EnemyPlane(250, -y * 41, ImageMap.get("ep04"), d, 4));
-            enemyPlaneList.add(new EnemyPlane(300, -y * 50, ImageMap.get("BOSS01"), e, 5));
-
-//            陨石
-            stoneList.add(new Stones(200, -y, ImageMap.get("stone"), 1));
-            stoneList.add(new Stones(-100, -y * 8, ImageMap.get("stone"), 1));
-            stoneList.add(new Stones(400, -y * 8, ImageMap.get("stone"), 1));
-            stoneList.add(new Stones(300, -y * 20, ImageMap.get("stone"), 1));
-            stoneList.add(new Stones(180, -y * 30, ImageMap.get("stone"), 2));
-            stoneList.add(new Stones(300, -y * 20, ImageMap.get("stone"), 1));
-//            激光
-            lightList.add(new Light(100, -y * 15, ImageMap.get("light")));
-            lightList.add(new Light(10, -y * 50, ImageMap.get("light")));
-            lightList.add(new Light(400, -y * 50, ImageMap.get("light")));
-            lightList.add(new Light(220, -y * 80, ImageMap.get("light")));
-            lightList.add(new Light(130, -y * 100, ImageMap.get("light")));
-            lightList.add(new Light(355, -y * 103, ImageMap.get("light")));
-            lightList.add(new Light(205, -y * 106, ImageMap.get("light")));
-            lightList.add(new Light(r.nextInt(50) + 10, -y * 120, ImageMap.get("light")));
-            lightList.add(new Light(r.nextInt(50) + 300, -y * 125, ImageMap.get("light")));
-            lightList.add(new Light(r.nextInt(50) + 155, -y * 135, ImageMap.get("light")));
-            lightList.add(new Light(r.nextInt(50) + 200, -y * 170, ImageMap.get("light")));
-            lightList.add(new Light(r.nextInt(50) + 150, -y * 180, ImageMap.get("light")));
-            lightList.add(new Light(r.nextInt(50) + 300, -y * 190, ImageMap.get("light")));
-            lightList.add(new Light(r.nextInt(50) + 180, -y * 250, ImageMap.get("light")));
-            lightList.add(new Light(r.nextInt(50) + 150, -y * 260, ImageMap.get("light")));
-
+            enemyPlaneList.add(new EnemyPlane(100, -y, ImageMap.get("epA1"), a, 1, 1));
+            enemyPlaneList.add(new EnemyPlane(200, -y, ImageMap.get("epA1"), a, 1, 1));
+            enemyPlaneList.add(new EnemyPlane(300, -y * 2, ImageMap.get("epA2"), a, 2, 2));
+            enemyPlaneList.add(new EnemyPlane(150, -y * 3, ImageMap.get("epA1"), a, 1, 1));
+            enemyPlaneList.add(new EnemyPlane(250, -y * 3, ImageMap.get("epB1"), a, 5, 2));
+            enemyPlaneList.add(new EnemyPlane(100, -y * 3, ImageMap.get("epA2"), a, 2, 2));
+            enemyPlaneList.add(new EnemyPlane(200, -y * 4, ImageMap.get("epC1"), a, 9, 1));
+            enemyPlaneList.add(new EnemyPlane(300, -y * 5, ImageMap.get("epB1"), a, 5, 2));
+            enemyPlaneList.add(new EnemyPlane(150, -y * 6, ImageMap.get("epA1"), a, 1, 1));
+            enemyPlaneList.add(new EnemyPlane(250, -y * 6, ImageMap.get("epC1"), a, 9, 1));
         }
 
         setVisible(true);

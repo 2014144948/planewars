@@ -23,6 +23,8 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
 
     private int Xspeed = FrameConstant.GAME_SPEED * 3;
     private int Yspeed = FrameConstant.GAME_SPEED * 2;
+//    BOSS的级别
+    private int level = 1;
 
     private int index = 0;
 
@@ -65,7 +67,7 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
     private int type;
 
     public Boss() {
-        this(100, -500, ImageMap.get("BOSS02"), 0);
+        this(100, -500, ImageMap.get("BOSS0"+GameFrame.level), 0);
     }
 
     public Boss(int x, int y, Image image, int HP) {
@@ -150,7 +152,7 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
             }
         }
 
-        if (fireIndexValue > 1500) {
+        if (fireIndexValue > 4000) {
             fireIndex--;
             fireIndexValue = 0;
         }

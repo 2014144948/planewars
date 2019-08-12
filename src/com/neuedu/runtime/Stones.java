@@ -44,9 +44,9 @@ public class Stones extends BaseSprite implements Moveable, Drawable {
     }
 
     public void outOfBound() {
-        if (getY() > FrameConstant.GAME_HEIGHT + 100) {
+        if (getY() > FrameConstant.GAME_HEIGHT + 10) {
             GameFrame gameFrame = DataStore.get("gameFrame");
-            gameFrame.bulletList.remove(this);
+            gameFrame.stoneList.remove(this);
         }
     }
 

@@ -16,16 +16,17 @@ public class Light extends BaseSprite implements Moveable, Drawable {
 
     private Image image;
 
-    private int speed = FrameConstant.GAME_SPEED * 15;
+    private int speed;
 
     public Light(){
-        this(0,0, ImageMap.get("stone"));
+        this(0,0, ImageMap.get("light"),0);
     }
 
 
-    public Light(int x, int y, Image image) {
+    public Light(int x, int y, Image image,int speed) {
         super(x, y);
         this.image = image;
+        this.speed = speed;
     }
 
     @Override
@@ -45,7 +46,7 @@ public class Light extends BaseSprite implements Moveable, Drawable {
     public void outOfBound() {
         if (getY() > FrameConstant.GAME_HEIGHT + 100) {
             GameFrame gameFrame = DataStore.get("gameFrame");
-            gameFrame.bulletList.remove(this);
+            gameFrame.lightList.remove(this);
         }
     }
 
