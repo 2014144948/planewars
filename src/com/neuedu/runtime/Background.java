@@ -183,14 +183,14 @@ public class Background extends BaseSprite implements Moveable, Drawable {
 
     public void move7() {
         index++;
-        if (index < indexValue * 30) {
+        if (index < indexValue * 20) {
             setY(getY() + speed);
-        } else if (index >= indexValue * 30 && index <= indexValue * 50) {
+        } else if (index >= indexValue * 20 && index <= indexValue * 40) {
             setX(getX() - speed);
             setY(getY() - speed);
-        } else if (index >= indexValue * 50 && index <= indexValue * 70) {
+        } else if (index >= indexValue * 40 && index <= indexValue * 60) {
             setY(getY() + speed);
-        } else if (index >= indexValue * 70 && index <= indexValue * 90) {
+        } else if (index >= indexValue * 60 && index <= indexValue * 80) {
             setX(getX() + speed);
             setY(getY() - speed);
         } else {

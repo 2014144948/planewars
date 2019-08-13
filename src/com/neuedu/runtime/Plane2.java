@@ -30,7 +30,7 @@ public class Plane2 extends BaseSprite implements Moveable, Drawable {
 
     private int index = 0;
 
-    public static int hp = 20;
+    public static int hp = 30;
 
     public static int skill01time = 400;
 

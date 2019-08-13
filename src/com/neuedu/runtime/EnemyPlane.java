@@ -83,7 +83,7 @@ public class EnemyPlane extends BaseSprite implements Moveable, Drawable {
             int r2 = r.nextInt(100);
             fireIndexValue++;
             GameFrame gameFrame = DataStore.get("gameFrame");
-            if (r1 > fireIndex + 3) {
+            if (r1 > fireIndex + 2) {
                 if (r2 > bulletStyleB) {
                     gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epA1").getWidth(null) / 2 / 2 - 5,
                             getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 19));
@@ -117,7 +117,7 @@ public class EnemyPlane extends BaseSprite implements Moveable, Drawable {
             int r2 = r.nextInt(100);
             fireIndexValue++;
             GameFrame gameFrame = DataStore.get("gameFrame");
-            if (r1 > fireIndex - 3) {
+            if (r1 > fireIndex - 2) {
                 if (r2 > bulletStyleB) {
                     gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epA1").getWidth(null) / 2 / 2 - 5,
                             getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 19));
@@ -174,7 +174,7 @@ public class EnemyPlane extends BaseSprite implements Moveable, Drawable {
             fireIndexValue++;
             GameFrame gameFrame = DataStore.get("gameFrame");
             if (r1 > fireIndex) {
-                if (r2 > 0 && r2 <= bulletStyleB) {
+                if (r2 > 0 && r2 <= bulletStyleC) {
                     gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 5 - 10,
                             getY() + image.getHeight(null) / 2, ImageMap.get("epb03"), 19));
                 }
@@ -205,6 +205,38 @@ public class EnemyPlane extends BaseSprite implements Moveable, Drawable {
                 }
             }
         }
+//        9.散射
+        if (attack == 9) {
+            int r1 = r.nextInt(100);
+            int r2 = r.nextInt(100);
+            fireIndexValue++;
+            GameFrame gameFrame = DataStore.get("gameFrame");
+            if (r1 > fireIndex) {
+                if (r2 > 0 && r2 <= bulletStyleA) {
+                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 5 - 10,
+                            getY() + image.getHeight(null) / 2, ImageMap.get("epb03"), 4));
+                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 5 - 10,
+                            getY() + image.getHeight(null) / 2, ImageMap.get("epb03"), 8));
+                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 5 - 10,
+                            getY() + image.getHeight(null) / 2, ImageMap.get("epb03"), 12));
+                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 5 - 10,
+                            getY() + image.getHeight(null) / 2, ImageMap.get("epb03"), 16));
+                } else if(r2 > bulletStyleA && r2 <= bulletStyleB) {
+                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 5 - 10,
+                            getY() + image.getHeight(null) / 2, ImageMap.get("epb03"), 2));
+                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 5 - 10,
+                            getY() + image.getHeight(null) / 2, ImageMap.get("epb03"), 6));
+                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 5 - 10,
+                            getY() + image.getHeight(null) / 2, ImageMap.get("epb03"), 10));
+                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 5 - 10,
+                            getY() + image.getHeight(null) / 2, ImageMap.get("epb03"), 14));
+
+                } else {
+                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 5 - 10,
+                            getY() + image.getHeight(null) / 2, ImageMap.get("epb03"), 19));
+                }
+            }
+        }
 
         if (fireIndexValue > 4000) {
             fireIndex--;
@@ -218,7 +250,7 @@ public class EnemyPlane extends BaseSprite implements Moveable, Drawable {
 //        1.前排移动
         if (type == 1) {
 
-            if (getY() > 300) {
+            if (getY() > 250) {
                 index++;
                 if (index < indexValue * 5) {
                     setX(getX() + Xspeed);
@@ -239,7 +271,7 @@ public class EnemyPlane extends BaseSprite implements Moveable, Drawable {
 //        2.后排移动
         if (type == 2) {
 
-            if (getY() > 200) {
+            if (getY() > 150) {
                 index++;
                 if (index < indexValue * 5) {
                     setX(getX() + Xspeed);
@@ -261,7 +293,7 @@ public class EnemyPlane extends BaseSprite implements Moveable, Drawable {
 //        3.中间移动
         if (type == 3) {
 
-            if (getY() > 250) {
+            if (getY() > 200) {
                 index++;
                 if (index < indexValue * 5) {
                     setX(getX() + Xspeed);
@@ -282,7 +314,7 @@ public class EnemyPlane extends BaseSprite implements Moveable, Drawable {
 //        4.后排慢速移动
         if (type == 4) {
 
-            if (getY() > 150) {
+            if (getY() > 100) {
                 index++;
                 if (index < indexValue * 5) {
                     setX(getX() + Xspeed / 2);
@@ -302,7 +334,7 @@ public class EnemyPlane extends BaseSprite implements Moveable, Drawable {
         }
 //        5.前排冲刺
         if (type == 5) {
-            if (getY() > 100) {
+            if (getY() > 50) {
                 index++;
                 if (index < indexValue * 5) {
                     setX(getX() + Xspeed);
@@ -322,7 +354,7 @@ public class EnemyPlane extends BaseSprite implements Moveable, Drawable {
         }
 //        6.前排快速冲刺
         if (type == 6) {
-            if (getY() > 100) {
+            if (getY() > 50) {
                 index++;
                 if (index < indexValue * 5) {
                     setX(getX() + Xspeed * 2);
@@ -342,7 +374,7 @@ public class EnemyPlane extends BaseSprite implements Moveable, Drawable {
         }
 //        7.前排慢速冲刺
         if (type == 7) {
-            if (getY() > 150) {
+            if (getY() > 100) {
                 index++;
                 if (index < indexValue * 5) {
                     setX(getX() + Xspeed / 2);
@@ -362,7 +394,7 @@ public class EnemyPlane extends BaseSprite implements Moveable, Drawable {
         }
 //        8.最前排冲刺
         if (type == 8) {
-            if (getY() > 200) {
+            if (getY() > 150) {
                 index++;
                 if (index < indexValue * 5) {
                     setX(getX() + Xspeed / 3);
@@ -423,7 +455,7 @@ public class EnemyPlane extends BaseSprite implements Moveable, Drawable {
 
 //        14.最前排移动
         if (type == 14) {
-            if (getY() > 400) {
+            if (getY() > 350) {
                 index++;
                 if (index < indexValue * 5) {
                     setX(getX() + Xspeed);
@@ -442,9 +474,9 @@ public class EnemyPlane extends BaseSprite implements Moveable, Drawable {
 
         }
 //        15.最前排快速移动
-        if (type == 16) {
+        if (type == 15) {
 
-            if (getY() > 350) {
+            if (getY() > 300) {
                 index++;
                 if (index < indexValue * 5) {
                     setX(getX() + Xspeed * 2);
@@ -464,7 +496,7 @@ public class EnemyPlane extends BaseSprite implements Moveable, Drawable {
 
 //        16.最前排慢速移动
         if (type == 16) {
-            if (getY() > 350) {
+            if (getY() > 300) {
                 index++;
                 if (index < indexValue * 5) {
                     setX(getX() + Xspeed / 3);
