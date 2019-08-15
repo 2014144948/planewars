@@ -56,11 +56,6 @@ public class GameFrame extends Frame {
     int c = 30;
     int d = 40;
     int e = 50;
-    int f = 60;
-    int g = 70;
-    int h = 80;
-    int i = 90;
-    int j = 100;
     //    Y坐标的基数
     int y = 500;
     //    陨石的速度
@@ -81,7 +76,7 @@ public class GameFrame extends Frame {
                 plane2.draw(g);
             }
             if (enemyPlaneList.isEmpty() && bossList.isEmpty() && Boss.alive == true) {
-                bossList.add(new Boss(150, -550, ImageMap.get("BOSS0" + level), 255));
+                bossList.add(new Boss(150, -200, ImageMap.get("BOSS0" + level), 255, level));
 
             }
             if (bossList.isEmpty() == false) {
@@ -100,20 +95,26 @@ public class GameFrame extends Frame {
                 lightList.clear();
                 if (level < 9) {
                     backgroundList.clear();
+                    level++;
                 }
                 levelUp = true;
                 if (backgroundList.isEmpty() && level < 10) {
-                    level++;
+                    if (plane.hp < 30) {
+                        plane.hp++;
+                    }
+                    if (plane2.hp < 30) {
+                        plane2.hp++;
+                    }
                     backgroundList.add(new Background(0, FrameConstant.GAME_HEIGHT - ImageMap.get("bg0" + level).getHeight(null), level, ImageMap.get("bg0" + level)));
                     levelUp = false;
                     Boss.alive = true;
                 }
-                if (level > 9 && bossList.isEmpty()) {
-                    g.setFont(new Font("黑体", 0, 100));
-                    g.setColor(Color.RED);
-                    g.drawString("VICTORY", 100, 350);
-                    enemyPlaneList.add(new EnemyPlane(0, -y * y * y, ImageMap.get("epA1"), a, 1, 1));
-                }
+            }
+            if (level >= 9 && bossList.isEmpty() && enemyPlaneList.isEmpty() && Boss.alive == false) {
+                g.setFont(new Font("黑体", 0, 100));
+                g.setColor(Color.RED);
+                g.drawString("VICTORY", 100, 350);
+
             }
             if (enemyPlaneList.isEmpty() && bossList.isEmpty() && stoneList.isEmpty() && lightList.isEmpty()) {
                 switch (level) {
@@ -339,23 +340,23 @@ public class GameFrame extends Frame {
         lightList.add(new Light(100, -y * 20, ImageMap.get("light"), lightSpeed));
         lightList.add(new Light(350, -y * 20, ImageMap.get("light"), lightSpeed));
         lightList.add(new Light(200, -y * 50, ImageMap.get("light"), lightSpeed));
-        enemyPlaneList.add(new EnemyPlane(100, -y, ImageMap.get("epA4"), f, 4, 8));
+        enemyPlaneList.add(new EnemyPlane(100, -y, ImageMap.get("epA4"), d, 4, 8));
         enemyPlaneList.add(new EnemyPlane(200, -y, ImageMap.get("epA3"), b, 3, 6));
         enemyPlaneList.add(new EnemyPlane(300, -y, ImageMap.get("epB3"), c, 7, 3));
         enemyPlaneList.add(new EnemyPlane(50, -y * 5, ImageMap.get("epB4"), c, 2, 6));
         enemyPlaneList.add(new EnemyPlane(350, -y * 5, ImageMap.get("epD2"), b, 11, 5));
-        enemyPlaneList.add(new EnemyPlane(165, -y * 8, ImageMap.get("epA4"), f, 4, 8));
+        enemyPlaneList.add(new EnemyPlane(165, -y * 8, ImageMap.get("epA4"), d, 4, 8));
         enemyPlaneList.add(new EnemyPlane(285, -y * 8, ImageMap.get("epA3"), b, 3, 6));
         enemyPlaneList.add(new EnemyPlane(100, -y * 10, ImageMap.get("epB3"), c, 7, 3));
         enemyPlaneList.add(new EnemyPlane(220, -y * 12, ImageMap.get("epB4"), c, 2, 6));
         enemyPlaneList.add(new EnemyPlane(340, -y * 14, ImageMap.get("epC3"), a, 9, 3));
-        enemyPlaneList.add(new EnemyPlane(400, -y * 16, ImageMap.get("epC4"), f, 10, 4));
+        enemyPlaneList.add(new EnemyPlane(400, -y * 16, ImageMap.get("epC4"), e, 10, 4));
         enemyPlaneList.add(new EnemyPlane(120, -y * 20, ImageMap.get("epC3"), a, 9, 3));
-        enemyPlaneList.add(new EnemyPlane(320, -y * 20, ImageMap.get("epC4"), f, 10, 4));
+        enemyPlaneList.add(new EnemyPlane(320, -y * 20, ImageMap.get("epC4"), e, 10, 4));
         enemyPlaneList.add(new EnemyPlane(280, -y * 21, ImageMap.get("epD2"), b, 11, 5));
         enemyPlaneList.add(new EnemyPlane(100, -y * 25, ImageMap.get("epD3"), c, 15, 5));
         enemyPlaneList.add(new EnemyPlane(255, -y * 25, ImageMap.get("epD3"), c, 15, 5));
-        enemyPlaneList.add(new EnemyPlane(355, -y * 26, ImageMap.get("epA4"), f, 4, 8));
+        enemyPlaneList.add(new EnemyPlane(355, -y * 26, ImageMap.get("epA4"), d, 4, 8));
         enemyPlaneList.add(new EnemyPlane(255, -y * 28, ImageMap.get("epA3"), b, 3, 6));
         enemyPlaneList.add(new EnemyPlane(80, -y * 30, ImageMap.get("epB3"), c, 7, 3));
         enemyPlaneList.add(new EnemyPlane(350, -y * 30, ImageMap.get("epB4"), c, 2, 6));
@@ -385,14 +386,14 @@ public class GameFrame extends Frame {
 
         enemyPlaneList.add(new EnemyPlane(100, -y, ImageMap.get("epA3"), b, 3, 6));
         enemyPlaneList.add(new EnemyPlane(200, -y, ImageMap.get("epC3"), a, 9, 3));
-        enemyPlaneList.add(new EnemyPlane(150, -y * 3, ImageMap.get("epC4"), f, 10, 4));
+        enemyPlaneList.add(new EnemyPlane(150, -y * 3, ImageMap.get("epC4"), e, 10, 4));
         enemyPlaneList.add(new EnemyPlane(250, -y * 3, ImageMap.get("epD3"), d, 15, 5));
-        enemyPlaneList.add(new EnemyPlane(100, -y * 10, ImageMap.get("epA4"), f, 4, 8));
+        enemyPlaneList.add(new EnemyPlane(100, -y * 10, ImageMap.get("epA4"), d, 4, 8));
         enemyPlaneList.add(new EnemyPlane(280, -y * 10, ImageMap.get("epA3"), b, 3, 6));
         enemyPlaneList.add(new EnemyPlane(380, -y * 12, ImageMap.get("epA3"), b, 3, 6));
         enemyPlaneList.add(new EnemyPlane(50, -y * 13, ImageMap.get("epD3"), c, 15, 5));
         enemyPlaneList.add(new EnemyPlane(160, -y * 15, ImageMap.get("epB4"), c, 2, 6));
-        enemyPlaneList.add(new EnemyPlane(300, -y * 15, ImageMap.get("epD4"), f, 16, 8));
+        enemyPlaneList.add(new EnemyPlane(300, -y * 15, ImageMap.get("epD4"), e, 16, 8));
     }
 
     public void level7() {
@@ -409,23 +410,23 @@ public class GameFrame extends Frame {
         enemyPlaneList.add(new EnemyPlane(100, -y * 1, ImageMap.get("epA4"), d, 4, 8));
         enemyPlaneList.add(new EnemyPlane(200, -y * 1, ImageMap.get("epB4"), c, 2, 6));
         enemyPlaneList.add(new EnemyPlane(120, -y * 3, ImageMap.get("epC4"), e, 10, 4));
-        enemyPlaneList.add(new EnemyPlane(200, -y * 4, ImageMap.get("epE1"), h, 10, 9));
-        enemyPlaneList.add(new EnemyPlane(300, -y * 5, ImageMap.get("epD4"), f, 16, 8));
+        enemyPlaneList.add(new EnemyPlane(200, -y * 4, ImageMap.get("epE1"), e, 10, 9));
+        enemyPlaneList.add(new EnemyPlane(300, -y * 5, ImageMap.get("epD4"), e, 16, 8));
         enemyPlaneList.add(new EnemyPlane(200, -y * 8, ImageMap.get("epA4"), d, 4, 8));
         enemyPlaneList.add(new EnemyPlane(350, -y * 8, ImageMap.get("epA4"), d, 4, 8));
-        enemyPlaneList.add(new EnemyPlane(200, -y * 10, ImageMap.get("epE1"), h, 10, 9));
+        enemyPlaneList.add(new EnemyPlane(200, -y * 10, ImageMap.get("epE1"), e, 10, 9));
         enemyPlaneList.add(new EnemyPlane(160, -y * 14, ImageMap.get("epB4"), c, 2, 6));
         enemyPlaneList.add(new EnemyPlane(120, -y * 15, ImageMap.get("epC4"), e, 10, 4));
         enemyPlaneList.add(new EnemyPlane(240, -y * 15, ImageMap.get("epC4"), e, 10, 4));
-        enemyPlaneList.add(new EnemyPlane(300, -y * 17, ImageMap.get("epD4"), f, 16, 8));
-        enemyPlaneList.add(new EnemyPlane(400, -y * 20, ImageMap.get("epE6"), h, 9, 4));
-        enemyPlaneList.add(new EnemyPlane(100, -y * 20, ImageMap.get("epE6"), h, 9, 4));
-        enemyPlaneList.add(new EnemyPlane(300, -y * 22, ImageMap.get("epD4"), f, 16, 8));
-        enemyPlaneList.add(new EnemyPlane(210, -y * 25, ImageMap.get("epE1"), h, 10, 9));
+        enemyPlaneList.add(new EnemyPlane(300, -y * 17, ImageMap.get("epD4"), e, 16, 8));
+        enemyPlaneList.add(new EnemyPlane(400, -y * 20, ImageMap.get("epE6"), e, 9, 4));
+        enemyPlaneList.add(new EnemyPlane(100, -y * 20, ImageMap.get("epE6"), e, 9, 4));
+        enemyPlaneList.add(new EnemyPlane(300, -y * 22, ImageMap.get("epD4"), e, 16, 8));
+        enemyPlaneList.add(new EnemyPlane(210, -y * 25, ImageMap.get("epE1"), e, 10, 9));
         enemyPlaneList.add(new EnemyPlane(400, -y * 25, ImageMap.get("epE6"), a, 9, 4));
         enemyPlaneList.add(new EnemyPlane(170, -y * 28, ImageMap.get("epB4"), c, 2, 6));
-        enemyPlaneList.add(new EnemyPlane(150, -y * 30, ImageMap.get("epE1"), h, 10, 9));
-        enemyPlaneList.add(new EnemyPlane(250, -y * 30, ImageMap.get("epE6"), h, 9, 4));
+        enemyPlaneList.add(new EnemyPlane(150, -y * 30, ImageMap.get("epE1"), e, 10, 9));
+        enemyPlaneList.add(new EnemyPlane(250, -y * 30, ImageMap.get("epE6"), e, 9, 4));
     }
 
     public void level8() {
@@ -451,77 +452,77 @@ public class GameFrame extends Frame {
         enemyPlaneList.add(new EnemyPlane(150, -y * 2, ImageMap.get("epB4"), c, 2, 6));
         enemyPlaneList.add(new EnemyPlane(250, -y * 2, ImageMap.get("epA4"), d, 4, 8));
         enemyPlaneList.add(new EnemyPlane(350, -y * 2, ImageMap.get("epB4"), c, 2, 6));
-        enemyPlaneList.add(new EnemyPlane(200, -y * 5, ImageMap.get("epD4"), f, 16, 8));
-        enemyPlaneList.add(new EnemyPlane(120, -y * 18, ImageMap.get("epE2"), d, 1, 7));
-        enemyPlaneList.add(new EnemyPlane(320, -y * 18, ImageMap.get("epE3"), e, 9, 6));
-        enemyPlaneList.add(new EnemyPlane(220, -y * 20, ImageMap.get("epE4"), f, 14, 5));
-        enemyPlaneList.add(new EnemyPlane(350, -y * 22, ImageMap.get("epD4"), f, 16, 8));
-        enemyPlaneList.add(new EnemyPlane(150, -y * 25, ImageMap.get("epE2"), d, 1, 7));
-        enemyPlaneList.add(new EnemyPlane(330, -y * 25, ImageMap.get("epE2"), d, 1, 7));
-        enemyPlaneList.add(new EnemyPlane(150, -y * 30, ImageMap.get("epE3"), e, 9, 6));
-        enemyPlaneList.add(new EnemyPlane(300, -y * 30, ImageMap.get("epE3"), e, 9, 6));
-        enemyPlaneList.add(new EnemyPlane(200, -y * 35, ImageMap.get("epE4"), f, 14, 5));
-        enemyPlaneList.add(new EnemyPlane(400, -y * 35, ImageMap.get("epE4"), f, 14, 5));
-        enemyPlaneList.add(new EnemyPlane(100, -y * 40, ImageMap.get("epA4"), d, 4, 8));
-        enemyPlaneList.add(new EnemyPlane(350, -y * 40, ImageMap.get("epB4"), c, 2, 6));
-        enemyPlaneList.add(new EnemyPlane(50, -y * 50, ImageMap.get("epE2"), d, 1, 7));
-        enemyPlaneList.add(new EnemyPlane(100, -y * 51, ImageMap.get("epE3"), e, 9, 6));
-        enemyPlaneList.add(new EnemyPlane(150, -y * 52, ImageMap.get("epE4"), f, 14, 5));
-        enemyPlaneList.add(new EnemyPlane(200, -y * 53, ImageMap.get("epD4"), f, 16, 8));
-        enemyPlaneList.add(new EnemyPlane(250, -y * 58, ImageMap.get("epA4"), d, 4, 8));
-        enemyPlaneList.add(new EnemyPlane(200, -y * 60, ImageMap.get("epB4"), c, 2, 6));
-        enemyPlaneList.add(new EnemyPlane(150, -y * 65, ImageMap.get("epD4"), f, 16, 8));
-        enemyPlaneList.add(new EnemyPlane(300, -y * 70, ImageMap.get("epA4"), d, 4, 8));
+        enemyPlaneList.add(new EnemyPlane(200, -y * 5, ImageMap.get("epD4"), e, 16, 8));
+        enemyPlaneList.add(new EnemyPlane(120, -y * 10, ImageMap.get("epE2"), d, 1, 7));
+        enemyPlaneList.add(new EnemyPlane(320, -y * 10, ImageMap.get("epE3"), e, 9, 6));
+        enemyPlaneList.add(new EnemyPlane(220, -y * 12, ImageMap.get("epE4"), e, 14, 5));
+        enemyPlaneList.add(new EnemyPlane(350, -y * 14, ImageMap.get("epD4"), e, 16, 8));
+        enemyPlaneList.add(new EnemyPlane(150, -y * 16, ImageMap.get("epE2"), d, 1, 7));
+        enemyPlaneList.add(new EnemyPlane(330, -y * 16, ImageMap.get("epE2"), d, 1, 7));
+        enemyPlaneList.add(new EnemyPlane(150, -y * 20, ImageMap.get("epE3"), e, 9, 6));
+        enemyPlaneList.add(new EnemyPlane(300, -y * 20, ImageMap.get("epE3"), e, 9, 6));
+        enemyPlaneList.add(new EnemyPlane(200, -y * 25, ImageMap.get("epE4"), e, 14, 5));
+        enemyPlaneList.add(new EnemyPlane(400, -y * 25, ImageMap.get("epE4"), e, 14, 5));
+        enemyPlaneList.add(new EnemyPlane(100, -y * 28, ImageMap.get("epA4"), d, 4, 8));
+        enemyPlaneList.add(new EnemyPlane(350, -y * 28, ImageMap.get("epB4"), c, 2, 6));
+        enemyPlaneList.add(new EnemyPlane(50, -y * 32, ImageMap.get("epE2"), d, 1, 7));
+        enemyPlaneList.add(new EnemyPlane(100, -y * 33, ImageMap.get("epE3"), e, 9, 6));
+        enemyPlaneList.add(new EnemyPlane(150, -y * 34, ImageMap.get("epE4"), e, 14, 5));
+        enemyPlaneList.add(new EnemyPlane(200, -y * 35, ImageMap.get("epD4"), e, 16, 8));
+        enemyPlaneList.add(new EnemyPlane(250, -y * 36, ImageMap.get("epA4"), d, 4, 8));
+        enemyPlaneList.add(new EnemyPlane(200, -y * 40, ImageMap.get("epB4"), c, 2, 6));
+        enemyPlaneList.add(new EnemyPlane(150, -y * 43, ImageMap.get("epD4"), e, 16, 8));
+        enemyPlaneList.add(new EnemyPlane(300, -y * 45, ImageMap.get("epA4"), d, 4, 8));
     }
 
     public void level9() {
         stoneList.add(new Stones(10, -y * 5, ImageMap.get("stone"), stoneSpeed));
         stoneList.add(new Stones(400, -y * 10, ImageMap.get("stone"), stoneSpeed));
-        stoneList.add(new Stones(100, -y * 15, ImageMap.get("stone"), stoneSpeed));
-        stoneList.add(new Stones(200, -y * 20, ImageMap.get("stone"), stoneSpeed));
-        stoneList.add(new Stones(300, -y * 25, ImageMap.get("stone"), stoneSpeed));
-        stoneList.add(new Stones(0, -y * 35, ImageMap.get("stone"), stoneSpeed));
-        stoneList.add(new Stones(0, -y * 38, ImageMap.get("stone"), stoneSpeed));
-        stoneList.add(new Stones(0, -y * 41, ImageMap.get("stone"), stoneSpeed));
-        stoneList.add(new Stones(300, -y * 44, ImageMap.get("stone"), stoneSpeed));
-        stoneList.add(new Stones(300, -y * 47, ImageMap.get("stone"), stoneSpeed));
-        stoneList.add(new Stones(300, -y * 50, ImageMap.get("stone"), stoneSpeed));
-        stoneList.add(new Stones(255, -y * 60, ImageMap.get("stone"), stoneSpeed));
+        stoneList.add(new Stones(100, -y * 12, ImageMap.get("stone"), stoneSpeed));
+        stoneList.add(new Stones(0, -y * 15, ImageMap.get("stone"), stoneSpeed));
+        stoneList.add(new Stones(0, -y * 15 - 200, ImageMap.get("stone"), stoneSpeed));
+        stoneList.add(new Stones(0, -y * 15 - 400, ImageMap.get("stone"), stoneSpeed));
+        stoneList.add(new Stones(300, -y * 15 - 600, ImageMap.get("stone"), stoneSpeed));
+        stoneList.add(new Stones(300, -y * 15 - 800, ImageMap.get("stone"), stoneSpeed));
+        stoneList.add(new Stones(300, -y * 15 - 1000, ImageMap.get("stone"), stoneSpeed));
+        stoneList.add(new Stones(255, -y * 15, ImageMap.get("stone"), stoneSpeed / 2));
 
         lightList.add(new Light(r.nextInt(500), -y * 5, ImageMap.get("light"), lightSpeed));
         lightList.add(new Light(r.nextInt(500), -y * 20, ImageMap.get("light"), lightSpeed));
-        lightList.add(new Light(r.nextInt(500), -y * 30, ImageMap.get("light"), lightSpeed));
-        lightList.add(new Light(r.nextInt(500), -y * 30, ImageMap.get("light"), lightSpeed));
-        lightList.add(new Light(r.nextInt(500), -y * 55, ImageMap.get("light"), lightSpeed));
+        lightList.add(new Light(r.nextInt(500), -y * 45, ImageMap.get("light"), lightSpeed));
+        lightList.add(new Light(r.nextInt(500), -y * 45, ImageMap.get("light"), lightSpeed));
         lightList.add(new Light(r.nextInt(500), -y * 70, ImageMap.get("light"), lightSpeed));
-        lightList.add(new Light(0, -y * 100, ImageMap.get("light"), lightSpeed));
-        lightList.add(new Light(100, -y * 100, ImageMap.get("light"), lightSpeed));
-        lightList.add(new Light(200, -y * 100, ImageMap.get("light"), lightSpeed));
-        lightList.add(new Light(300, -y * 100, ImageMap.get("light"), lightSpeed));
-        lightList.add(new Light(400, -y * 100, ImageMap.get("light"), lightSpeed));
-        lightList.add(new Light(150, -y * 110, ImageMap.get("light"), lightSpeed));
-        lightList.add(new Light(250, -y * 110, ImageMap.get("light"), lightSpeed));
-        lightList.add(new Light(350, -y * 110, ImageMap.get("light"), lightSpeed));
-        lightList.add(new Light(450, -y * 110, ImageMap.get("light"), lightSpeed));
+        lightList.add(new Light(r.nextInt(500), -y * 100, ImageMap.get("light"), lightSpeed));
+        lightList.add(new Light(0, -y * 150, ImageMap.get("light"), lightSpeed));
+        lightList.add(new Light(100, -y * 150, ImageMap.get("light"), lightSpeed));
+        lightList.add(new Light(200, -y * 150, ImageMap.get("light"), lightSpeed));
+        lightList.add(new Light(300, -y * 150, ImageMap.get("light"), lightSpeed));
+        lightList.add(new Light(400, -y * 150, ImageMap.get("light"), lightSpeed));
+        lightList.add(new Light(500, -y * 150, ImageMap.get("light"), lightSpeed));
+        lightList.add(new Light(50, -y * 151, ImageMap.get("light"), lightSpeed));
+        lightList.add(new Light(150, -y * 151, ImageMap.get("light"), lightSpeed));
+        lightList.add(new Light(250, -y * 151, ImageMap.get("light"), lightSpeed));
+        lightList.add(new Light(350, -y * 151, ImageMap.get("light"), lightSpeed));
+        lightList.add(new Light(450, -y * 151, ImageMap.get("light"), lightSpeed));
 
-        enemyPlaneList.add(new EnemyPlane(300, -y * 2, ImageMap.get("epE1"), h, 10, 9));
+        enemyPlaneList.add(new EnemyPlane(300, -y * 2, ImageMap.get("epE1"), e, 10, 9));
         enemyPlaneList.add(new EnemyPlane(250, -y * 3, ImageMap.get("epE2"), d, 1, 7));
         enemyPlaneList.add(new EnemyPlane(350, -y * 4, ImageMap.get("epE3"), e, 9, 6));
-        enemyPlaneList.add(new EnemyPlane(200, -y * 5, ImageMap.get("epE4"), f, 14, 5));
-        enemyPlaneList.add(new EnemyPlane(300, -y * 6, ImageMap.get("epE5"), g, 6, 4));
-        enemyPlaneList.add(new EnemyPlane(150, -y * 7, ImageMap.get("epE6"), h, 9, 4));
-        enemyPlaneList.add(new EnemyPlane(200, -y * 12, ImageMap.get("epE1"), h, 10, 9));
-        enemyPlaneList.add(new EnemyPlane(300, -y * 18, ImageMap.get("epE5"), g, 6, 4));
-        enemyPlaneList.add(new EnemyPlane(50, -y * 22, ImageMap.get("epE6"), h, 9, 4));
-        enemyPlaneList.add(new EnemyPlane(150, -y * 22, ImageMap.get("epE6"), h, 9, 4));
-        enemyPlaneList.add(new EnemyPlane(250, -y * 22, ImageMap.get("epE6"), h, 9, 4));
-        enemyPlaneList.add(new EnemyPlane(350, -y * 22, ImageMap.get("epE6"), h, 9, 4));
+        enemyPlaneList.add(new EnemyPlane(200, -y * 5, ImageMap.get("epE4"), e, 14, 5));
+        enemyPlaneList.add(new EnemyPlane(300, -y * 6, ImageMap.get("epE5"), d, 6, 4));
+        enemyPlaneList.add(new EnemyPlane(150, -y * 7, ImageMap.get("epE6"), e, 9, 4));
+        enemyPlaneList.add(new EnemyPlane(200, -y * 12, ImageMap.get("epE1"), e, 10, 9));
+        enemyPlaneList.add(new EnemyPlane(300, -y * 18, ImageMap.get("epE5"), d, 6, 4));
+        enemyPlaneList.add(new EnemyPlane(50, -y * 22, ImageMap.get("epE6"), e, 9, 4));
+        enemyPlaneList.add(new EnemyPlane(150, -y * 22, ImageMap.get("epE6"), e, 9, 4));
+        enemyPlaneList.add(new EnemyPlane(250, -y * 22, ImageMap.get("epE6"), e, 9, 4));
+        enemyPlaneList.add(new EnemyPlane(350, -y * 22, ImageMap.get("epE6"), e, 9, 4));
         enemyPlaneList.add(new EnemyPlane(100, -y * 26, ImageMap.get("epE2"), d, 1, 7));
         enemyPlaneList.add(new EnemyPlane(250, -y * 26, ImageMap.get("epE3"), e, 9, 6));
-        enemyPlaneList.add(new EnemyPlane(150, -y * 26, ImageMap.get("epE4"), f, 14, 5));
-        enemyPlaneList.add(new EnemyPlane(100, -y * 30, ImageMap.get("epE1"), h, 10, 9));
-        enemyPlaneList.add(new EnemyPlane(200, -y * 30, ImageMap.get("epE1"), h, 10, 9));
-        enemyPlaneList.add(new EnemyPlane(300, -y * 30, ImageMap.get("epE1"), h, 10, 9));
+        enemyPlaneList.add(new EnemyPlane(150, -y * 26, ImageMap.get("epE4"), e, 14, 5));
+        enemyPlaneList.add(new EnemyPlane(100, -y * 30, ImageMap.get("epE1"), e, 10, 9));
+        enemyPlaneList.add(new EnemyPlane(200, -y * 30, ImageMap.get("epE1"), e, 10, 9));
+        enemyPlaneList.add(new EnemyPlane(300, -y * 30, ImageMap.get("epE1"), e, 10, 9));
         enemyPlaneList.add(new EnemyPlane(150, -y * 35, ImageMap.get("epE2"), d, 1, 7));
         enemyPlaneList.add(new EnemyPlane(400, -y * 40, ImageMap.get("epE3"), e, 9, 6));
 

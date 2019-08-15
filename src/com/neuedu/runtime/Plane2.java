@@ -32,7 +32,7 @@ public class Plane2 extends BaseSprite implements Moveable, Drawable {
 
     public static int hp = 30;
 
-    public static int skill01time = 400;
+    public static int skill01time = 350;
 
     public boolean isSkill01() {
         return skill01;
@@ -101,12 +101,14 @@ public class Plane2 extends BaseSprite implements Moveable, Drawable {
         if (!fire && skill01) {
             s01++;
             if (s01 > skill01time) {
-                GameFrame gameFrame = DataStore.get("gameFrame");
-                gameFrame.skillList.add(new Skill(getX() + image.getWidth(null) / 4 - ImageMap.get("s01").getWidth(null) / 2,
-                        getY() - ImageMap.get("s01").getHeight(null), ImageMap.get("s01")));
-                s01 = 0;
+                s01 = skill01time;
             }
-        }else{
+        } else if (s01 == skill01time) {
+            GameFrame gameFrame = DataStore.get("gameFrame");
+            gameFrame.skillList.add(new Skill(getX() + image.getWidth(null) / 4 - ImageMap.get("s01").getWidth(null) / 2,
+                    getY() - ImageMap.get("s01").getHeight(null), ImageMap.get("s01")));
+            s01 = 0;
+        } else {
             s01 = 0;
         }
     }

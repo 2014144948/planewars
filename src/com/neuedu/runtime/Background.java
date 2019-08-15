@@ -22,7 +22,7 @@ public class Background extends BaseSprite implements Moveable, Drawable {
     //    index的相关参数
     private final int indexValue = 50;
     //    关卡对应的背景图
-    private int level = 1;
+    private int level;
 
 
     public Background() {
@@ -211,21 +211,21 @@ public class Background extends BaseSprite implements Moveable, Drawable {
 
     public void move9() {
         index++;
-        if (index < indexValue * 40) {
+        if (index < indexValue * 20) {
             setY(getY() + speed);
-        } else if (index >= indexValue * 40 && index <= indexValue * 80) {
+        } else if (index >= indexValue * 20 && index <= indexValue * 40) {
             setX(getX() - speed * 2);
-        } else if (index >= indexValue * 80 && index <= indexValue * 120) {
+        } else if (index >= indexValue * 40 && index <= indexValue * 60) {
             setY(getY() - speed);
-        } else if (index >= indexValue * 120 && index <= indexValue * 160) {
+        } else if (index >= indexValue * 60 && index <= indexValue * 80) {
             setX(getX() + speed * 2);
-        } else if (index >= indexValue * 160 && index <= indexValue * 200) {
-            setX(getX() - speed * 2);
+        } else if (index >= indexValue * 80 && index <= indexValue * 100) {
+            setX(getX() - speed);
             setY(getY() + speed);
-        } else if (index >= indexValue * 200 && index <= indexValue * 240) {
-            setX(getX() - speed * 2);
+        } else if (index >= indexValue * 100 && index <= indexValue * 120) {
+            setX(getX() - speed);
             setY(getY() - speed);
-        } else if (index >= indexValue * 240 && index <= indexValue * 320) {
+        } else if (index >= indexValue * 120 && index <= indexValue * 140) {
             setX(getX() + speed * 2);
         } else {
             index = 0;

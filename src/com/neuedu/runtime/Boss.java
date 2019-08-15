@@ -23,8 +23,8 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
 
     private int Xspeed = FrameConstant.GAME_SPEED * 3;
     private int Yspeed = FrameConstant.GAME_SPEED * 2;
-//    BOSS的级别
-    private int level = 1;
+    //    BOSS的级别
+    public static int level = 1;
 
     private int index = 0;
 
@@ -67,13 +67,14 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
     private int type;
 
     public Boss() {
-        this(100, -500, ImageMap.get("BOSS0"+GameFrame.level), 0);
+        this(100, -500, ImageMap.get("BOSS0" + GameFrame.level), 0, 0);
     }
 
-    public Boss(int x, int y, Image image, int HP) {
+    public Boss(int x, int y, Image image, int HP, int level) {
         super(x, y);
         this.image = image;
         this.HP = HP;
+        this.level = level;
     }
 
     @Override
@@ -88,7 +89,124 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
 
     @Override
     public void move() {
+        switch (level) {
+            case 1:
+                move1();
+                break;
+            case 2:
+                move2();
+                break;
+            case 3:
+                move3();
+                break;
+            case 4:
+                move4();
+                break;
+            case 5:
+                move5();
+                break;
+            case 6:
+                move6();
+                break;
+            case 7:
+                move7();
+                break;
+            case 8:
+                move8();
+                break;
+            case 9:
+                move9();
+                break;
+            default:
+                break;
+        }
+    }
 
+    public void move1() {
+        if (getY() > 100) {
+            index++;
+//            正常移动
+            if (index < indexValue * 10) {
+                setX(getX() + Xspeed);
+            } else if (index >= indexValue * 10 && index < indexValue * 20) {
+                setX(getX() - Xspeed);
+            } else if (index >= indexValue * 20 && index < indexValue * 30) {
+                setX(getX() + Xspeed);
+            } else if (index >= indexValue * 30 && index < indexValue * 40) {
+                setX(getX() - Xspeed);
+            } else {
+                index = 0;
+            }
+            outOfBound();
+        } else {
+            setY(getY() + Yspeed);
+        }
+    }
+
+    public void move2() {
+        if (getY() > 150) {
+            index++;
+//            正常移动
+            if (index < indexValue * 8) {
+                setX(getX() + Xspeed);
+            } else if (index >= indexValue * 8 && index < indexValue * 16) {
+                setX(getX() - Xspeed);
+            } else if (index >= indexValue * 16 && index < indexValue * 24) {
+                setX(getX() + Xspeed);
+            } else if (index >= indexValue * 24 && index < indexValue * 32) {
+                setX(getX() - Xspeed);
+            } else {
+                index = 0;
+            }
+            outOfBound();
+        } else {
+            setY(getY() + Yspeed);
+        }
+    }
+
+    public void move3() {
+        if (getY() > 100) {
+            index++;
+//            正常移动
+            if (index < indexValue * 5) {
+                setX(getX() + Xspeed);
+            } else if (index >= indexValue * 5 && index < indexValue * 10) {
+                setX(getX() - Xspeed);
+            } else if (index >= indexValue * 10 && index < indexValue * 15) {
+                setX(getX() + Xspeed);
+            } else if (index >= indexValue * 15 && index < indexValue * 20) {
+                setX(getX() - Xspeed);
+            } else {
+                index = 0;
+            }
+            outOfBound();
+        } else {
+            setY(getY() + Yspeed);
+        }
+    }
+
+    public void move4() {
+        if (getY() > 150) {
+            index++;
+//            正常移动
+            if (index < indexValue * 5) {
+                setX(getX() + Xspeed);
+            } else if (index >= indexValue * 5 && index < indexValue * 10) {
+                setX(getX() - Xspeed);
+            } else if (index >= indexValue * 10 && index < indexValue * 15) {
+                setX(getX() + Xspeed);
+            } else if (index >= indexValue * 15 && index < indexValue * 20) {
+                setX(getX() - Xspeed);
+            } else {
+                index = 0;
+            }
+            outOfBound();
+        } else {
+            setY(getY() + Yspeed);
+        }
+    }
+
+    public void move5() {
         if (getY() > 100) {
             index++;
             spurt++;
@@ -111,18 +229,148 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
                 setY(getY() - Yspeed * 2);
             } else if (spurt > indexValue * 25) {
                 spurt = 0;
-
             }
-
-
+            outOfBound();
         } else {
             setY(getY() + Yspeed);
         }
+    }
 
+    public void move6() {
+        index++;
+//            全屏移动
+        if (index < indexValue * 5) {
+            setX(getX() + Xspeed * 2);
+            setY(getY() + Yspeed * 2);
+        } else if (index >= indexValue * 5 && index < indexValue * 10) {
+            setX(getX() - Xspeed * 2);
+            setY(getY() + Yspeed * 2);
+        } else if (index >= indexValue * 10 && index < indexValue * 15) {
+            setX(getX() + Xspeed * 2);
+            setY(getY() + Yspeed * 2);
+        } else if (index >= indexValue * 15 && index < indexValue * 20) {
+            setX(getX() - Xspeed * 2);
+            setY(getY() + Yspeed * 2);
+        } else {
+            index = 0;
+        }
         outOfBound();
     }
 
+    public void move7() {
+        if (getY() > 100) {
+            index++;
+            spurt++;
+//            正常移动
+            if (index < indexValue * 5) {
+                setX(getX() + Xspeed);
+            } else if (index >= indexValue * 5 && index < indexValue * 10) {
+                setX(getX() - Xspeed);
+            } else if (index >= indexValue * 10 && index < indexValue * 15) {
+                setX(getX() + Xspeed);
+            } else if (index >= indexValue * 15 && index < indexValue * 20) {
+                setX(getX() - Xspeed);
+            } else {
+                index = 0;
+            }
+//            冲刺
+            if (spurt > indexValue * 8 && spurt <= indexValue * 9 || spurt > indexValue * 20 && spurt <= indexValue * 21) {
+                setY(getY() + Yspeed * 2);
+            } else if (spurt > indexValue * 9 && spurt <= indexValue * 10 || spurt > indexValue * 21 && spurt <= indexValue * 22) {
+                setY(getY() - Yspeed * 2);
+            } else if (spurt > indexValue * 25) {
+                spurt = 0;
+            }
+            outOfBound();
+        } else {
+            setY(getY() + Yspeed);
+        }
+    }
+
+    public void move8() {
+        if (getY() > 100) {
+            index++;
+            spurt++;
+//            正常移动
+            if (index < indexValue * 5) {
+                setX(getX() + Xspeed / 2);
+            } else if (index >= indexValue * 5 && index < indexValue * 10) {
+                setX(getX() - Xspeed / 2);
+            } else if (index >= indexValue * 10 && index < indexValue * 15) {
+                setX(getX() + Xspeed / 2);
+            } else if (index >= indexValue * 15 && index < indexValue * 20) {
+                setX(getX() - Xspeed / 2);
+            } else {
+                index = 0;
+            }
+            outOfBound();
+        } else {
+            setY(getY() + Yspeed);
+        }
+    }
+
+    public void move9() {
+        if (getY() > 150) {
+            index++;
+            spurt++;
+//            正常移动
+            if (index < indexValue * 5) {
+                setX(getX() + Xspeed * 3 / 2);
+            } else if (index >= indexValue * 5 && index < indexValue * 10) {
+                setX(getX() - Xspeed * 3 / 2);
+            } else if (index >= indexValue * 10 && index < indexValue * 15) {
+                setX(getX() + Xspeed * 3 / 2);
+            } else if (index >= indexValue * 15 && index < indexValue * 20) {
+                setX(getX() - Xspeed * 3 / 2);
+            } else {
+                index = 0;
+            }
+//            冲刺
+            if (spurt > indexValue * 9 && spurt <= indexValue * 10 || spurt > indexValue * 21 && spurt <= indexValue * 22) {
+                setY(getY() + Yspeed * 3 / 2);
+            } else if (spurt > indexValue * 10 && spurt <= indexValue * 11 || spurt > indexValue * 22 && spurt <= indexValue * 23) {
+                setY(getY() - Yspeed * 3 / 2);
+            } else if (spurt > indexValue * 25) {
+                spurt = 0;
+            }
+            outOfBound();
+        } else {
+            setY(getY() + Yspeed);
+        }
+    }
+
     public void fire() {
+//        switch (level){
+//            case 1:
+//                BOSS1();
+//                break;
+//            case 2:
+//                BOSS2();
+//                break;
+//            case 3:
+//                BOSS3();
+//                break;
+//            case 4:
+//                BOSS4();
+//                break;
+//            case 5:
+//                BOSS5();
+//                break;
+//            case 6:
+//                BOSS6();
+//                break;
+//            case 7:
+//                BOSS7();
+//                break;
+//            case 8:
+//                BOSS8();
+//                break;
+//            case 9:
+//                BOSS9();
+//                break;
+//            default:
+//                break;
+//        }
         int r1 = r.nextInt(100);
         int r2 = r.nextInt(200);
         fireIndexValue++;
@@ -157,6 +405,18 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
             fireIndexValue = 0;
         }
     }
+
+//    public void BOSS1(){
+//        int r1 = r.nextInt(100);
+//        int r2 = r.nextInt(200);
+//        fireIndexValue++;
+//        GameFrame gameFrame = DataStore.get("gameFrame");
+//        if(r1 > fireIndex){
+//            if (r2 > 0 && r2 <= bulletStyleA) {
+//                fire1();
+//            }
+//        }
+//    }
 
     //    菱形弹幕
     public void fire1() {
@@ -303,10 +563,10 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
         int r1 = r.nextInt(2);
         int a = 0;
         int b = 0;
-        if(r1 == 0){
+        if (r1 == 0) {
             a = 22;
             b = 23;
-        }else{
+        } else {
             a = 23;
             b = 22;
         }
@@ -329,6 +589,9 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
     public void outOfBound() {
         if (getX() < 0 || getX() > FrameConstant.GAME_WIDTH - image.getWidth(null) / 2) {
             Xspeed = -Xspeed;
+        }
+        if (getY() < -200 || getY() > FrameConstant.GAME_HEIGHT - image.getHeight(null) / 2) {
+            Yspeed = -Yspeed;
         }
     }
 

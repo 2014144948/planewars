@@ -10,6 +10,7 @@ import com.neuedu.util.ImageMap;
 
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
@@ -36,6 +37,9 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
     public static boolean skill01;
 
     public static int skill01time = 75;
+
+//    public int a = 0;
+//    public int text = 0;
 
     public Plane() {
         this((FrameConstant.GAME_WIDTH - ImageMap.get("my01").getWidth(null) / 2) / 2 - 100,
@@ -70,7 +74,13 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
         move();
         fire();
         Skill01();
+
+//        Graphics2D g2 = (Graphics2D) g;
+//        g2.rotate(a);
+//        text++;
+
         g.drawImage(image, getX(), getY(), image.getWidth(null) / 2, image.getHeight(null) / 2, null);
+
         g.drawImage(Himage, HgetX, HgetY,
                 ImageMap.get("myheart").getWidth(null),
                 ImageMap.get("myheart").getHeight(null),
@@ -103,24 +113,25 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
         if (!fire && skill01) {
             s01++;
             if (s01 > skill01time) {
-                GameFrame gameFrame = DataStore.get("gameFrame");
-                gameFrame.bulletList.add(new Bullet(getX() + image.getWidth(null) / 2 / 2 - ImageMap.get("mb01").getWidth(null) / 2 + 30,
-                        getY() - ImageMap.get("mb01").getHeight(null) + 30, ImageMap.get("mb01")));
-                gameFrame.bulletList.add(new Bullet(getX() + image.getWidth(null) / 2 / 2 - ImageMap.get("mb01").getWidth(null) / 2 - 30,
-                        getY() - ImageMap.get("mb01").getHeight(null) + 30, ImageMap.get("mb01")));
-                gameFrame.bulletList.add(new Bullet(getX() + image.getWidth(null) / 2 / 2 - ImageMap.get("mb01").getWidth(null) / 2 + 20,
-                        getY() - ImageMap.get("mb01").getHeight(null) + 20, ImageMap.get("mb01")));
-                gameFrame.bulletList.add(new Bullet(getX() + image.getWidth(null) / 2 / 2 - ImageMap.get("mb01").getWidth(null) / 2 - 20,
-                        getY() - ImageMap.get("mb01").getHeight(null) + 20, ImageMap.get("mb01")));
-                gameFrame.bulletList.add(new Bullet(getX() + image.getWidth(null) / 2 / 2 - ImageMap.get("mb01").getWidth(null) / 2 + 10,
-                        getY() - ImageMap.get("mb01").getHeight(null) + 10, ImageMap.get("mb01")));
-                gameFrame.bulletList.add(new Bullet(getX() + image.getWidth(null) / 2 / 2 - ImageMap.get("mb01").getWidth(null) / 2 - 10,
-                        getY() - ImageMap.get("mb01").getHeight(null) + 10, ImageMap.get("mb01")));
-                gameFrame.bulletList.add(new Bullet(getX() + image.getWidth(null) / 2 / 2 - ImageMap.get("mb01").getWidth(null) / 2,
-                        getY() - ImageMap.get("mb01").getHeight(null), ImageMap.get("mb01")));
-                s01 = 0;
+                s01 = skill01time;
             }
-
+        } else if (s01 == skill01time) {
+            GameFrame gameFrame = DataStore.get("gameFrame");
+            gameFrame.bulletList.add(new Bullet(getX() + image.getWidth(null) / 2 / 2 - ImageMap.get("mb01").getWidth(null) / 2 + 30,
+                    getY() - ImageMap.get("mb01").getHeight(null) + 30, ImageMap.get("mb01")));
+            gameFrame.bulletList.add(new Bullet(getX() + image.getWidth(null) / 2 / 2 - ImageMap.get("mb01").getWidth(null) / 2 - 30,
+                    getY() - ImageMap.get("mb01").getHeight(null) + 30, ImageMap.get("mb01")));
+            gameFrame.bulletList.add(new Bullet(getX() + image.getWidth(null) / 2 / 2 - ImageMap.get("mb01").getWidth(null) / 2 + 20,
+                    getY() - ImageMap.get("mb01").getHeight(null) + 20, ImageMap.get("mb01")));
+            gameFrame.bulletList.add(new Bullet(getX() + image.getWidth(null) / 2 / 2 - ImageMap.get("mb01").getWidth(null) / 2 - 20,
+                    getY() - ImageMap.get("mb01").getHeight(null) + 20, ImageMap.get("mb01")));
+            gameFrame.bulletList.add(new Bullet(getX() + image.getWidth(null) / 2 / 2 - ImageMap.get("mb01").getWidth(null) / 2 + 10,
+                    getY() - ImageMap.get("mb01").getHeight(null) + 10, ImageMap.get("mb01")));
+            gameFrame.bulletList.add(new Bullet(getX() + image.getWidth(null) / 2 / 2 - ImageMap.get("mb01").getWidth(null) / 2 - 10,
+                    getY() - ImageMap.get("mb01").getHeight(null) + 10, ImageMap.get("mb01")));
+            gameFrame.bulletList.add(new Bullet(getX() + image.getWidth(null) / 2 / 2 - ImageMap.get("mb01").getWidth(null) / 2,
+                    getY() - ImageMap.get("mb01").getHeight(null), ImageMap.get("mb01")));
+            s01 = 0;
         } else {
             s01 = 0;
         }
