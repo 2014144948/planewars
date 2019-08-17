@@ -50,6 +50,8 @@ public class GameFrame extends Frame {
     public static int level = 0;
     //    是否过关
     private boolean levelUp;
+    //    通关
+    private boolean victory;
     //    不同敌机的生命值
     int a = 10;
     int b = 20;
@@ -110,11 +112,18 @@ public class GameFrame extends Frame {
                     Boss.alive = true;
                 }
             }
+//            判断通关状态
             if (level >= 9 && bossList.isEmpty() && enemyPlaneList.isEmpty() && Boss.alive == false) {
+                victory = true;
+            }
+            if (victory) {
                 g.setFont(new Font("黑体", 0, 100));
                 g.setColor(Color.RED);
                 g.drawString("VICTORY", 100, 350);
-
+                enemyPlaneList.clear();
+                bossList.clear();
+                stoneList.clear();
+                lightList.clear();
             }
             if (enemyPlaneList.isEmpty() && bossList.isEmpty() && stoneList.isEmpty() && lightList.isEmpty()) {
                 switch (level) {

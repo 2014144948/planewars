@@ -64,7 +64,7 @@ public class EnemyPlane extends BaseSprite implements Moveable, Drawable {
     public void draw(Graphics g) {
         move();
 
-        g.drawImage(image, getX(), getY(), image.getWidth(null) / 2, image.getHeight(null) / 2, null);
+        g.drawImage(image, (int) getX(), (int) getY(), image.getWidth(null) / 2, image.getHeight(null) / 2, null);
 
         if (getY() > 0) {
             fire();
@@ -85,11 +85,11 @@ public class EnemyPlane extends BaseSprite implements Moveable, Drawable {
             GameFrame gameFrame = DataStore.get("gameFrame");
             if (r1 > fireIndex + 1) {
                 if (r2 > bulletStyleB) {
-                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epA1").getWidth(null) / 2 / 2 - 5,
-                            getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 19));
+                    gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("epA1").getWidth(null) / 2 / 2 - 5,
+                            (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 19));
                 } else {
-                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epA1").getWidth(null) / 2 / 2 - 5,
-                            getY() + image.getHeight(null) / 2, ImageMap.get("epb02"), 18));
+                    gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("epA1").getWidth(null) / 2 / 2 - 5,
+                            (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb02"), 18));
                 }
 
             }
@@ -102,11 +102,11 @@ public class EnemyPlane extends BaseSprite implements Moveable, Drawable {
             GameFrame gameFrame = DataStore.get("gameFrame");
             if (r1 > fireIndex) {
                 if (r2 > bulletStyleB) {
-                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epA1").getWidth(null) / 2 / 2 - 5,
-                            getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 19));
+                    gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("epA1").getWidth(null) / 2 / 2 - 5,
+                            (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 19));
                 } else {
-                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epA1").getWidth(null) / 2 / 2 - 5,
-                            getY() + image.getHeight(null) / 2, ImageMap.get("epb02"), 18));
+                    gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("epA1").getWidth(null) / 2 / 2 - 5,
+                            (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb02"), 18));
                 }
 
             }
@@ -119,11 +119,11 @@ public class EnemyPlane extends BaseSprite implements Moveable, Drawable {
             GameFrame gameFrame = DataStore.get("gameFrame");
             if (r1 > fireIndex - 1) {
                 if (r2 > bulletStyleB) {
-                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epA1").getWidth(null) / 2 / 2 - 5,
-                            getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 19));
+                    gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("epA1").getWidth(null) / 2 / 2 - 5,
+                            (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 19));
                 } else {
-                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epA1").getWidth(null) / 2 / 2 - 5,
-                            getY() + image.getHeight(null) / 2, ImageMap.get("epb02"), 18));
+                    gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("epA1").getWidth(null) / 2 / 2 - 5,
+                            (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb02"), 18));
                 }
 
             }
@@ -136,14 +136,14 @@ public class EnemyPlane extends BaseSprite implements Moveable, Drawable {
             GameFrame gameFrame = DataStore.get("gameFrame");
             if (r1 > fireIndex) {
                 if (r2 > bulletStyleB) {
-                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 5,
-                            getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 19));
+                    gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 5,
+                            (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 19));
                 } else {
 //                    横向双发
-                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 5 - ImageMap.get("epb04").getWidth(null),
-                            getY() + image.getHeight(null) / 2, ImageMap.get("epb04"), 19));
-                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 5 + ImageMap.get("epb04").getWidth(null),
-                            getY() + image.getHeight(null) / 2, ImageMap.get("epb04"), 19));
+                    gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 5 - ImageMap.get("epb04").getWidth(null),
+                            (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb04"), 19));
+                    gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 5 + ImageMap.get("epb04").getWidth(null),
+                            (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb04"), 19));
                 }
 
             }
@@ -157,12 +157,12 @@ public class EnemyPlane extends BaseSprite implements Moveable, Drawable {
             if (r1 > fireIndex) {
                 if (r2 > 0 && r2 <= bulletStyleA) {
 //                    横向三连发
-                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 5 - 30,
-                            getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 19));
-                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 5,
-                            getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 19));
-                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 5 + 30,
-                            getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 19));
+                    gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 5 - 30,
+                            (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 19));
+                    gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 5,
+                            (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 19));
+                    gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 5 + 30,
+                            (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 19));
 
                 }
             }
@@ -175,8 +175,8 @@ public class EnemyPlane extends BaseSprite implements Moveable, Drawable {
             GameFrame gameFrame = DataStore.get("gameFrame");
             if (r1 > fireIndex) {
                 if (r2 > 0 && r2 <= bulletStyleC) {
-                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 5 - 10,
-                            getY() + image.getHeight(null) / 2, ImageMap.get("epb03"), 19));
+                    gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 5 - 10,
+                            (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb03"), 19));
                 }
             }
         }
@@ -188,19 +188,19 @@ public class EnemyPlane extends BaseSprite implements Moveable, Drawable {
             GameFrame gameFrame = DataStore.get("gameFrame");
             if (r1 > fireIndex) {
                 if (r2 > 0 && r2 <= bulletStyleC) {
-                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 5,
-                            getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 19));
+                    gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 5,
+                            (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 19));
                 } else {
-                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 3 - 60,
-                            getY() + image.getHeight(null) / 2, ImageMap.get("epb05"), 17));
-                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 3 - 30,
-                            getY() + image.getHeight(null) / 2, ImageMap.get("epb05"), 17));
-                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 3,
-                            getY() + image.getHeight(null) / 2, ImageMap.get("epb05"), 17));
-                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 3 + 30,
-                            getY() + image.getHeight(null) / 2, ImageMap.get("epb05"), 17));
-                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 3 + 60,
-                            getY() + image.getHeight(null) / 2, ImageMap.get("epb05"), 17));
+                    gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 3 - 60,
+                            (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb05"), 17));
+                    gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 3 - 30,
+                            (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb05"), 17));
+                    gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 3,
+                            (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb05"), 17));
+                    gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 3 + 30,
+                            (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb05"), 17));
+                    gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("epD4").getWidth(null) / 2 / 2 - 3 + 60,
+                            (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb05"), 17));
 
                 }
             }
@@ -213,27 +213,27 @@ public class EnemyPlane extends BaseSprite implements Moveable, Drawable {
             GameFrame gameFrame = DataStore.get("gameFrame");
             if (r1 > fireIndex) {
                 if (r2 > 0 && r2 <= bulletStyleA) {
-                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epE1").getWidth(null) / 2 / 2 - 5 - 10,
-                            getY() + image.getHeight(null) / 2, ImageMap.get("epb03"), 4));
-                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epE1").getWidth(null) / 2 / 2 - 5 - 10,
-                            getY() + image.getHeight(null) / 2, ImageMap.get("epb03"), 8));
-                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epE1").getWidth(null) / 2 / 2 - 5 - 10,
-                            getY() + image.getHeight(null) / 2, ImageMap.get("epb03"), 12));
-                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epE1").getWidth(null) / 2 / 2 - 5 - 10,
-                            getY() + image.getHeight(null) / 2, ImageMap.get("epb03"), 16));
+                    gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("epE1").getWidth(null) / 2 / 2 - 5 - 10,
+                            (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb03"), 4));
+                    gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("epE1").getWidth(null) / 2 / 2 - 5 - 10,
+                            (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb03"), 5));
+                    gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("epE1").getWidth(null) / 2 / 2 - 5 - 10,
+                            (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb03"), 6));
+                    gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("epE1").getWidth(null) / 2 / 2 - 5 - 10,
+                            (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb03"), 7));
                 } else if(r2 > bulletStyleA && r2 <= bulletStyleB) {
-                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epE1").getWidth(null) / 2 / 2 - 5 - 10,
-                            getY() + image.getHeight(null) / 2, ImageMap.get("epb03"), 2));
-                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epE1").getWidth(null) / 2 / 2 - 5 - 10,
-                            getY() + image.getHeight(null) / 2, ImageMap.get("epb03"), 6));
-                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epE1").getWidth(null) / 2 / 2 - 5 - 10,
-                            getY() + image.getHeight(null) / 2, ImageMap.get("epb03"), 10));
-                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epE1").getWidth(null) / 2 / 2 - 5 - 10,
-                            getY() + image.getHeight(null) / 2, ImageMap.get("epb03"), 14));
+                    gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("epE1").getWidth(null) / 2 / 2 - 5 - 10,
+                            (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb03"), 3));
+                    gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("epE1").getWidth(null) / 2 / 2 - 5 - 10,
+                            (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb03"), 4));
+                    gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("epE1").getWidth(null) / 2 / 2 - 5 - 10,
+                            (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb03"), 5));
+                    gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("epE1").getWidth(null) / 2 / 2 - 5 - 10,
+                            (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb03"), 6));
 
                 } else {
-                    gameFrame.enemyBulletList.add(new EnemyBullet(getX() + image.getWidth(null) / 2 - ImageMap.get("epE1").getWidth(null) / 2 / 2 - 5 - 10,
-                            getY() + image.getHeight(null) / 2, ImageMap.get("epb03"), 8));
+                    gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("epE1").getWidth(null) / 2 / 2 - 5 - 10,
+                            (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb03"), 5));
                 }
             }
         }
@@ -531,7 +531,7 @@ public class EnemyPlane extends BaseSprite implements Moveable, Drawable {
 
     @Override
     public Rectangle getRectangle() {
-        return new Rectangle(getX(), getY(), image.getWidth(null) / 2, image.getHeight(null) / 2);
+        return new Rectangle((int) getX(), (int) getY(), image.getWidth(null) / 2, image.getHeight(null) / 2);
     }
 
     public void collisionTest(Plane plane, Plane2 plane2) {

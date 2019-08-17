@@ -22,8 +22,7 @@ public class Background extends BaseSprite implements Moveable, Drawable {
     //    index的相关参数
     private final int indexValue = 50;
     //    关卡对应的背景图
-    private int level;
-
+    public static int level;
 
     public Background() {
         this(0, FrameConstant.GAME_HEIGHT - ImageMap.get("bg01").getHeight(null), 1, ImageMap.get("bg01"));
@@ -235,7 +234,7 @@ public class Background extends BaseSprite implements Moveable, Drawable {
     @Override
     public void draw(Graphics g) {
         move();
-        g.drawImage(image, getX(), getY(), image.getWidth(null), image.getHeight(null), null);
+        g.drawImage(image, (int) getX(), (int) getY(), image.getWidth(null), image.getHeight(null), null);
 
         g.setFont(new Font("楷体", 0, 20));
         g.setColor(Color.WHITE);

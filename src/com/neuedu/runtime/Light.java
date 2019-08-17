@@ -32,7 +32,7 @@ public class Light extends BaseSprite implements Moveable, Drawable {
     @Override
     public void draw(Graphics g) {
         move();
-        g.drawImage(image, getX(), getY(), image.getWidth(null), image.getHeight(null), null);
+        g.drawImage(image, (int) getX(), (int) getY(), image.getWidth(null), image.getHeight(null), null);
         outOfBound();
 
     }
@@ -51,7 +51,7 @@ public class Light extends BaseSprite implements Moveable, Drawable {
     }
 
     public Rectangle getRectangle(){
-        return new Rectangle(getX(), getY(), image.getWidth(null) / 10 * 8, image.getHeight(null));
+        return new Rectangle((int) getX(), (int) getY(), image.getWidth(null) / 10 * 8, image.getHeight(null));
     }
 
     public void collisionTest(Plane plane,Plane2 plane2){

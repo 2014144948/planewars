@@ -71,7 +71,7 @@ public class Plane2 extends BaseSprite implements Moveable, Drawable {
         move();
         fire();
         skill01();
-        g.drawImage(image, getX(), getY(), image.getWidth(null) / 2, image.getHeight(null) / 2, null);
+        g.drawImage(image, (int) getX(), (int) getY(), image.getWidth(null) / 2, image.getHeight(null) / 2, null);
         g.drawImage(Himage, HgetX, HgetY,
                 ImageMap.get("myheart").getWidth(null),
                 ImageMap.get("myheart").getHeight(null),
@@ -89,8 +89,8 @@ public class Plane2 extends BaseSprite implements Moveable, Drawable {
     public void fire() {
         if (fire && !skill01 && index == 0) {
             GameFrame gameFrame = DataStore.get("gameFrame");
-            gameFrame.bulletList.add(new Bullet(getX() + image.getWidth(null) / 2 / 2 - ImageMap.get("mb01").getWidth(null) / 2,
-                    getY() - ImageMap.get("mb01").getHeight(null), ImageMap.get("mb01")));
+            gameFrame.bulletList.add(new Bullet((int) getX() + image.getWidth(null) / 2 / 2 - ImageMap.get("mb01").getWidth(null) / 2,
+                    (int) getY() - ImageMap.get("mb01").getHeight(null), ImageMap.get("mb01")));
 
         }
     }
@@ -105,8 +105,8 @@ public class Plane2 extends BaseSprite implements Moveable, Drawable {
             }
         } else if (s01 == skill01time) {
             GameFrame gameFrame = DataStore.get("gameFrame");
-            gameFrame.skillList.add(new Skill(getX() + image.getWidth(null) / 4 - ImageMap.get("s01").getWidth(null) / 2,
-                    getY() - ImageMap.get("s01").getHeight(null), ImageMap.get("s01")));
+            gameFrame.skillList.add(new Skill((int) getX() + image.getWidth(null) / 4 - ImageMap.get("s01").getWidth(null) / 2,
+                    (int) getY() - ImageMap.get("s01").getHeight(null), ImageMap.get("s01")));
             s01 = 0;
         } else {
             s01 = 0;
@@ -134,12 +134,18 @@ public class Plane2 extends BaseSprite implements Moveable, Drawable {
         }
         outOfBound();
 
+//        风暴效果
+        if (Background.level == 3 && Boss.level == 3) {
+            setY(getY() - 1);
+            HgetY = HgetY - 1;
+        }
+
     }
 
     public void outOfBound() {
         if (getX() < 0) {
             setX(0);
-            setHgetX(getX() + image.getWidth(null) / 2 / 2 - 4);
+            setHgetX((int) getX() + image.getWidth(null) / 2 / 2 - 4);
         }
         if (getY() < FrameConstant.BG_BORDER) {
             setY(FrameConstant.BG_BORDER);

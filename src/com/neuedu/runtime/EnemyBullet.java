@@ -17,6 +17,7 @@ public class EnemyBullet extends BaseSprite implements Moveable, Drawable {
     private Image image;
 
     private int speed = FrameConstant.GAME_SPEED;
+    private double degree = 0.0625;
     //    不同子弹的移动方式
     private int type = 0;
     //    延时子弹
@@ -52,71 +53,16 @@ public class EnemyBullet extends BaseSprite implements Moveable, Drawable {
     @Override
     public void draw(Graphics g) {
         move();
-        g.drawImage(image, getX(), getY(), image.getWidth(null) / 2, image.getHeight(null) / 2, null);
+        g.drawImage(image, (int) getX(), (int) getY(), image.getWidth(null) / 2, image.getHeight(null) / 2, null);
     }
 
     @Override
     public void move() {
-        if (type == 1) {
-            setX(getX() + speed * 1);
-            setY(getY() - speed * 3);
+        if (type >= 1 && type <= 16) {
+            setX(getX() + speed * 3 * Math.cos(degree * (type - 1) * Math.PI * 2));
+            setY(getY() + speed * 3 * Math.sin(degree * (type - 1) * Math.PI * 2));
         }
-        if (type == 2) {
-            setX(getX() + speed * 2);
-            setY(getY() - speed * 2);
-        }
-        if (type == 3) {
-            setX(getX() + speed * 3);
-            setY(getY() - speed * 1);
-        }
-        if (type == 4) {
-            setX(getX() + speed * 3);
-        }
-        if (type == 5) {
-            setX(getX() + speed * 3);
-            setY(getY() + speed * 1);
-        }
-        if (type == 6) {
-            setX(getX() + speed * 2);
-            setY(getY() + speed * 2);
-        }
-        if (type == 7) {
-            setX(getX() + speed * 1);
-            setY(getY() + speed * 3);
-        }
-        if (type == 8) {
-            setY(getY() + speed * 3);
-        }
-        if (type == 9) {
-            setX(getX() - speed * 1);
-            setY(getY() + speed * 3);
-        }
-        if (type == 10) {
-            setX(getX() - speed * 2);
-            setY(getY() + speed * 2);
-        }
-        if (type == 11) {
-            setX(getX() - speed * 3);
-            setY(getY() + speed * 1);
-        }
-        if (type == 12) {
-            setX(getX() - speed * 3);
-        }
-        if (type == 13) {
-            setX(getX() - speed * 3);
-            setY(getY() - speed * 1);
-        }
-        if (type == 14) {
-            setX(getX() - speed * 2);
-            setY(getY() - speed * 2);
-        }
-        if (type == 15) {
-            setX(getX() - speed * 1);
-            setY(getY() - speed * 3);
-        }
-        if (type == 16) {
-            setY(getY() - speed * 3);
-        }
+
 //        延时发射
         if (type == 17) {
             type17++;
@@ -175,28 +121,28 @@ public class EnemyBullet extends BaseSprite implements Moveable, Drawable {
             }
         }
 //        延时散弹
-        if(type == 24){
+        if (type == 24) {
             type24++;
-            if(type24 > 0 && type24 <= type24value * 5){
+            if (type24 > 0 && type24 <= type24value * 5) {
                 setY(getY() + speed * 2);
-            }else{
+            } else {
                 setY(getY() + speed * 3);
             }
         }
-        if(type == 25){
+        if (type == 25) {
             type25++;
-            if(type25 > 0 && type25 <= type25value * 5){
+            if (type25 > 0 && type25 <= type25value * 5) {
                 setY(getY() + speed * 2);
-            }else{
+            } else {
                 setX(getX() - speed * 2);
                 setY(getY() + speed * 3);
             }
         }
-        if(type == 26){
+        if (type == 26) {
             type26++;
-            if(type26 > 0 && type26 <= type26value * 5){
+            if (type26 > 0 && type26 <= type26value * 5) {
                 setY(getY() + speed * 2);
-            }else{
+            } else {
                 setX(getX() + speed * 2);
                 setY(getY() + speed * 3);
             }
@@ -243,6 +189,6 @@ public class EnemyBullet extends BaseSprite implements Moveable, Drawable {
 
     @Override
     public Rectangle getRectangle() {
-        return new Rectangle(getX(), getY(), image.getWidth(null) / 2, image.getHeight(null) / 2);
+        return new Rectangle((int) getX(), (int) getY(), image.getWidth(null) / 2, image.getHeight(null) / 2);
     }
 }

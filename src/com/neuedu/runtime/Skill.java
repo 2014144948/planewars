@@ -30,7 +30,7 @@ public class Skill extends BaseSprite implements Moveable, Drawable {
     @Override
     public void draw(Graphics g) {
         move();
-        g.drawImage(image, getX(), getY(), image.getWidth(null), image.getHeight(null), null);
+        g.drawImage(image, (int) getX(), (int) getY(), image.getWidth(null), image.getHeight(null), null);
         outOfBound();
     }
 
@@ -49,7 +49,7 @@ public class Skill extends BaseSprite implements Moveable, Drawable {
 
     @Override
     public Rectangle getRectangle() {
-        return new Rectangle(getX(), getY(), image.getWidth(null), image.getHeight(null));
+        return new Rectangle((int) getX(), (int) getY(), image.getWidth(null), image.getHeight(null));
     }
 
 }
