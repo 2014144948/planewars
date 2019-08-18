@@ -11,6 +11,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.util.List;
+import java.util.Random;
 
 public class EnemyBullet extends BaseSprite implements Moveable, Drawable {
 
@@ -39,6 +40,11 @@ public class EnemyBullet extends BaseSprite implements Moveable, Drawable {
     private int type25value = 10;
     private int type26 = 0;
     private int type26value = 10;
+    //    反向子弹
+    private int type27 = 0;
+    private int type27value = 10;
+
+    Random r = new Random();
 
 
     public EnemyBullet() {
@@ -73,7 +79,6 @@ public class EnemyBullet extends BaseSprite implements Moveable, Drawable {
             } else {
                 setY(getY() + speed * 10);
             }
-
         }
 //        慢速
         if (type == 18) {
@@ -145,6 +150,16 @@ public class EnemyBullet extends BaseSprite implements Moveable, Drawable {
             } else {
                 setX(getX() + speed * 2);
                 setY(getY() + speed * 3);
+            }
+        }
+
+//        反向
+        if (type == 27) {
+            type27++;
+            if (type27 > 0 && type27 <= type27value * 5) {
+            } else {
+                setX(-getX());
+                setY(-getY());
             }
         }
 

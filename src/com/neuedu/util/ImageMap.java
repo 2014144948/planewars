@@ -63,6 +63,13 @@ public class ImageMap {
         map.put("epb05", ImageUtil.getImage("com/neuedu/imgs/bullet/epb05.png"));
         map.put("epb06", ImageUtil.getImage("com/neuedu/imgs/bullet/epb06.png"));
         map.put("epb07", ImageUtil.getImage("com/neuedu/imgs/bullet/epb07.png"));
+        map.put("epb08", ImageUtil.getImage("com/neuedu/imgs/bullet/epb08.png"));
+        map.put("epb09", ImageUtil.getImage("com/neuedu/imgs/bullet/epb09.png"));
+        map.put("epb10", ImageUtil.getImage("com/neuedu/imgs/bullet/epb10.png"));
+        map.put("epb11", ImageUtil.getImage("com/neuedu/imgs/bullet/epb11.png"));
+        map.put("epb12", ImageUtil.getImage("com/neuedu/imgs/bullet/epb12.png"));
+        map.put("epb13", ImageUtil.getImage("com/neuedu/imgs/bullet/epb13.png"));
+
         map.put("myheart", ImageUtil.getImage("com/neuedu/imgs/heart/myheart.png"));
         map.put("stone",ImageUtil.getImage("com/neuedu/imgs/others/stone.png"));
         map.put("light",ImageUtil.getImage("com/neuedu/imgs/others/light.png"));

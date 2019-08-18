@@ -16,7 +16,7 @@ public class Skill extends BaseSprite implements Moveable, Drawable {
 
     private Image image;
 
-    private int speed = FrameConstant.GAME_SPEED * 2;
+    private int speed = FrameConstant.GAME_SPEED;
 
     public Skill() {
         this(0, 0, ImageMap.get("s01"));

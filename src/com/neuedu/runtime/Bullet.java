@@ -71,9 +71,9 @@ public class Bullet extends BaseSprite implements Moveable, Drawable {
         for (Boss boss : bossList) {
             if (boss.getRectangle().intersects(this.getRectangle())) {
                 gameFrame.bulletList.remove(this);
-                if(Boss.level == 1 || Boss.level == 2 || Boss.level == 4){
+                if(Boss.level == 1 || Boss.level == 2 || Boss.level == 6){
                     boss.setHP(boss.getHP() - 5);
-                }else if(Boss.level == 3 || Boss.level == 6 || Boss.level == 7){
+                }else if(Boss.level == 3 || Boss.level == 4 || Boss.level == 7){
                     boss.setHP(boss.getHP() - 3);
                 }else{
                     boss.setHP(boss.getHP() - 1);
