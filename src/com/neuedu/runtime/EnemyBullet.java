@@ -154,12 +154,14 @@ public class EnemyBullet extends BaseSprite implements Moveable, Drawable {
         }
 
 //        反向
-        if (type == 27) {
+        if (type >= 27 && type <= 42) {
             type27++;
-            if (type27 > 0 && type27 <= type27value * 5) {
+            if (type27 > 0 && type27 <= type27value * 15) {
+                setX(getX() + speed * 3 * Math.cos(degree * (type - 27) * Math.PI * 2));
+                setY(getY() + speed * 3 * Math.sin(degree * (type - 27) * Math.PI * 2));
             } else {
-                setX(-getX());
-                setY(-getY());
+                setX(getX() - speed * 3 * Math.cos(degree * (type - 27) * Math.PI * 2));
+                setY(getY() - speed * 3 * Math.sin(degree * (type - 27) * Math.PI * 2));
             }
         }
 
@@ -168,7 +170,7 @@ public class EnemyBullet extends BaseSprite implements Moveable, Drawable {
     }
 
     public void outOfBound() {
-        if (getX() < -200 || getX() > FrameConstant.GAME_WIDTH + 100 || getY() < -200 || getY() > FrameConstant.GAME_HEIGHT + 100) {
+        if (getX() < -1000 || getX() > FrameConstant.GAME_WIDTH + 1000 || getY() < -1000 || getY() > FrameConstant.GAME_HEIGHT + 1000) {
             GameFrame gameFrame = DataStore.get("gameFrame");
             gameFrame.enemyBulletList.remove(this);
         }
