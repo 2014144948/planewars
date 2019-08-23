@@ -189,13 +189,13 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
         if (getY() > 150) {
             index++;
 //            正常移动
-            if (index < indexValue * 5) {
+            if (index < indexValue * 7) {
                 setX(getX() + Xspeed);
-            } else if (index >= indexValue * 5 && index < indexValue * 10) {
+            } else if (index >= indexValue * 7 && index < indexValue * 14) {
                 setX(getX() - Xspeed);
-            } else if (index >= indexValue * 10 && index < indexValue * 15) {
+            } else if (index >= indexValue * 14 && index < indexValue * 21) {
                 setX(getX() + Xspeed);
-            } else if (index >= indexValue * 15 && index < indexValue * 20) {
+            } else if (index >= indexValue * 21 && index < indexValue * 28) {
                 setX(getX() - Xspeed);
             } else {
                 index = 0;
@@ -292,13 +292,13 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
             index++;
             spurt++;
 //            正常移动
-            if (index < indexValue * 5) {
+            if (index < indexValue * 8) {
                 setX(getX() + Xspeed / 2);
-            } else if (index >= indexValue * 5 && index < indexValue * 10) {
+            } else if (index >= indexValue * 8 && index < indexValue * 16) {
                 setX(getX() - Xspeed / 2);
-            } else if (index >= indexValue * 10 && index < indexValue * 15) {
+            } else if (index >= indexValue * 16 && index < indexValue * 24) {
                 setX(getX() + Xspeed / 2);
-            } else if (index >= indexValue * 15 && index < indexValue * 20) {
+            } else if (index >= indexValue * 24 && index < indexValue * 32) {
                 setX(getX() - Xspeed / 2);
             } else {
                 index = 0;
@@ -412,15 +412,30 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
     }
 
     /**
-     * 5 * 2连发，风暴利刃，风暴连斩
+     * 急速连射，风暴利刃，风暴连斩
      */
     public void BOSS3() {
         int r1 = r.nextInt(100);
         int r2 = r.nextInt(200);
         fireIndexValue++;
         if (r1 > fireIndex) {
+            int index = 0;
             if (r2 > 0 && r2 <= bulletStyleC) {
-                fire3_1();
+                new Thread() {
+                    @Override
+                    public void run() {
+                        for (int i = 0; i < 20; i++) {
+                            fire3_1();
+                            try {
+                                Thread.sleep(100);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                }.start();
+
             } else if (r2 > bulletStyleC && r2 <= bulletStyleF) {
                 fire3_2();
             } else {
@@ -432,17 +447,40 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
     /**
      * 虚空离子球，星光散射，反弹
      */
+    private int boss4_4 = 1;
+
     public void BOSS4() {
         int r1 = r.nextInt(100);
         int r2 = r.nextInt(200);
         fireIndexValue++;
         if (r1 > fireIndex) {
-            if (r2 > 0 && r2 <= bulletStyleD) {
+            if (r2 > 0 && r2 <= bulletStyleC) {
                 fire4_1();
-            } else if (r2 > bulletStyleD && r2 <= bulletStyleH) {
+            } else if (r2 > bulletStyleC && r2 <= bulletStyleF) {
                 fire4_2();
-            } else {
+            } else if (r2 > bulletStyleF && r2 <= bulletStyleH) {
                 fire4_3();
+            } else {
+                new Thread() {
+                    public void run() {
+                        for (int i = 0; i < 100; i++) {
+                            if (boss4_4 < 17) {
+                                fire4_4();
+                                boss4_4++;
+                            } else {
+                                boss4_4 = 1;
+                            }
+                            try {
+                                Thread.sleep(50);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                    }
+
+                }.start();
+
             }
         }
     }
@@ -456,7 +494,19 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
         fireIndexValue++;
         if (r1 > fireIndex) {
             if (r2 > 0 && r2 <= bulletStyleD) {
-                fire5_1();
+                new Thread() {
+                    @Override
+                    public void run() {
+                        for (int i = 0; i < 10; i++) {
+                            fire5_1();
+                            try {
+                                Thread.sleep(200);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }.start();
             } else if (r2 > bulletStyleD && r2 <= bulletStyleH) {
                 fire5_2();
             } else {
@@ -480,21 +530,38 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
     }
 
     /**
-     * 西红柿导弹，恶魔召唤，分裂弹，星光爆裂
+     * 西红柿导弹，恶魔召唤，分裂弹，星光爆裂，三相射击
      */
+    int boss7_5 = -1;
+
     public void BOSS7() {
         int r1 = r.nextInt(100);
         int r2 = r.nextInt(200);
         fireIndexValue++;
         if (r1 > fireIndex) {
-            if (r2 > 0 && r2 <= bulletStyleC) {
+            if (r2 > 0 && r2 <= bulletStyleB) {
                 fire7_1();
-            } else if (r2 > bulletStyleC && r2 <= bulletStyleF) {
+            } else if (r2 > bulletStyleB && r2 <= bulletStyleD) {
                 fire7_2();
-            } else if (r2 > bulletStyleF && r2 <= bulletStyleI) {
+            } else if (r2 > bulletStyleD && r2 <= bulletStyleF) {
                 fire7_3();
-            } else {
+            } else if (r2 > bulletStyleF && r2 <= bulletStyleH) {
                 fire7_4();
+            } else {
+                new Thread() {
+                    @Override
+                    public void run() {
+                        boss7_5 = r.nextInt(3);
+                        for (int i = 0; i < 30; i++) {
+                            fire7_5();
+                            try {
+                                Thread.sleep(300);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }.start();
             }
         }
     }
@@ -617,29 +684,12 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
     }
 
     /**
-     * 5 * 2连发
+     * 急速连射
      */
     public void fire3_1() {
         GameFrame gameFrame = DataStore.get("gameFrame");
         gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS03").getWidth(null) / 2 / 2 - 5 - 100,
-                (int) getY() + image.getHeight(null) / 2 - 20, ImageMap.get("epb01"), 20));
-        gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS03").getWidth(null) / 2 / 2 - 5 - 100,
-                (int) getY() + image.getHeight(null) / 2 - 40, ImageMap.get("epb01"), 20));
-        gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS03").getWidth(null) / 2 / 2 - 5 - 100,
-                (int) getY() + image.getHeight(null) / 2 - 60, ImageMap.get("epb01"), 20));
-        gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS03").getWidth(null) / 2 / 2 - 5 - 100,
-                (int) getY() + image.getHeight(null) / 2 - 80, ImageMap.get("epb01"), 20));
-        gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS03").getWidth(null) / 2 / 2 - 5 - 100,
                 (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 20));
-
-        gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS03").getWidth(null) / 2 / 2 - 5 + 100,
-                (int) getY() + image.getHeight(null) / 2 - 20, ImageMap.get("epb01"), 20));
-        gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS03").getWidth(null) / 2 / 2 - 5 + 100,
-                (int) getY() + image.getHeight(null) / 2 - 40, ImageMap.get("epb01"), 20));
-        gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS03").getWidth(null) / 2 / 2 - 5 + 100,
-                (int) getY() + image.getHeight(null) / 2 - 60, ImageMap.get("epb01"), 20));
-        gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS03").getWidth(null) / 2 / 2 - 5 + 100,
-                (int) getY() + image.getHeight(null) / 2 - 80, ImageMap.get("epb01"), 20));
         gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS03").getWidth(null) / 2 / 2 - 5 + 100,
                 (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 20));
     }
@@ -705,6 +755,15 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
                 (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 39));
         gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS04").getWidth(null) / 2 / 2 + 50,
                 (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 40));
+    }
+
+    /**
+     * 旋转射击
+     */
+    public void fire4_4() {
+        GameFrame gameFrame = DataStore.get("gameFrame");
+        gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS04").getWidth(null) / 2 / 2,
+                (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb11"), boss4_4));
     }
 
     /**
@@ -813,6 +872,37 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
         for (int i = 1; i < 22; i++) {
             gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS07").getWidth(null) / 2 / 2 - 5 - 50,
                     (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb12"), i));
+        }
+    }
+
+    /**
+     * 三相射击
+     */
+    public void fire7_5() {
+        GameFrame gameFrame = DataStore.get("gameFrame");
+        if (boss7_5 == 0) {
+            gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS07").getWidth(null) / 2 / 2 - 5 - 50,
+                    (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 20));
+            gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS07").getWidth(null) / 2 / 2 - 5,
+                    (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 20));
+            gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS07").getWidth(null) / 2 / 2 - 5 + 50,
+                    (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 20));
+        } else if (boss7_5 == 1) {
+            gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS07").getWidth(null) / 2 / 2 - 5,
+                    (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 3));
+            gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS07").getWidth(null) / 2 / 2 - 5,
+                    (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 5));
+            gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS07").getWidth(null) / 2 / 2 - 5,
+                    (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 7));
+        } else {
+            gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS07").getWidth(null) / 2 / 2 - 5 - 50,
+                    (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 4));
+            gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS07").getWidth(null) / 2 / 2 - 5 + 50,
+                    (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 4));
+            gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS07").getWidth(null) / 2 / 2 - 5 - 50,
+                    (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 6));
+            gameFrame.enemyBulletList.add(new EnemyBullet((int) getX() + image.getWidth(null) / 2 - ImageMap.get("BOSS07").getWidth(null) / 2 / 2 - 5 + 50,
+                    (int) getY() + image.getHeight(null) / 2, ImageMap.get("epb01"), 6));
         }
     }
 
